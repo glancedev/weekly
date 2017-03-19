@@ -1,0 +1,35 @@
+{
+  "name": "angular-slidezilla",
+  "main": [
+    "dist/angular-slidezilla.min.js",
+    "dist/angular-slidezilla.min.js.map",
+    "src/angular-slidezilla.css"
+  ],
+  "ignore": [
+    "source",
+    "spec",
+    ".bowerrc",
+    ".gitignore",
+    ".jshintignore",
+    ".jshintrc",
+    "bower.json",
+    "gruntfile.js",
+    "package.json",
+    "README.md",
+    "build.sh"
+  ],
+  "dependencies": {
+    "angular": "~1.2.13"
+  },
+  "homepage": "https://github.com/itslenny/angular-slidezilla",
+  "version": "0.1.3",
+  "_release": "0.1.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.3",
+    "commit": "5bdb18683d784626539fa6da92fb45f441455535"
+  },
+  "_source": "https://github.com/itslenny/angular-slidezilla.git",
+  "_target": "^0.1.3",
+  "_originalSource": "angular-slidezilla"
+}
