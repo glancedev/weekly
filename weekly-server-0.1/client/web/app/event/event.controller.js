@@ -132,6 +132,9 @@ angular.module('testApp')
      *   where 필터를 구한다.
      **/
     $scope.getFilter = function(index){           
+
+        console.log('test', index);
+
         switch(index) {
             case 0:
                 return {and: [
@@ -141,37 +144,38 @@ angular.module('testApp')
                   }
                 break;
 
+            // case 1:
+            //     return {and: [
+            //           {display: true},
+            //           {datetime: {gte: moment(new Date()).format('YYYY-MM-DD 00:00:00')}},
+            //           {datetime: {lte: moment().startOf('isoWeek').format('YYYY-MM-DD 00:00:00')}}
+            //         ]
+            //       }
+            //     break;
+            
             case 1:
                 return {and: [
                       {display: true},
-                      {datetime: {gte: moment(new Date()).format('YYYY-MM-DD 00:00:00')}},
-                      {datetime: {lte: moment(thisweek_l).format('YYYY-MM-DD')}}
-                    ]
-                  }
-                break;
-            
-            case 2:
-                return {and: [
-                      {display: true},
-                      {datetime: {gte: moment(nextweek_f).format('YYYY-MM-DD')}},
-                      {datetime: {lte: moment(nextweek_l).format('YYYY-MM-DD')}}
+                      {datetime: {gte: moment().add(1, 'weeks').startOf('isoWeek').format('YYYY-MM-DD 00:00:00')}},
+                      {datetime: {lte: moment().add(2, 'weeks').startOf('isoWeek').format('YYYY-MM-DD 00:00:00')}}
                     ]
                   }
                 break;
 
-            case 3:              
-              return {and: [
-                    {display: true},
-                    {datetime: {gte: moment(afternext_f).format('YYYY-MM-DD')}},
-                    {datetime: {lte: moment(afternext_l).format('YYYY-MM-DD')}}
-                  ]
-                }
-              break;
+            // case 2:              
+            //   return {and: [
+            //         {display: true},
+            //         {datetime: {gte: moment(afternext_f).format('YYYY-MM-DD')}},
+            //         {datetime: {lte: moment(afternext_l).format('YYYY-MM-DD')}}
+            //       ]
+            //     }
+            //   break;
 
             default:
                 return {and: [
                       {display: true},
-                      {datetime: {gte: moment(after_f).format('YYYY-MM-DD')}},
+                      {datetime: {gte: moment().add(2, 'weeks').startOf('isoWeek').format('YYYY-MM-DD 00:00:00')}}
+                      // {datetime: {gte: moment(after_f).format('YYYY-MM-DD')}},
                     ]
                   }                
                 break;
@@ -204,9 +208,9 @@ angular.module('testApp')
     /* sidebar */
     $scope.sub_menu = [
       { title: '전체보기', count: 0 },
-      { title: '이번 주', count: 0 },
+      // { title: '이번 주', count: 0 },
       { title: '다음 주', count: 0 },
-      { title: '다다음 주', count: 0 },
+      // { title: '다다음 주', count: 0 },
       { title: '추후 일정', count: 0 }
     ];
 
