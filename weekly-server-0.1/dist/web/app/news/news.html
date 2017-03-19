@@ -46,7 +46,7 @@
 					<input class="form-control" type="text" placeholder="필터명" ng-model="searchTools.save"
 						   input-press-enter="saveFilter('filter_news')">
 					<li>
-					  <span class="text-muted small">검색 결과를 아래 필터 메뉴에 저장합니다</span>
+					  <span class="text-muted small">검색 필터를 목록에 저장합니다</span>
 					</li>
 					<li>
 					  <input type="button" class="btn btn-block btn-xs" value="필터 저장"
@@ -170,19 +170,25 @@
           						<i ng-show="loading" class="glyphicon glyphicon-refresh"></i>
           						<li><span class="text-dt">인기 검색</span></li>
           						<li>
-          						  <a href ng-click="putTags('field', '핀테크')">핀테크</a>
+          						  <a href ng-click="putTags('field', '인공지능(AI)')">인공지능(AI)</a>
           						</li>
 								<li>
-								  <a href ng-click="putTags('field', '부동산')">부동산</a>
+								  <a href ng-click="putTags('field', '가상현실(VR)')">가상현실(VR)</a>
 								</li>
 								<li>
-								  <a href ng-click="putTags('field', '숙박')">숙박</a>
+								  <a href ng-click="putTags('field', '금융/핀테크')">금융/핀테크</a>
 								</li>
 								<li>
-								  <a href ng-click="putTags('field', '차량공유')">차량공유</a>
+								  <a href ng-click="putTags('field', '음식/푸드테크')">음식/푸드테크</a>
 								</li>
 								<li>
-								  <a href ng-click="putTags('field', '음식배달')">음식배달</a>
+								  <a href ng-click="putTags('field', '전자상거래/이커머스')">전자상거래/이커머스</a>
+								</li>								
+								<li>
+								  <a href ng-click="putTags('field', '콘텐츠')">콘텐츠</a>
+								</li>
+								<li>
+								  <a href ng-click="putTags('field', '중국')">중국</a>
 								</li>
           					  </ul>
           				  </span>
@@ -469,7 +475,7 @@
 			</div>
 		  </div>
 
-		  <div class="hpanel">
+		  <!-- <div class="hpanel">
 			<div class="panel-body2">
 			  <div>
 				<div class="panel-heading" style="background:#f9fafb;"><b><a href="/event">오늘의 주요 행사</a></b></div>
@@ -483,7 +489,7 @@
 				</tbody>
 			  </table>
 			</div>
-		  </div>
+		  </div> -->
 
 		  <!-- /banner -->
 		  <div class="hpanel" ng-repeat="banner in banners">

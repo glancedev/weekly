@@ -1,10 +1,107 @@
-<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><base href="/admin/"><title>WEEKLY ADMIN</title><!-- <meta name="description" content="">
-		<meta name="viewport" content="width=device-width"> --><!-- Place favicon.ico and apple-touch-icon.png in the root directory --><!-- build:css(.) styles/vendor.css --><!-- bower:css --><!-- endbower --><!-- endbuild --><link rel="stylesheet" href="assets/styles/style.css"><link rel="stylesheet" href="assets/styles/font-awesome.min.css" media="all"><!-- <link rel="stylesheet" href="assets/libs/bootstrap/dist/css/bootstrap.css">		 --><!-- ui-tree --><link rel="stylesheet" href="assets/libs/angular-ui-tree/dist/angular-ui-tree.min.css"><!-- datetimepicker --><link rel="stylesheet" href="assets/libs/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"><!-- toggle switch --><link rel="stylesheet" href="assets/libs/angular-bootstrap-toggle-switch/style/bootstrap3/angular-toggle-switch-bootstrap-3.css" media="all"><!-- autocomplete --><link rel="stylesheet" href="components/autocomplete/autocomplete.css"><!-- autocomplete-list --><link rel="stylesheet" href="components/autocomplete-list/autocomplete-list.css"><link rel="stylesheet" href="assets/styles/custom.css"></head><body ng-app="adminApp" style="overflow:auto; padding:0; margin:0" bs-loading-overlay><!--[if lte IE 8]>
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<base href="/admin/"></base>
+		
+		<title>WEEKLY ADMIN</title>
+		
+		<!-- <meta name="description" content="">
+		<meta name="viewport" content="width=device-width"> -->
+		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+		<!-- build:css(.) styles/vendor.css -->
+		<!-- bower:css -->
+		<!-- endbower -->
+		<!-- endbuild -->
+		<link rel="stylesheet" href="assets/styles/style.css">
+		<link rel="stylesheet" href="assets/styles/font-awesome.min.css" media="all">
+		<!-- <link rel="stylesheet" href="assets/libs/bootstrap/dist/css/bootstrap.css">		 -->
+
+		<!-- ui-tree -->
+		<link rel="stylesheet" href="assets/libs/angular-ui-tree/dist/angular-ui-tree.min.css">
+		<!-- datetimepicker -->	
+		<link rel="stylesheet" href="assets/libs/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>		
+		<!-- toggle switch -->
+		<link rel="stylesheet"  href="assets/libs/angular-bootstrap-toggle-switch/style/bootstrap3/angular-toggle-switch-bootstrap-3.css" media="all" >	
+		<!-- autocomplete -->
+		<link rel="stylesheet" href="components/autocomplete/autocomplete.css"/>	
+		<!-- autocomplete-list -->
+		<link rel="stylesheet" href="components/autocomplete-list/autocomplete-list.css"/>	
+
+		<link rel="stylesheet" href="assets/styles/custom.css">		
+	</head>
+	<body ng-app="adminApp" style="overflow:auto; padding:0; margin:0;" bs-loading-overlay>
+	<!--[if lte IE 8]>
 		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-	<![endif]--><!-- Add your site or application content here --><div class="container"><ui-view></ui-view></div><!-- build:js(.) app/vendor.js --><!-- bower:js --><script src="assets/libs/jquery/dist/jquery.min.js"></script><script src="assets/libs/bootstrap/dist/js/bootstrap.js"></script><script src="assets/libs/angular/angular.js"></script><script src="assets/libs/angular-mocks/angular-mocks.js"></script><script src="assets/libs/angular-resource/angular-resource.js"></script><script src="assets/libs/angular-ui-router/release/angular-ui-router.js"></script><script src="assets/libs/angular-bootstrap/ui-bootstrap.js"></script><script src="assets/libs/angular-bootstrap/ui-bootstrap-tpls.js"></script><script src="assets/libs/angular-cookies/angular-cookies.js"></script><script src="assets/libs/angular-sanitize/angular-sanitize.js"></script><script src="assets/libs/angular-modal-service/dst/angular-modal-service.js"></script><script src="assets/libs/angular-local-storage/dist/angular-local-storage.js"></script><!-- ui-tree --><script src="assets/libs/angular-ui-tree/dist/angular-ui-tree.js"></script><!-- datetimepicker --><script src="assets/libs/moment/moment.js"></script><script src="assets/libs/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script><script src="assets/libs/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script><!-- toggle switch --><script src="assets/libs/angular-bootstrap-toggle-switch/angular-toggle-switch.js"></script><!-- angular loading --><script src="assets/libs/angular-loading-overlay/dist/angular-loading-overlay.js"></script><!-- file upload --><script src="assets/libs/angular-file-upload/dist/angular-file-upload.min.js"></script><!-- endbower --><!-- endbuild --><script src="scripts/bundle.js"></script><!-- custom autocomplete templet --><script type="text/ng-template" id="loadTags-template"><div class="right-panel">
+	<![endif]-->
+
+	<!-- Add your site or application content here -->
+
+	
+	<div class="container">
+        <ui-view></ui-view>
+    </div>   
+
+
+	<!-- build:js(.) app/vendor.js -->
+	<!-- bower:js -->
+	<script src="assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="assets/libs/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="assets/libs/angular/angular.js"></script>
+	<script src="assets/libs/angular-mocks/angular-mocks.js"></script>
+    <script src="assets/libs/angular-resource/angular-resource.js"></script>
+    <script src="assets/libs/angular-ui-router/release/angular-ui-router.js"></script>    
+    <script src="assets/libs/angular-bootstrap/ui-bootstrap.js"></script>  
+    <script src="assets/libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>   
+    
+    <script src="assets/libs/angular-cookies/angular-cookies.js"></script>
+    <script src="assets/libs/angular-sanitize/angular-sanitize.js"></script>
+
+    <script src="assets/libs/angular-modal-service/dst/angular-modal-service.js"></script>
+	<script src="assets/libs/angular-local-storage/dist/angular-local-storage.js"></script>	
+
+	<!-- ui-tree -->	
+	<script src="assets/libs/angular-ui-tree/dist/angular-ui-tree.js"></script>
+
+	<!-- datetimepicker -->
+	<script src="assets/libs/moment/moment.js"></script>
+	<script src="assets/libs/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+	<script src="assets/libs/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>	
+
+	<!-- toggle switch -->	
+	<script src="assets/libs/angular-bootstrap-toggle-switch/angular-toggle-switch.js"></script>
+
+	<!-- angular loading -->	
+	<script src="assets/libs/angular-loading-overlay/dist/angular-loading-overlay.js"></script>
+
+	<!-- file upload -->
+	<script src="assets/libs/angular-file-upload/dist/angular-file-upload.min.js"></script>
+
+
+	<!-- endbower -->	
+	<!-- endbuild -->
+
+
+	<script src="scripts/bundle.js"></script>
+
+	
+	<!-- custom autocomplete templet -->
+	<script type="text/ng-template" id="loadTags-template">
+      	<div class="right-panel">
         	<span ng-bind-html="$highlight($getDisplayText())"></span>
-      	</div></script><!-- custom autocomplete person templet --><script type="text/ng-template" id="loadTags-person-template"><div class="right-panel">      	
+      	</div>
+    </script>
+
+    <!-- custom autocomplete person templet -->
+	<script type="text/ng-template" id="loadTags-person-template">
+      	<div class="right-panel">      	
         	<span ng-bind-html="$highlight($getDisplayText())"></span>
         	<span style="padding:15px;">-</span>
         	<span>{{data.id}}</span>
-      	</div></script></body></html>
+      	</div>
+    </script>
+</body>
+</html>
