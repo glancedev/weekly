@@ -1,13 +1,13 @@
 {
   "db": {
-    "host": "13.76.166.152",
-    "port": 27000,
-    "database": "weekly",
-    "username": "weekly",
-    "password": "weekly",
+    "host": "${db_host}",
+    "port": "${db_port}",
+    "database": "${db_database}",
+    "username": "${db_username}",
+    "password": "${db_password}",
     "name": "db",
-    "connector": "mongodb",
-    "allowExtendedOperators":true
+    "connector": "${db_connector}",
+    "allowExtendedOperators": true
   },
   "storage": {
     "name": "storage",
