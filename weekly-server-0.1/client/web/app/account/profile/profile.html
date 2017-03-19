@@ -1,0 +1,107 @@
+<!-- Header -->
+<div id="header" ng-include="'components/navbar/navbar.html'"></div>
+
+<!-- Navigation -->
+<aside id="menu" ng-include="'app/account/profile/profile_menu.html'"></aside>
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+  <div class="content">
+	<div ui-view animate-panel>
+	  <!-- main start -->
+	  <div class="row">
+		<div class="col-md-9">
+		  <div class="text-center m-b-md">
+			<h3>계정 정보</h3>
+		  </div>
+		  <div class="hpanel">
+			<div class="panel-body">
+
+			  <form name="form" ng-submit="ProfileChange(user)" id="ProfileForm" novalidate>
+				<div class="row">
+				  <div class="form-group col-md-6">
+
+					<label class="form-label">이메일: {{getCurrentUser().email}}</label>
+					<div class="form-key">이메일 변경</div>
+
+					<input type="email" name="email" data-ng-class="{'ng-invalid':form.confirmEmail.$error.match}" class="form-control form-value input-sm" ng-model="user.email" required >
+
+					<p class="help-block" ng-show="form.email.$error.email && submitted">
+					  올바른 이메일 주소가 아닙니다.
+					</p>
+					<p class="help-block" ng-show="form.email.$error.required && submitted">
+					  필수 입력 항목입니다.
+					</p>
+				  </div>
+				  <div class="form-group col-md-6">
+
+					<label class="form-label">&nbsp</label>
+					<div class="form-key">이메일 변경 확인</div>
+					<input type="email" match="user.email" name="confirmEmail" class="form-control form-value input-sm" ng-model="user.emailConfirm" required/>
+					<p class="help-block" ng-show="form.email.$error.email && submitted">
+					  올바른 이메일 주소가 아닙니다.
+					</p>
+					<p class="help-block" ng-show="form.email.$error.required && submitted">
+					  필수 입력 항목입니다.
+					</p>
+					<br><br><br>
+					<div class="text-danger" style="text-align: center" ng-show="form.confirmEmail.$error.match">이메일이 일치하지 않습니다.</div>
+				  </div>
+				  <div class="form-last"></div>
+
+				  <div class="form-group col-md-6" ng-class="{ 'has-success': form.password.$valid && submitted, 'has-error': form.password.$invalid && submitted }">
+					<label class="form-label">패스워드</label>
+					<div class="form-key">패스워드 변경</div>
+
+					<input type="password" name="password" class="form-control form-value input-sm" ng-model="user.password" ng-minlength="6" required data-ng-class="{'ng-invalid':form.confirmPassword.$error.match}" required>
+
+					<p class="help-block" ng-show="(form.password.$error.minlength || form.password.$error.required) && submitted">
+					  6자 이상, 16자 이내의 문자, 숫자 조합으로 설정해 주시기 바랍니다
+					</p>
+					<label class="small-label">6자 이상, 16자 이내의 문자, 숫자 조합으로 설정해 주시기 바랍니다</label>
+				  </div>
+				  <div class="form-group col-md-6">
+					<label class="form-label">&nbsp</label>
+					<div class="form-key">패스워드 변경 확인</div>
+
+					<input type="password" match="user.password" name="confirmPassword" class="form-control form-value input-sm" ng-model="user.passwordConfirm" ng-minlength="6" required mongoose-error>
+
+					<div class="text-danger" ng-show="form.confirmPassword.$error.match">패스워드가 일치하지 않습니다.</div>
+				  </div>
+				  <div class="form-last"></div>
+
+				  <div class="form-group col-lg-12" ng-class="{ 'has-success': form.name.$valid && submitted, 'has-error': form.name.$invalid && submitted }">
+					<label class="form-label">이름: {{getCurrentUser().username}}</label>
+					<div class="form-key2">이름 변경</div>
+					<input type="text" name="name" class="form-control form-value2 input-sm" ng-model="user.username" required/>
+					<p class="help-block" ng-show="form.name.$error.required && submitted">필수 입력 항목입니다.</p>
+				  </div>
+				  <div class="form-last"></div>
+
+				  <div class="form-group col-lg-12">
+					<label class="form-label">소속: {{getCurrentUser().company}}</label>
+					<div class="form-key2">소속 변경</div>
+					<input type="test" value="" class="form-control form-value2 input-sm" ng-model="user.company" name="">
+				    </div>
+				  <div class="form-last"></div>
+				  <div class="form-group col-lg-12">
+					<label class="form-label">직책: {{getCurrentUser().position}}</label>
+					<div class="form-key2">직책 변경</div>
+					<input type="test" value="" class="form-control form-value2 input-sm" ng-model="user.position" name="">
+				  </div>
+				  <div class="form-last"></div>
+				</div>
+				<div class="text-center">
+				  <button type="submit" class="btn btn-success">프로필 업데이트</button>
+				  <button class="btn btn-default"><a href="/">취소</a></button>
+				</div>
+			  </form>
+			</div>
+		  </div>
+		</div>
+		<div class="col-md-3"></div>
+	  </div>
+	</div>
+	<!-- main end -->
+  </div>
+</div>

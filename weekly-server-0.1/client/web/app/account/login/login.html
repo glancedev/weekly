@@ -1,0 +1,57 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="login-container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="text-center m-b-md">
+        <h3>로그인</h3>
+      </div>
+      <div class="hpanel">
+        <div class="panel-body">
+          <form name="form" ng-submit="login(form)" id="loginForm" novalidate>
+            <div class="form-group">
+              <label class="control-label">Username</label>
+              <input type="text" placeholder="" title="Please enter you username" name="userId" class="form-control" ng-model="user.userId" required>
+            </div>
+            <div class="form-group has-error">
+              <p class="help-block" ng-show="form.userId.$error.required && submitted">
+                사용자 아이디를 입력하세요.
+              </p>
+              <p class="help-block">{{ errors.other }}</p>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" >Password</label>
+              <input type="password" title="Please enter your password" placeholder="" name="password" class="form-control" ng-model="user.password" required>
+              <span class="help-block small"><a href="password_recovery">패스워드 찾기</a></span>
+            </div>
+            <div class="form-group has-error">
+              <p class="help-block" ng-show="form.password.$error.required && submitted">
+                사용자 비밀번호를 입력하세요.
+              </p>
+              <p class="help-block">{{ errors.other }}</p>
+            </div>
+
+            <div class="form-group has-error">
+              <p class="help-block" ng-show="form.userId.$error.required && form.password.$error.required && submitted">
+                사용자 정보를 입력하세요.
+              </p>
+              <p class="help-block">{{ errors.other }}</p>
+            </div>
+
+            <span class="help-block"></span>
+            <div class="checkbox">
+              <input icheck type="checkbox" ng-model="rememberMe" ng-init="rememberMe = true">
+              로그인 상태 유지
+              <p class="help-block small">(개인정보 보호를 위해 개인 PC에서만 이용하세요.)</p>
+            </div>
+            <button class="btn btn-success btn-block" type="submit">로그인</button>
+            <span class="help-block"></span>
+            <span class="help-block"></span>
+            <span class="help-block small" style="text-align: center">아직 PRO 구독자가 아니신가요? <a href="/proup">PRO 신청하기</a></span>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

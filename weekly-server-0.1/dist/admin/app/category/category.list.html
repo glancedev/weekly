@@ -1,0 +1,63 @@
+<!-- header -->
+<div header></div>
+
+
+	<div class="jumbotron">
+
+	    <div class="jumbotron">
+
+	    	<div category-sidebar></div>    
+	        
+	        <div class="col-md-10">
+
+	        	<div class="form-group">			    	
+			    	<input type="text" class="form-control" placeholder="카테고리명을 검색하세요." 
+			    	 	   ng-enter="search()" ng-model="keyword">
+			  	</div>
+
+	            <table st-table="rowCollection" class="table table-hover">
+	                <thead>
+	                <tr>
+	                	<th>#</th>
+	                	<th>고유 아이디</th>
+	                    <th>카테고리명</th>
+	                    <th>카테고리 설명</th>
+	                    <th>아이템</th>
+	                    <th>삭제</th>              
+	                </tr>
+	                </thead>
+	                <tbody>
+	                <tr dir-paginate="content in contents | itemsPerPage: pageSize" 
+	                	total-items="totalCount" 	                	
+	                	current-page="pagination.current">
+	                	<td>{{(totalCount - (pageSize * (pagination.current-1))) - $index}}</td>
+	                	<td><a href="category/view/{{content.id}}">{{content.id}}</a></td>
+	                    <td><a href="category/view/{{content.id}}">{{content.name}}</a></td>
+	                    <td><a href="category/view/{{content.id}}">{{content.description}}</a></td>
+	                    <td><a href="category/item/{{content.depth}}/{{content.id}}" class="btn btn-info fa fa-sitemap"></a></td>
+	                    <td>
+	                        <button class="btn btn-danger fa fa-trash-o"                                           
+	                                type="button"
+	                                ng-disabled="content.essential ? true : false"
+	                                ng-click="confirmDelete($index, content.id)">
+	                        </button>
+	                    </td>
+	                </tr>
+	                </tbody>
+	            </table>
+
+	            <div style="text-align:center">
+	                <dir-pagination-controls boundary-links="true" 
+	                                         on-page-change="pageChanged(newPageNumber)" 
+	                                         template-url="components/pagination/dirPagination.tpl.html">                    
+	                </dir-pagination-controls>
+	            </div>          
+
+	        </div>    
+		</div>
+
+	</div>
+
+
+<!-- footer -->
+<div footer></div>    

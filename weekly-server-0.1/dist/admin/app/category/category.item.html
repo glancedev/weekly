@@ -1,0 +1,97 @@
+<!-- header -->
+<div header></div>
+
+
+	<div class="jumbotron">
+	    <div class="jumbotron">
+
+	    	<div category-sidebar></div>    
+
+	    	<div class="col-md-10">	    	
+	    		
+
+	    		<div>
+			    	<div style="float:left;">
+			    		<a ng-click="save()" class="btn btn-default">Save</a>		
+					</div>
+					<div style="float:right;">
+						<a ng-click="cancel()" class="btn btn-default">Cancel</a>
+					</div>
+				</div>
+
+	    		<div style="height:50px;"></div>
+
+		    	<table ui-tree id="tree-root" class="table table-responsive" ng-show="depth <= 1">
+			      	<thead>
+			        	<tr>
+			          		<th>순번</th>
+			          		<th width="80%">아이템명</th>
+				          	<th>
+							    <a  class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newItem()" style="margin-right: 8px;">
+							        <span class="glyphicon glyphicon-plus"></span>
+							    </a>
+				          	</th>		   
+						</tr>
+			      	</thead>
+			      	<tbody ng-show="data.length > 0" ui-tree-nodes ng-model="data">
+			        	<tr ng-repeat="node in data" ui-tree-node>
+			          		<td>
+			            		<i class="glyphicon glyphicon-resize-vertical" ui-tree-handle></i> 
+			          		</td>
+				          	<td>
+				          		<input type="text" class="form-control" ng-model="node.name">
+				          	</td>
+				          	<td>
+				            	<a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)">
+				              		<span class="glyphicon glyphicon-remove"></span>
+				            	</a>
+				          	</td>
+						</tr>
+			      	</tbody>
+			    </table>
+
+
+			    <table ui-tree id="tree-root" class="table table-responsive" ng-show="depth > 1">
+			      	<thead>
+			        	<tr>
+			          		<th width="5%">순번</th>
+			          		<th width="10%">소분류</th>
+			          		<th>대분류</th>
+				          	<th width="5%">
+							    <a  class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newItem()" style="margin-right: 8px;">
+							        <span class="glyphicon glyphicon-plus"></span>
+							    </a>
+				          	</th>  
+						</tr>
+			      	</thead>
+			      	<tbody ng-show="data.length > 0" ui-tree-nodes ng-model="data">
+			        	<tr ng-repeat="node in data" ui-tree-node>
+			          		<td>
+			            		<i class="glyphicon glyphicon-resize-vertical" ui-tree-handle></i> 
+			          		</td>
+				          	<td>
+				          		<input type="text" class="form-control" ng-model="node.name">
+				          	</td>
+				          	<td>
+				          		<tags-input ng-model="node.item" min-length="1" min-tags="1" placeholder="태그를 추가하세요."></tags-input>
+				          		<!-- <input type="text" class="form-control" ng-model="node.item"> -->
+				          	</td>
+				          	<td>
+				            	<a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)">
+				              		<span class="glyphicon glyphicon-remove"></span>
+				            	</a>
+				          	</td>
+						</tr>
+			      	</tbody>
+			    </table>
+
+		  	</div>
+
+  		</div>
+	      
+
+	</div>
+
+
+<!-- footer -->
+<div footer></div>    

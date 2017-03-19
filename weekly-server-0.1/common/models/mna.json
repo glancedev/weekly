@@ -1,0 +1,85 @@
+{
+  "name": "mna",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "unitMoney": {
+      "type": "string",
+      "required": false
+    },
+    "money": {
+      "type": "number",
+      "required": false
+    },
+    "share": {
+      "type": "number",
+      "required": false
+    },
+    "announcementDate": {
+      "type": "date",
+      "required": false
+    },
+    "title": {
+      "type": "string",
+      "required": false
+    },
+    "field": {
+      "type": "array",
+      "required": false
+    },
+    "link": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "news": {
+      "type": "belongsTo",
+      "model": "news",
+      "foreignKey": "newsId"
+    },
+    "takeover": {
+      "type": "belongsTo",
+      "model": "company",
+      "foreignKey": "takeoverId"
+    },
+    "handover": {
+      "type": "belongsTo",
+      "model": "company",
+      "foreignKey": "handoverId"
+    }
+  },
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "super",
+      "permission": "ALLOW",
+      "property": "*"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "news",
+      "permission": "ALLOW",
+      "property": "*"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "subscription",
+      "permission": "ALLOW",
+      "property": ["find", "findById"]
+    }
+  ],
+  "methods": {}
+}

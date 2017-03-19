@@ -1,0 +1,46 @@
+.form-key {
+  /*width: 30%;*/
+  display: block;
+  float: left;
+  padding: 7px 15px
+}
+
+.form-value {
+	width: 60%;
+    float: left;
+}
+
+.form-key2 {
+  /*width: 15%;*/
+  display: block;
+  float: left;
+  padding: 7px 15px
+}
+
+.form-value2 {
+  width: 30%;
+  float: left;
+}
+
+.form-label {
+  width: 100%;
+  padding: 7px 15px;
+
+}
+
+.small-label {
+  width: 95%;
+  float: right;
+  font-size: 85%;
+  font-weight: 300;
+}
+
+.form-last {
+  border: 0;
+  border-top: 1px solid #eee;
+  width: 100%;
+  float: left;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+}

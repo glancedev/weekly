@@ -1,0 +1,42 @@
+<!-- Header -->
+<div id="header" ng-include="'components/navbar/navbar.html'"></div>
+
+<!-- Navigation -->
+<aside id="menu" ng-include="'app/account/profile/profile_menu.html'"></aside>
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+  <div class="content">
+	<div ui-view animate-panel>
+	  <!-- main start -->
+	  <div class="row">
+		<div class="col-lg-9">
+		  <div class="text-center m-b-md">
+			<h3>계정 해지</h3>
+		  </div>
+		  <div class="hpanel">
+			<div class="panel-body">
+			  <form class="form" name="form" ng-submit="register(form)" novalidate id="profile_out">
+				<div class="row">
+				  <br><br><br>
+				  <p style="text-align: center">{{getCurrentUser().username}} 님께 더 이상 서비스를 제공할 수 없게 되어 안타깝게 생각합니다.</p>
+				  <br>
+				  <p style="text-align: center">정말 PRO 멤버십을 해지하고 계정을 삭제하시겠습니까?</p>
+				  <br>
+				</div><br><br>
+				<div class="text-center">
+				  <button ng-click="UserLeave();" class="btn btn-success">계정 해지</button>
+				  <button class="btn btn-default"><a href="/">
+					취소
+				  </a></button>
+				</div>
+			  </form>
+			</div>
+		  </div>
+		</div>
+		<div class="col-lg-3"></div>
+	  </div>
+	</div>
+	<!-- main end -->
+  </div>
+</div>

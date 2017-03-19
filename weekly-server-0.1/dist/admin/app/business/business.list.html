@@ -1,0 +1,77 @@
+<!-- header -->
+<div header></div>
+
+
+	<div class="jumbotron">
+
+	    <div class="jumbotron">
+
+	    	<div business-sidebar></div>    
+	        
+	        <div class="col-md-10">
+
+	        	<div class="form-group">			    	
+			    	<input type="text" class="form-control" placeholder="지원사업명을 검색하세요." 
+			    	 	   ng-enter="search()" ng-model="keyword">
+			  	</div>
+
+	            <table st-table="rowCollection" class="table table-hover">
+	                <thead>
+	                <tr>
+	                	<th>#</th>
+	                	<th>작성자</th>
+	                    <th>마감일자</th>
+	                    <th>사업명</th>
+	                    <th>주관</th>	                    
+	                    <th>표시 여부</th>	       
+	                    <th>삭제</th>	                    
+	                </tr>
+	                </thead>
+	                <tbody>
+	                <tr dir-paginate="content in contents | itemsPerPage: pageSize" total-items="totalCount" 
+	                	current-page="pagination.current" ng-init="parentIndex = $index">
+	                	<td>{{(totalCount - (pageSize * (pagination.current-1))) - $index}}</td>
+	                	<td>{{content.userId}}</td>	                 	                    
+	                    <td>
+	                    	<span ng-if="!content.ordinary">{{content.deadline | date:'yyyy-MM-dd'}}</span>
+	                    	<span ng-if="content.ordinary">상시 접수</span>
+	                    </td>
+	                    <td><a href="business/view/{{active}}/{{content.id}}">{{content.title}}</a></td>
+	                    <td>
+	                    	<span ng-repeat="item in content.organizations">
+	                    		<a href="company/view/all/{{item.id}}">{{item.name}}</a><br/>	
+	                    	</span>	                    	
+	                    </td>
+	                    <td>
+	                        <div toggle-switch 
+	                        	 class="switch-primary" 
+	                        	 ng-model="content.display" 
+	                        	 on-change="display($index, content.id, !content.display)"
+	                        	 knob-label="" on-label="on" off-label="off">
+	                       	</div>      
+	                    </td>
+	                    <td>
+	                        <button class="btn btn-danger fa fa-trash-o"                   
+	                                type="button"
+	                                ng-click="confirmDelete($index, content.id)">
+	                        </button>
+	                    </td>
+	                </tr>
+	                </tbody>
+	            </table>
+
+	            <div style="text-align:center">
+	                <dir-pagination-controls boundary-links="true" 
+	                                         on-page-change="pageChanged(newPageNumber)" 
+	                                         template-url="components/pagination/dirPagination.tpl.html">
+	                </dir-pagination-controls>
+	            </div>          
+
+	        </div>    
+		</div>
+
+	</div>
+
+
+<!-- footer -->
+<div footer></div>    

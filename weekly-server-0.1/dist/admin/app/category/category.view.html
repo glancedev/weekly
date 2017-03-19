@@ -1,0 +1,59 @@
+<!-- header -->
+<div header></div>
+
+
+	<div class="jumbotron">
+
+		<!-- <a ng-click="open()"class="pull-right btn btn-primary btn-outline btn-rounded">ADD CHANNEL</a> -->		
+
+
+	    <div class="jumbotron">
+
+	    	<div category-sidebar></div>    
+	        
+	        <div class="col-md-6">
+	            
+	        	<form>
+	        		<div class="form-group">
+				    	<label for="name"><span class="text-danger">*</span>카테고리 고유 아이디:</label>
+				    	<input type="text" class="form-control" ng-model="model.id" ng-disabled="true">
+				  	</div>
+	        		<div class="form-group">
+				    	<label for="name"><span class="text-danger">*</span>카테고리명:</label>
+				    	<input type="text" class="form-control" ng-model="model.name">
+				  	</div>
+				  	<div class="form-group">
+				    	<label for="description"><span class="text-danger">*</span>카테고리 종류:</label>
+				    	<input type="text" class="form-control" ng-model="model.depth" ng-disabled="true">				    	
+				  	</div>
+
+				  	<div class="form-group">
+				    	<label for="description">카테고리 설명:</label>
+				    	<input type="text" class="form-control" ng-model="model.description">
+				  	</div>
+				  	
+
+	                <div style="height:30px;"></div>
+				  	
+				  	<div>
+				    	<div style="float:left;">
+				    		<button type="button" class="btn btn-default" 
+				  			ng-disabled="model.title == ''"
+				  			ng-click="save()">Submit</button>	
+						</div>
+						<div style="float:right;">
+							<button type="button" class="btn btn-default" 
+				  			ng-click="cancel()">Cancel</button>
+						</div>
+					</div>
+					
+				</form>
+
+	        </div>    
+		</div>
+
+	</div>
+
+
+<!-- footer -->
+<div footer></div>    

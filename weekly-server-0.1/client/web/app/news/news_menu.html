@@ -1,0 +1,62 @@
+<div id="navigation" class="menu-left">
+  <!--<ul side-navigation class="nav" id="side-menu">-->
+    <!--<li ng-repeat="menu in sub_menu1" ui-sref-active="active">-->
+      <!--<a ui-sref="{{menu.link}}">-->
+        <!--<span class="fa {{menu.icon}} pull-left nav-space"></span>-->
+        <!--<span class="nav-label">{{menu.title}}</span>-->
+        <!--<span class="fa arrow" style="font-weight: 100; float: right"></span>-->
+      <!--</a>-->
+    <!--</li>-->
+  <!--</ul>-->
+  
+  <!--<div class="nav-text">-->
+    <!--<div class="stats-label text-color">-->
+      <!--<span class="">상세데이타</span>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!-- <ul ng-class="{active: $state.includes('news')}" side-navigation class="nav" id="side-menu">
+    <li ng-repeat="menu in sub_menu2" ui-sref-active="active">
+      <a ui-sref="{{menu.link}}">
+        <span class="fa {{menu.icon}} pull-left nav-space"></span>
+        <span class="nav-label">{{menu.title}}</span>
+      </a>
+    </li>
+  </ul> -->
+  
+  <!-- <div class="nav-text" ng-show="null != sub_menu3">
+    <div class="stats-label text-color">
+      <span class="">인기 항목</span>
+    </div>
+  </div> -->
+  <ul side-navigation class="nav" id="side-menu">
+    <li ng-repeat="menu in sub_menu3" ui-sref-active="active">
+      <!-- 
+         hotTags 함수 (group, id, name)
+         * 복수 입력은 콤마(,)로 구분한다.
+       -->
+      <a ng-click="hotTags(menu.group, menu.id, menu.name);">
+        <span class="fa {{menu.icon}} pull-left nav-space"></span>
+        <span class="nav-label">{{menu.title}}</span>
+      </a>
+    </li>
+  </ul>
+  
+  <!--<ul side-navigatin class="nav metismenu" id="side-menu">-->
+  <!--<li ui-sref-active="active">-->
+  <!--<span class="nav-label">기간별</span>-->
+  <!--</li>-->
+  <!--<li ui-sref-active="active">-->
+  <!--<a ui-sref="dashboard"> <span class="nav-list">이번 주</span><span class="nav-count">9</span></a>-->
+  <!--</li>-->
+  <!--<li ui-sref-active="active">-->
+  <!--<a ui-sref="dashboard"> <span class="nav-list">다음 주</span><span class="nav-count">9</span></a>-->
+  <!--</li>-->
+  <!--<li ui-sref-active="active">-->
+  <!--<a ui-sref="dashboard"> <span class="nav-list">다다음 주</span><span class="nav-count">9</span></a>-->
+  <!--</li>-->
+  <!--<li ui-sref-active="active">-->
+  <!--<a ui-sref="dashboard"> <span class="nav-list">추후 일</span><span class="nav-count">9</span></a>-->
+  <!--</li>-->
+  <!--</ul>-->
+
+</div>

@@ -1,0 +1,98 @@
+<!-- Header -->
+<div id="header" ng-include="'components/navbar/navbar.html'"></div>
+
+<!-- Navigation -->
+<aside id="menu" ng-include="'app/main/main_menu.html'"></aside>
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+  <div class="content">
+    <div ui-view animate-panel>
+    <!-- main start -->
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="hpanel">
+          <div class="panel-body">
+            <div class="table-responsive">
+              <!-- content start -->
+                <div class="panel-heading">
+                    <div >행사</div>
+                    <hr>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                            <input type="text" class="form-control" placeholder="Search a Content" ng-model="searchContent">
+
+                        </div>
+                    </div>
+                </form>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <td style="min-width: 50px;">
+                            <a href="#" ng-click="sortType = 'id'; sortReverse = !sortReverse">
+                                No.
+                                <span ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" >
+                                Title
+
+
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#">
+                                Content
+
+
+                            </a>
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="post in posts | orderBy:sortType:sortReverse | filter:searchContent">
+                        <td>{{ post.id}}</td>
+                        <td>{{ post.title}}</td>
+                        <td>{{ post.body}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- content end -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="hpanel">
+          <div class="panel-body">
+            <div class="table-responsive">
+              <div> first banner</div>
+            </div>
+
+          </div>
+          <div class="panel-footer">
+            second babber
+          </div>
+        </div>
+        <div class="hpanel">
+          <div class="panel-body">
+            <div class="table-responsive">
+              <div> first banner</div>
+            </div>
+
+          </div>
+          <div class="panel-footer">
+            second babber
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+      <!-- main end -->
+  </div>
+</div>

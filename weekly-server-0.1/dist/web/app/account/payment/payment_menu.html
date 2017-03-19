@@ -1,0 +1,9 @@
+<div id="navigation" class="menu-left">
+  <ul ng-class="{in: $state.includes('member')}" side-navigation class="nav" id="side-menu">
+	<li ng-repeat="menu in sub_menu1" ui-sref-active="active">
+	  <a ui-sref="{{menu.link}}">
+		<span class="nav-label">{{menu.title}}</span>
+	  </a>
+	</li>
+  </ul>
+</div>

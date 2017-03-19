@@ -1,0 +1,40 @@
+<div class="col-md-2">
+	<div class="list-group" style="text-align: center;">    	
+		<a  class="list-group-item"
+			href="subscriber/list/all"
+			ng-class="isActive('subscriber/list/all') || isActive('subscriber/view/all') || isActive('subscriber/view/member')">		    
+			전체 목록
+		</a>
+		<a  class="list-group-item"
+			href="subscriber/list/group"			
+			ng-class="isActive('subscriber/list/group') || isActive('subscriber/view/group') || isActive('subscriber/create/member')" >
+			단체
+		</a>
+		<a  class="list-group-item"
+			href="subscriber/list/private"			
+			ng-class="isActive('subscriber/list/private') || isActive('subscriber/view/private')">
+			개인
+		</a>
+		<a  class="list-group-item"
+			href="subscriber/list/history"			
+			ng-class="isActive('subscriber/history')">
+			결제 실패
+		</a>
+		<a  class="list-group-item"
+			href="subscriber/list/block"			
+			ng-class="isActive('subscriber/list/block') || isActive('subscriber/view/block')">
+			차단
+		</a>
+		<a  class="list-group-item"
+			href="subscriber/list/leave"			
+			ng-class="isActive('subscriber/list/leave')">
+			계정 해지
+		</a>
+		<a  class="list-group-item"
+			href="#"			
+			ng-click='enrollMember()'
+			ng-class="isActive('subscriber/create/group')">
+			구독자 추가
+		</a>
+	</div>
+</div>

@@ -1,0 +1,68 @@
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- <a class="navbar-brand">WEEKLY CMS</a> -->
+            <a class="navbar-brand">{{LoopBackAuth.currentUserId}}</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">                                
+                <li ng-if="userRoles.includes('super') || userRoles.includes('news')">
+                    <a ui-sref="news/create" ng-class="isActive('news')" >뉴스</a>
+                </li>
+                <li ng-if="userRoles.includes('super') || userRoles.includes('company')">
+                    <a ui-sref="company/create" ng-class="isActive('company')" >회사/기관</a>
+                </li>
+                <li ng-if="userRoles.includes('super') || userRoles.includes('person')">
+                    <a ui-sref="person/create" ng-class="isActive('person')" >인물</a>
+                </li>
+                <li ng-if="userRoles.includes('super') || userRoles.includes('event')">
+                    <a ui-sref="event/create" ng-class="isActive('event')" >행사</a>
+                </li>
+                <li ng-if="userRoles.includes('super') || userRoles.includes('business')">
+                    <a ui-sref="business/create" ng-class="isActive('business')" >지원사업</a>
+                </li>                        
+            </ul>
+            <ul class="nav navbar-nav" style="float:right">                            
+                <li>
+                    <a ng-if="userRoles.includes('super')" 
+                       href ="subscriber/list/all" 
+                       ng-class="isActive('subscriber')">구독자 관리</a>
+                </li>
+                <li>
+                    <a ng-if="userRoles.includes('super')" 
+                       ui-sref="user/list" 
+                       ng-class="isActive('user')" >관리자 관리</a>
+                </li>
+                <li>
+                    <a ng-if="userRoles.includes('super')"  
+                       ui-sref="auth/list" 
+                       ng-class="isActive('auth')" >권한 관리</a>
+                </li>
+                <li>
+                    <a ng-if="userRoles.includes('admin') || userRoles.includes('super')" 
+                       ui-sref="category/list" 
+                       ng-class="isActive('category')" >카테고리 관리</a>
+                </li>
+                <li>
+                    <a ng-if="userRoles.includes('admin') || userRoles.includes('super')" 
+                       ui-sref="banner/list" 
+                       ng-class="isActive('banner')" >배너 관리</a>
+                </li>
+                <li>                    
+                    <a herf="#" ng-if="LoopBackAuth.accessTokenId !== null" ng-click="logout()" >Logout</a>
+                </li>                                                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>

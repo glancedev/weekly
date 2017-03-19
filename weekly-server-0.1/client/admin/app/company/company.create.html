@@ -1,0 +1,511 @@
+<!-- header -->
+<div header></div>
+
+	<div class="jumbotron" ng-init="getPersonCategory(); getCompanyCategory();">
+
+	    <div class="jumbotron">
+
+	    	<div company-sidebar></div>    
+	        
+	        <div class="col-md-10">
+	            
+	        	<form>				
+
+	        		<div class="form-group" ng-init="getCategory('companyType', 'items_companyType', 'order ASC', true)">
+					  	<label for="name"><span class="text-danger">*</span>유형:</label>
+					  	<div>
+				    		<label ng-repeat="item in items_companyType" class="radio-inline">
+				    			<input type="radio" 
+									   name="type"
+								       ng-model="model.type" value="{{item.name}}">
+									{{item.name}}
+								</input>	
+							</label>					
+				    	</div>
+				  	</div>
+
+				  	<!-- 스타트업 -->
+				  	<div ng-show="model.type === '스타트업'" class="new-area">
+				  		
+				  		<div style="text-align: center;"><p>스타트업</p></div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name" style="margin-right:10px;">제품/서비스:</label>					    		
+				    			<a class="btn btn-primary btn-xs" data-nodrag ng-click="newItem('products')">
+				    				<i class="glyphicon glyphicon-plus"></i> 제품/서비스 추가하기					    			
+				    			</a>
+					    	</div>
+							<div>
+				    			<div ng-show="products.length > 0" ui-tree id="tree-root">
+							      	<div ui-tree-nodes ng-model="products">
+							        	<div ng-repeat="node in products" ui-tree-node>
+								          		
+							        		<div class="row" style="margin-bottom: 5px;">
+												<div class="col-sm-12">
+											      	<a class="btn btn-danger btn-xs" data-nodrag ng-click="remove(this)">
+									            		<i class="glyphicon glyphicon-remove"></i> 삭제
+									            	</a>
+											    </div>											    
+											</div>
+								          	<div class="row" style="margin-bottom: 5px;">
+											    <div class="col-sm-3">
+											      	<input type="text" class="form-control" placeholder="한글명" ng-model="node.name">
+											    </div>											    
+											    <div class="col-sm-3">
+											      	<input type="text" class="form-control" placeholder="영문명" ng-model="node.nameEng">
+											    </div>
+											    <div class="col-sm-6">
+											      	<input type="text" class="form-control" placeholder="설명" ng-model="node.description">
+											    </div>
+											</div>
+											<div class="row" style="margin-bottom: 5px;">
+												<div class="col-sm-12">
+											      	<input type="text" class="form-control" placeholder="링크" ng-model="node.link">
+											    </div>											    
+											</div>
+											<div class="row" style="margin-bottom: 15px;">
+												<div class="col-sm-12">
+											    	<label for="name">뉴스 제품 인기 검색어 표시 여부:</label>
+											    	<div>
+												  		<div toggle-switch 
+									                    	 class="switch-primary" 
+									                    	 ng-model="node.displayHot" 
+									                    	 knob-label="" on-label="on" off-label="off">
+									                    </div>
+								                    </div>
+								                </div>
+							                </div>
+
+										</div>
+							      	</div>
+							    </div>
+					    	</div>
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name">누적 투자액:</label>
+					    	</div>
+							<div style="width:20%;">
+					    		<input type="number" class="form-control" ng-model="model.totalMoney">
+					    	</div>				
+					  	</div>
+				  	</div>
+				  	<!-- 스타트업 -->
+
+				  	<!-- 투자기관 -->
+				  	<div ng-show="model.type === '투자기관'" class="new-area">
+				  		
+				  		<div style="text-align: center;"><p>투자기관</p></div>					  	
+					  	
+					  	<div class="form-group" ng-init="getCategory('companyVcStep', 'items_companyVcStep', 'order ASC', true)">
+						  	<label for="name">투자 단계:</label>
+						  	<div>
+					    		<label ng-repeat="item in items_companyVcStep" class="checkbox-inline" style="min-width:200px;">
+					    			<input type="checkbox" ng-click="changeCheckbox('step', item.name)">{{item.name}}</input>	
+								</label>					
+					    	</div>
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name">엑싯한 회사 수:</label>
+					    	</div>
+							<div style="width:20%;">
+					    		<input type="number" class="form-control" ng-model="model.exitCount">
+					    	</div>				
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name">재투자율:</label>
+					    	</div>
+							<div style="width:20%;">
+					    		<input type="number" class="form-control" placeholder="%" ng-model="model.percentage"> 
+					    	</div>
+					  	</div>
+
+				  	</div>
+				  	<!-- 투자기관 -->
+
+
+				  	<!-- 보육기관 -->
+				  	<div ng-show="model.type === '보육기관'" class="new-area">
+				  		<div style="text-align: center;"><p>보육기관</p></div>	
+
+				  		<div class="form-group">
+					  		<div>
+					    		<label for="name">현재 모집 중:</label>
+					    	</div>
+							<div>		
+								<label class="radio-inline">
+									<input type="radio" name="isRecruiting" ng-model="model.isRecruiting" ng-value="true">YES
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="isRecruiting" ng-model="model.isRecruiting" ng-value="false">NO
+								</label>
+							</div>
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name">보육 조건:</label>
+					    	</div>
+							<div>
+					    		<input type="text" class="form-control" ng-model="model.condition">
+					    	</div>				
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name">투자 여부:</label>
+					    	</div>
+							<div>		
+								<label class="radio-inline">
+									<input type="radio" name="isMoney" ng-model="model.isMoney" ng-value="true">YES
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="isMoney" ng-model="model.isMoney" ng-value="false">NO
+								</label>
+							</div>
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name">입주 여부:</label>
+					    	</div>
+							<div>		
+								<label class="radio-inline">
+									<input type="radio" name="isPlace" ng-model="model.isPlace" ng-value="true">YES
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="isPlace" ng-model="model.isPlace" ng-value="false">NO
+								</label>
+							</div>
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name" style="margin-right:10px;">보육 이력:</label>					    		
+				    			<a class="btn btn-primary btn-xs" data-nodrag ng-click="newItem('incubations')">
+				    				<i class="glyphicon glyphicon-plus"></i> 보육이력 추가하기					    			
+				    			</a>
+					    	</div>
+							<div>
+
+				    			<div ng-show="incubations.length > 0" ui-tree id="tree-root">
+							      	<div ui-tree-nodes ng-model="incubations">
+							        	<div ng-repeat="node in incubations" ui-tree-node>
+								          		
+							        		<div class="row" style="margin-bottom: 5px;">
+												<div class="col-sm-12">
+											      	<a class="btn btn-danger btn-xs" data-nodrag ng-click="remove(this)">
+									            		<i class="glyphicon glyphicon-remove"></i> 삭제
+									            	</a>
+											    </div>											    
+											</div>
+								          	<div class="row" style="margin-bottom: 5px;">
+											    <div class="col-sm-6">
+											      	<input type="text" class="form-control" placeholder="프로그램 명" ng-model="node.name">
+											    </div>											    
+											    <div class="col-sm-2">
+											      	<input type="number" class="form-control" placeholder="기수" ng-model="node.number">
+											    </div>
+											    <div class="col-sm-4">
+										    		<input type="number" class="form-control" placeholder="보육 년도" ng-model="node.year">
+										    	</div>											    
+											</div>											
+											<div class="row" style="margin-bottom: 5px;">
+												<div class="col-sm-12">
+											      	<tags-input ng-model="node.company" 
+											      				display-property="name"
+											      				key-property="id" 
+											      				add-from-autocomplete-only="true"
+											      				placeholder="보육기업" min-length="1" 
+											      				replace-spaces-with-dashes="false">
+												      	<auto-complete source="loadTags($query, 'items_company')"
+												                       min-length="0"
+												                       load-on-focus="true"
+												                       load-on-empty="true"
+												                       max-results-to-show="32"
+												                       template="loadTags-template">
+												        </auto-complete>
+												    </tags-input>
+											    </div>											    
+											</div>
+											<div class="row" style="margin-bottom: 15px;">
+												<div class="col-sm-4">
+										    		<div class="dropdown">
+									                    <a class="dropdown-toggle" id="dropdownStart{{$index}}" data-toggle="dropdown" data-target="" href="#">
+									                        <div class="input-group date">
+									                            <input type="text" class="form-control" 
+									                            	   data-ng-model="node.deadline">
+									                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+									                        </div>
+									                    </a>
+									                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+									                        <datetimepicker data-ng-model="node.deadline"
+									                        			    ng-change="baseValueChange($index, node.deadline)"
+									                                        data-datetimepicker-config="{ 
+									                                        	dropdownSelector: '#dropdownStart'+$index,
+									                                        	startView:'month',
+									                                        	minView: 'day'
+									                                        }">
+															</datetimepicker>
+									                    </ul>
+									                </div>
+										    	</div>	
+												<div class="col-sm-8">
+											      	<input type="text" class="form-control" placeholder="지원 링크" ng-model="node.link">
+											    </div>											    
+											</div>
+
+										</div>
+							      	</div>
+							    </div>
+
+					    	</div>
+					  	</div>
+					  	
+				  	</div>
+				  	<!-- 보육기관 -->
+
+
+				  	<div class="form-group">
+				  		<div>
+				    		<label for="name"><span class="text-danger">*</span>회사/기관명:</label>
+				    	</div>
+
+				    	<div class="row">
+						    <div class="col-sm-3">
+						      	<input type="text" class="form-control" placeholder="한글명" ng-model="model.name">
+						    </div>											    
+						    <div class="col-sm-3">
+						      	<input type="text" class="form-control" placeholder="영문명" ng-model="model.nameEng">
+						    </div>
+						    <div class="col-sm-6">
+						    	<tags-input ng-model="model.nameTag" 
+						    				placeholder="기타 검색 가능한 명칭" 
+						    				min-length="1"
+						    				replace-spaces-with-dashes="false">
+					    		</tags-input>						      	
+						    </div>
+						</div>
+				  	</div>
+
+				  	<div class="form-group">
+				    	<label for="name"><span class="text-danger">*</span>상태:</label>
+						<!-- bs-dropdown-disabled="true"  -->
+						<div style="margin-bottom:15px;" 
+							bs-dropdown 						 
+					     	bs-dropdown-display="상태를 선택하세요." 
+						 	bs-dropdown-items="actions" 
+						 	ng-model="model.state">
+						</div>
+					</div>
+				   	
+
+				  	<div class="form-group" ng-init="getCategory('field', 'items_field', 'order ASC', true)">
+					    <label for="name">분야:</label>				    		
+				        <tags-input ng-model="inserted_tag" display-property="name" placeholder="분야 태그를 추가하세요." 
+				        			min-length="1" replace-spaces-with-dashes="false">
+					      	<auto-complete source="loadTags($query, 'items_field')"
+					                       min-length="0"
+					                       load-on-focus="true"
+					                       load-on-empty="true"
+					                       max-results-to-show="32"
+					                       template="loadTags-template">
+					        </auto-complete>
+					    </tags-input>
+				  	</div>				  		  	
+
+				  	<div class="form-group">
+				    	<label for="name">한 줄 소개:</label>
+				    	<input type="text" class="form-control" ng-model="model.description">
+				  	</div>
+
+				  	<div class="form-group">
+				    	<label for="name">대표:</label>				    	
+				    	<tags-input ng-model="model.founders" 
+				      				display-property="name"
+				      				key-property="id" 
+				      				add-from-autocomplete-only="true"
+				      				placeholder="인물을 추가하세요." 
+				      				min-length="1" 
+				      				replace-spaces-with-dashes="false">
+					      	<auto-complete source="loadTags($query, 'items_person')"
+					                       min-length="0"
+					                       load-on-focus="true"
+					                       load-on-empty="true"
+					                       max-results-to-show="32"
+					                       template="loadTags-person-template">
+					        </auto-complete>
+					    </tags-input>
+				  	</div>
+
+				  	<div class="form-group" ng-init="getCategory('school', 'items_school', 'order ASC', true);">
+				    	<label for="name">대표 출신학교:</label>
+					    <tags-input ng-model="model.founderSchool" display-property="name" placeholder="출신 학교를 추가하세요." 
+				        			min-length="1" replace-spaces-with-dashes="false">
+					      	<auto-complete source="loadTags($query, 'items_school')"
+					                       min-length="0"
+					                       load-on-focus="true"
+					                       load-on-empty="true"
+					                       max-results-to-show="32"
+					                       template="loadTags-template">
+					        </auto-complete>
+					    </tags-input>
+				  	</div>
+
+				  	<div class="form-group">
+				    	<label for="name">대표 이전회사:</label>
+					    <tags-input ng-model="model.founderPrevs" 
+				      				display-property="name"
+				      				key-property="id" 
+				      				add-from-autocomplete-only="true"
+				      				placeholder="이전 회사를 추가하세요." 
+				      				min-length="1" 
+				      				replace-spaces-with-dashes="false">
+					      	<auto-complete source="loadTags($query, 'items_company')"
+					                       min-length="0"
+					                       load-on-focus="true"
+					                       load-on-empty="true"
+					                       max-results-to-show="32"
+					                       template="loadTags-template">
+					        </auto-complete>
+					    </tags-input>
+				  	</div>
+
+				  	<div class="form-group" style="margin-bottom:30px;">
+				  		<div>
+				    		<label for="name">설립 일자:</label>
+				    	</div>
+						<div style="width:29%;float:left;margin-right:20px;">
+				    		<div class="dropdown form-group">
+			                    <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target=""
+			                       href="#">
+			                        <div class="input-group date">
+			                            <input type="text" class="form-control" 
+			                            	   data-ng-model="model.foundationDate">
+			                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+			                        </div>
+			                    </a>
+			                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+			                        <datetimepicker data-ng-model="model.foundationDate"
+			                                        data-datetimepicker-config="{ 
+			                                        	dropdownSelector: '#dropdownStart',
+			                                        	minView: 'day'
+			                                        }">
+									</datetimepicker>
+			                    </ul>
+			                </div>
+				    	</div>
+				    	<br/>				    					    
+				  	</div>
+
+				  	<div class="form-group" ng-init="getCategory('province', 'items_province', 'order ASC', true)">
+					  	<label for="name">소재지:</label>
+					  	<div>
+				    		<!-- <label ng-repeat="item in items_province" class="radio-inline">
+				    			<input type="radio" 
+									   name="location"
+								       ng-model="model.location" value="{{item.name}}">
+									{{item.name}}
+								</input>	
+							</label>			 -->
+							<label ng-repeat="item in items_province" class="checkbox-inline" style="min-width:200px;">
+								<input type="checkbox" ng-click="changeCheckbox('location', item.name)">{{item.name}}</input>	
+							</label>												
+				    	</div>
+				  	</div>
+
+				  	<div class="form-group">
+				    	<label for="name">이메일:</label>
+				    	<input type="text" class="form-control" ng-model="model.email">
+				  	</div>
+
+				  	<div class="form-group">
+				    	<label for="name">웹사이트 링크:</label>
+				    	<input type="text" class="form-control" ng-model="model.link">
+				  	</div>
+
+				  	<div class="form-group">
+				    	<label for="name">회사/기관 인기 검색어 표시 여부:</label>
+				    	<div>
+					  		<div toggle-switch 
+		                    	 class="switch-primary" 
+		                    	 ng-model="model.displayHot" 
+		                    	 knob-label="" on-label="on" off-label="off">
+		                    </div>
+	                    </div>
+	                </div>
+
+	                <div class="form-group">
+				    	<label for="name">투자유치 피투자사 표시 여부:</label>
+				    	<div>
+					  		<div toggle-switch 
+		                    	 class="switch-primary" 
+		                    	 ng-model="model.displayInvestee" 
+		                    	 knob-label="" on-label="on" off-label="off">
+		                    </div>
+	                    </div>
+	                </div>
+	                
+	                <div class="form-group">
+				    	<label for="name">투자유치 투자사 표시 여부:</label>
+				    	<div>
+					  		<div toggle-switch 
+		                    	 class="switch-primary" 
+		                    	 ng-model="model.displayInvestor" 
+		                    	 knob-label="" on-label="on" off-label="off">
+		                    </div>
+	                    </div>
+	                </div>
+
+	                <div class="form-group">
+				    	<label for="name">인수사 표시 여부:</label>
+				    	<div>
+					  		<div toggle-switch 
+		                    	 class="switch-primary" 
+		                    	 ng-model="model.displayMna" 
+		                    	 knob-label="" on-label="on" off-label="off">
+		                    </div>
+	                    </div>
+	                </div>
+
+				  	<div class="form-group">
+				    	<label for="name">로고 이미지 업로드:</label>				
+
+				    	<!-- <div ng-show="uploader.isHTML5">			                
+			                <div class="well my-drop-zone" nv-file-drop nv-file-over uploader="uploader">
+			                    Base drop zone
+			                </div>
+			            </div> -->
+
+			            <!-- 2. nv-file-select | nv-file-select="options" -->			     
+		            	<!-- <input nv-file-select uploader="uploader" type="file" multiple/><br/> -->			            		
+			            <input class="well my-drop-zone" nv-file-select uploader="uploader" type="file" filters="imageFilter"/>
+			            <div class="well my-drop-zone" ng-repeat="item in uploader.queue" ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+		            		            			         
+				  	</div>
+
+				  	<div class="form-group">
+				    	<div>
+				    		<br/>
+				    		<button type="button" class="btn btn-default" 
+				  					ng-disabled="model.name == '' || model.state == null"
+				  					ng-click="create()">저장</button>
+						</div>
+					</div>
+				
+				</form>
+
+	        </div>    
+		</div>
+
+	</div>
+
+
+<!-- footer -->
+<div footer></div>   

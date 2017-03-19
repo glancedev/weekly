@@ -1,0 +1,106 @@
+{
+  "name": "news",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "type": {
+      "type": "string",
+      "required": false
+    },
+    "title": {
+      "type": "string",
+      "required": false
+    },
+    "link": {
+      "type": "string",
+      "required": false
+    },
+    "field": {
+      "type": "array",
+      "required": false
+    },
+    "datetime": {
+      "type": "date",
+      "required": true
+    },
+    "display": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "created": {
+      "type": "date",
+      "required": true,
+      "defaultFn": "now"
+    },
+    "modified": {
+      "type": "date",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "userId"
+    },
+    "newsCompany": {
+      "type": "hasMany",
+      "model": "newsCompany",
+      "foreignKey": "newsId"
+    },
+    "newsPerson": {
+      "type": "hasMany",
+      "model": "newsPerson",
+      "foreignKey": "newsId"
+    },
+    "mna": {
+      "type": "hasOne",
+      "model": "mna",
+      "foreignKey": "newsId"
+    },
+    "investment": {
+      "type": "hasOne",
+      "model": "investment",
+      "foreignKey": "newsId"
+    },
+    "ipo": {
+      "type": "hasOne",
+      "model": "ipo",
+      "foreignKey": "newsId"
+    },
+    "company": {
+      "type": "referencesMany",
+      "model": "company",
+      "foreignKey": "companyIds",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },   
+    "person": {
+      "type": "referencesMany",
+      "model": "person",
+      "foreignKey": "personIds",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },   
+    "product": {
+      "type": "referencesMany",
+      "model": "product",
+      "foreignKey": "productIds",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

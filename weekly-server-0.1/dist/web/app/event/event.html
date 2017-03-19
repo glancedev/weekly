@@ -1,0 +1,53 @@
+
+<!-- Header -->
+<div id="header" ng-include="'components/navbar/navbar.html'"></div>
+
+<!-- Navigation -->
+<aside id="menu" ng-include="'app/event/event_menu.html'"></aside>
+
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+  <div class="content">
+    <div ui-view animate-panel>
+      <!-- main start -->
+      <div class="row" >
+        <div class="col-lg-9" infinite-scroll='loadMore(0)' infinite-scroll-disabled='infiniteBreak' infinite-scroll-distance='0'>
+          <div class="hpanel" ng-repeat="days in contents2">
+            <div class="event-date">{{ days | koDate }}</div>
+            <div class="panel-body3">
+              <div class="table-responsive">
+                <!-- content start -->
+                <table class="table">
+                  <tbody class="tbody-color">
+                  <tr ng-repeat="event in contents | filter : { daybyday : days } | filter : { price : checkboxModel.value1 } | filter : { price : checkboxModel.value2 }">
+                    <td style="vertical-align: middle !important;">{{ event.datetime | date : "HH:mm"}}</td>
+                    <td style="vertical-align: middle !important;">
+                      <span ng-show="event.price == 'false'">무료</span>
+                      <span ng-show="event.price == 'true'">유료</span>
+                    </td>
+                    <td style="min-width: 430px; vertical-align: middle !important;"><a href="{{event.link}}" target="_blank" class="text-danger">{{ event.title }}</a><br>
+                      <small style="color: #000000;">{{ event.place.address}}</small></td>
+                  </tr>
+                  </tbody>
+                </table>
+                <!-- content end -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-3">
+          <!-- /banner -->
+          <div class="hpanel" ng-repeat="banner in banners">
+            <div class="">
+              <a href="{{ banner.link }}" target="_blank"><img src="{{ banner.file.url }}" width="100%" alt="{{ banner.description}}"></a>
+            </div>
+          </div>
+          <!-- banner/ -->
+        </div>
+      </div>
+    </div>
+    <!-- main end -->
+  </div>
+</div>

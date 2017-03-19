@@ -1,0 +1,88 @@
+{
+  "name": "ipo",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "market": {
+      "type": "string",
+      "required": false
+    },
+    "moneyUnit": {
+      "type": "string",
+      "required": false
+    },
+    "money": {
+      "type": "number",
+      "required": false
+    },
+    "valueUnit": {
+      "type": "string",
+      "required": false
+    },
+    "value": {
+      "type": "number",
+      "required": false
+    },
+    "announcementDate": {
+      "type": "date",
+      "required": false
+    },
+    "title": {
+      "type": "string",
+      "required": false
+    },
+    "field": {
+      "type": "array",
+      "required": false
+    },
+    "link": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "news": {
+      "type": "belongsTo",
+      "model": "news",
+      "foreignKey": "newsId"
+    },
+    "company": {
+      "type": "belongsTo",
+      "model": "company",
+      "foreignKey": "companyId"
+    }
+  },
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "super",
+      "permission": "ALLOW",
+      "property": "*"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "news",
+      "permission": "ALLOW",
+      "property": "*"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "subscription",
+      "permission": "ALLOW",
+      "property": ["find", "findById"]
+    }
+  ],
+  "methods": {}
+}

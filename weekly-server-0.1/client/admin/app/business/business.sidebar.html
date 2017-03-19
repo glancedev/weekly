@@ -1,0 +1,20 @@
+<div class="col-md-2">
+	<!-- <p class="lead">CHANNEL</p> -->
+	<div class="list-group" style="text-align: center;">    	
+		<a  class="list-group-item"
+			ui-sref="business/create"			
+			ng-class="isActive('business/create')">
+			지원사업 추가
+		</a>
+		<a  class="list-group-item"
+			href="business/list/true"
+			ng-class="isActive('business/list/true') || isActive('business/view/true')">		    
+			지원사업 활성화 목록 ({{activeCount}})
+		</a>
+		<a  class="list-group-item"
+			href="business/list/false"
+			ng-class="isActive('business/list/false') || isActive('business/view/false')">		    
+			지원사업 비활성화 목록 ({{inactiveCount}})
+		</a>
+	</div>
+</div>

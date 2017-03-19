@@ -1,0 +1,42 @@
+<div id="navigation" class="menu-left">
+  <!-- /저장 -->
+  <!--<ul side-navigation class="nav" id="side-menu">-->
+    <!--<li ng-repeat="menu in sub_menu1" ui-sref-active="active">-->
+      <!--<a ui-sref="{{menu.link}}">-->
+        <!--<span class="fa {{menu.icon}} pull-left nav-space"></span>-->
+        <!--<span class="nav-label">{{menu.title}}</span>-->
+        <!--<span class="fa arrow" style="font-weight: 100; float: right"></span>-->
+      <!--</a>-->
+    <!--</li>-->
+  <!--</ul>-->
+  <!-- 저장/ -->
+  
+  <!--<div class="nav-text">-->
+    <!--<div class="stats-label text-color">-->
+      <!--<span class="">상세데이타</span>-->
+    <!--</div>-->
+  <!--</div>-->
+  <ul side-navigation class="nav" id="side-menu">
+    <li ng-repeat="menu in sub_menu2" ui-sref-active="active">
+      <a ui-sref="{{menu.link}}">
+        <span class="fa {{menu.icon}} pull-left nav-space"></span>
+        <span class="nav-label">{{menu.title}}</span>
+      </a>
+    </li>
+  </ul>
+  
+  <div class="nav-text" ng-show="null != sub_menu3">
+    <div class="stats-label text-color">
+      <span class="">인기 항목</span>
+    </div>
+  </div>
+  <ul side-navigation class="nav" id="side-menu">
+    <li ng-repeat="menu in sub_menu3" ui-sref-active="active">
+      <a ng-click="hotTags(menu.group, menu.id, menu.name, menu.alias);">
+        <span class="fa {{menu.icon}} pull-left nav-space"></span>
+        <span class="nav-label">{{menu.title}}</span>
+      </a>
+    </li>
+  </ul>
+
+</div>

@@ -1,0 +1,484 @@
+<!-- header -->
+<div header></div>
+
+
+	<div class="jumbotron" ng-init="getCompanyCategory()">
+
+		<!-- <a ng-click="open()"class="pull-right btn btn-primary btn-outline btn-rounded">ADD CHANNEL</a> -->		
+
+
+	    <div class="jumbotron">
+
+	    	<div person-sidebar></div>    
+	        
+	        <div class="col-md-10">
+	            
+	        	<form>				
+
+	        		<div class="form-group" ng-init="getCategory('personType', 'items_personType', 'order ASC', true)">
+
+	        			<div>
+					  		<label for="name"><span class="text-danger">*</span>유형:</label>
+				    	</div>
+					  	<div class="row">
+				    		<div class="col-sm-10">													    		
+					    		<!-- <label ng-repeat="item in items_personType" class="radio-inline">
+					    			<input type="radio" 
+										   name="type"
+									       ng-model="model.type" value="{{item.name}}">
+										{{item.name}}
+									</input>	
+								</label> -->	
+								<label ng-repeat="item in items_personType" class="checkbox-inline" style="min-width:200px;">
+									<input type="checkbox" 
+										   ng-click="changeCheckbox('type', item.name)" 
+										   ng-checked="model.type.includes(item.name)">{{item.name}}
+									</input>	
+								</label>							
+					    	</div>				
+					    </div>	
+				  	</div>
+
+				  	<div class="form-group">
+				    	<label for="name"><span class="text-danger">*</span>이름:</label>
+				    	<div style="width:29%;">
+				    		<input type="text" class="form-control" ng-model="model.name">
+				    	</div>
+				  	</div>
+
+				  	<div class="form-group">
+				    	<div>
+				    		<label for="name"><span class="text-danger">*</span>성별:</label>
+				    	</div>
+						<div>		
+							<label class="radio-inline">
+								<input type="radio" name="gender" ng-model="model.gender" value="m"> 남성 
+							</label>
+							<label class="radio-inline">
+								<input type="radio" name="gender" ng-model="model.gender" value="f"> 여성 
+							</label>
+						</div>
+				  	</div>
+
+				    <div class="form-group" style="margin-bottom:30px;">
+				  		<div>
+				    		<label for="name">출생년도:</label>
+				    	</div>	
+				    	<div style="width:29%;float:left;margin-right:20px;">
+				    		<div class="dropdown form-group">
+			                    <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target=""
+			                       href="#">
+			                        <div class="input-group date">
+			                            <input type="text" class="form-control" 
+			                            	   data-ng-model="model.birth">
+			                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+			                        </div>
+			                    </a>
+			                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+			                        <datetimepicker data-ng-model="model.birth"
+			                                        data-datetimepicker-config="{ 
+			                                        	dropdownSelector: '#dropdownStart',
+			                                        	startView:'year',
+			                                        	minView: 'year'
+			                                        }">
+									</datetimepicker>
+			                    </ul>
+			                </div>
+				    	</div>
+				    	<br/>
+				  	</div>
+
+				  	<div class="form-group" ng-init="getCategory('position', 'items_position', 'order ASC', false)">
+				    	<label for="name">경력:</label>
+				    	<div style="margin-bottom: 15px;">
+					    	<a class="btn btn-primary btn-xs" data-nodrag ng-click="newItem('experiences')">
+			    				<i class="glyphicon glyphicon-plus"></i> 경력 추가하기					    			
+			    			</a>
+		    			</div>
+				    	<div ng-show="experiences.length > 0" class="new-area">
+			    			<div ui-tree id="tree-root">
+						      	<div ui-tree-nodes ng-model="experiences">
+						        	<div ng-repeat="node in experiences" ui-tree-node>
+							          		
+						        		<div class="row" style="margin-bottom: 15px;">
+											<div class="col-sm-12">
+										      	<a class="btn btn-danger btn-xs" data-nodrag ng-click="remove(this)">
+								            		<i class="glyphicon glyphicon-remove"></i> 삭제
+								            	</a>
+										    </div>											    
+										</div>
+
+							          	<div class="row">
+										    <div class="col-sm-3">
+										      	<tags-input ng-model="node.company" 
+										      				ng-class="{'has-tags': node.company.length > 0 }"
+										      				display-property="name"
+										      				key-property="id" 
+										      				max-tags="1"	
+										      				on-tag-added="checkMaxTags($index, 1)"
+										      				on-tag-removed="checkMaxTags($index, 1)"
+										      				add-from-autocomplete-only="true"
+										      				placeholder="소속" 
+										      				min-length="1" 
+										      				replace-spaces-with-dashes="false">
+											      	<auto-complete id="auto-complete-{{$index}}"
+											      				   source="loadTags($query, 'items_company')"
+											                       min-length="0"
+											                       load-on-focus="true"
+											                       load-on-empty="true"
+											                       max-results-to-show="32"
+											                       template="loadTags-template">
+											        </auto-complete>
+											    </tags-input>
+										    </div>											    
+										    <div class="col-sm-3">
+										      	<autocomplete no-auto-sort = "true"
+										    				  click-activation = "true"
+										    				  attr-class="form-group"
+										    				  attr-input-class="form-control" 
+										    				  ng-model="node.position" 
+										    				  attr-placeholder="직책"
+										    				  data="items_position" 
+										    				  on-type="updateItems">
+												</autocomplete>
+										    </div>
+										    <div class="col-sm-6">										      
+										    	<div class="col-sm-6">
+											    	<div class="dropdown form-group">
+									                    <a class="dropdown-toggle" id="experiencesStart{{$index}}" role="button" data-toggle="dropdown" data-target=""
+									                       href="#">
+									                        <div class="input-group date">
+									                            <input type="text" class="form-control" 
+									                            	   placeholder="입사년도"
+									                            	   data-ng-model="node.dateFrom">
+									                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+									                        </div>
+									                    </a>
+									                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+									                        <datetimepicker data-ng-model="node.dateFrom"
+									                        				ng-change="baseValueChange('experiences', $index, 'dateFrom', node.dateFrom)"
+									                                        data-datetimepicker-config="{ 
+									                                        	dropdownSelector: '#experiencesStart'+$index,
+									                                        	startView:'year',
+									                                        	minView: 'year', 
+									                                        	renderOn: 'experiences-end'+$index 
+									                                        }"
+									                                        data-on-set-time="startDateOnSetTime('experiences-start'+$index)"
+									                                        data-before-render="startDateBeforeRender($dates,
+									                                        'experiences', $index, 'dateTo')"></datetimepicker>
+									                    </ul>
+									                </div>
+											  	</div>
+											  	<div class="col-sm-6">										    	
+											    	<div class="dropdown form-group">
+									                    <a class="dropdown-toggle" id="experiencesEnd{{$index}}" role="button" data-toggle="dropdown" data-target=""
+									                       href="#">
+									                        <div class="input-group date">
+									                            <input type="text" class="form-control"
+									                            	   placeholder="퇴사년도"
+									                                   data-ng-model="node.dateTo">
+									                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+									                        </div>
+									                    </a>
+									                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+									                        <datetimepicker data-ng-model="node.dateTo"
+									                        				ng-change="baseValueChange('experiences', $index, 'dateTo', node.dateTo)"
+									                                        data-datetimepicker-config="{ 
+									                                        	dropdownSelector: '#experiencesEnd'+$index,
+									                                        	startView:'year',
+									                                        	minView: 'year', 
+									                                        	renderOn: 'experiences-start'+$index
+									                                        }"
+									                                        data-on-set-time="endDateOnSetTime('experiences-end'+$index)"
+									                                        data-before-render="endDateBeforeRender($view, $dates, $leftDate, $upDate, $rightDate, 'experiences', $index, 'dateFrom')"></datetimepicker>
+									                    </ul>
+									                </div>
+											  	</div>			
+										    </div>
+										</div>
+									    
+									    <div class="row" style="margin-bottom:5px; margin-left:-11px;">
+											<div class="col-sm-2">
+										      	<label>
+													<input type="checkbox" name="current" ng-model="node.current">
+													<span style="padding-left:5px;">현 소속</span>														
+												</label>
+										    </div>				
+										    <!-- <div class="col-sm-2">
+										      	<label class="radio-inline">
+													<input type="checkbox" name="isFounder" ng-model="node.isFounder"> 
+													창업한 회사
+												</label>
+										    </div>	
+										    <div class="col-sm-8">										    
+										      	<label class="radio-inline">
+													<input type="checkbox" name="isCofounder" ng-model="node.isCofounder">
+													공동 창업한 회사
+												</label>
+											</div>		 -->										
+										</div>
+
+										<div class="row" style="margin-bottom: 20px;"></div>
+
+									</div>
+						      	</div>
+						    </div>
+				    	</div>				    
+				  	</div>
+
+				  	<div class="form-group" ng-init="getCategory('degree', 'items_degree', 'order ASC', false); getCategory('school', 'items_school', 'order ASC', false); getCategory('major', 'items_major', 'order ASC', false)">
+				    	<label for="name">학력:</label>
+				    	<div style="margin-bottom: 15px;">
+					    	<a class="btn btn-primary btn-xs" data-nodrag ng-click="newItem('educations')">
+			    				<i class="glyphicon glyphicon-plus"></i> 학력 추가하기					    			
+			    			</a>
+		    			</div>
+				    	<div ng-show="educations.length > 0" class="new-area">
+			    			<div ui-tree id="tree-root">
+						      	<div ui-tree-nodes ng-model="educations">
+						        	<div ng-repeat="node in educations" ui-tree-node>
+							          		
+						        		<div class="row" style="margin-bottom: 5px;">
+											<div class="col-sm-12">
+										      	<a class="btn btn-danger btn-xs" data-nodrag ng-click="remove(this)">
+								            		<i class="glyphicon glyphicon-remove"></i> 삭제
+								            	</a>
+										    </div>											    
+										</div>
+							          	<div class="row" style="margin-bottom: 5px;">
+										    <div class="col-sm-8">
+										    	<div class="col-sm-4">
+										      		<autocomplete no-auto-sort = "true"
+										    				  click-activation = "true"
+										    				  attr-class="form-group"
+										    				  attr-input-class="form-control" 
+										    				  ng-model="node.school" 
+										    				  attr-placeholder="학교"
+										    				  data="items_school" 
+										    				  on-type="updateItems">
+													</autocomplete>
+										      	</div>
+										      	<div class="col-sm-4">
+										      		<autocomplete no-auto-sort = "true"
+										    				  click-activation = "true"
+										    				  attr-class="form-group"
+										    				  attr-input-class="form-control" 
+										    				  ng-model="node.degree" 
+										    				  attr-placeholder="학위"
+										    				  data="items_degree" 
+										    				  on-type="updateItems">
+													</autocomplete>
+										      	</div>
+											    <div class="col-sm-4">
+											      	<autocomplete no-auto-sort = "true"
+										    				  click-activation = "true"
+										    				  attr-class="form-group"
+										    				  attr-input-class="form-control" 
+										    				  ng-model="node.major" 
+										    				  attr-placeholder="전공"
+										    				  data="items_major" 
+										    				  on-type="updateItems">
+													</autocomplete>
+											    </div>
+										    </div>											    
+
+										    <div class="col-sm-4">										      
+										    	<div class="col-sm-6">
+											    	<div class="dropdown form-group">
+									                    <a class="dropdown-toggle" id="educationsStart{{$index}}" role="button" data-toggle="dropdown" data-target=""
+									                       href="#">
+									                        <div class="input-group date">
+									                            <input type="text" class="form-control" 
+									                            	   placeholder="입학년도"
+									                            	   data-ng-model="node.dateFrom">
+									                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+									                        </div>
+									                    </a>
+									                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+									                        <datetimepicker data-ng-model="node.dateFrom"
+									                        				ng-change="baseValueChange('educations', $index, 'dateFrom', node.dateFrom)"
+									                                        data-datetimepicker-config="{ 
+									                                        	dropdownSelector: '#educationsStart'+$index,
+									                                        	startView:'year',
+									                                        	minView: 'year', 
+									                                        	renderOn: 'educations-end'+$index 
+									                                        }"
+									                                        data-on-set-time="startDateOnSetTime('educations-start'+$index)"
+									                                        data-before-render="startDateBeforeRender($dates,
+									                                        'educations', $index, 'dateTo')"></datetimepicker>
+									                    </ul>
+									                </div>
+											  	</div>
+											  	<div class="col-sm-6">										    	
+											    	<div class="dropdown form-group">
+									                    <a class="dropdown-toggle" id="educationsEnd{{$index}}" role="button" data-toggle="dropdown" data-target=""
+									                       href="#">
+									                        <div class="input-group date">
+									                            <input type="text" class="form-control"
+									                            	   placeholder="졸업년도"
+									                                   data-ng-model="node.dateTo">
+									                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+									                        </div>
+									                    </a>
+									                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+									                        <datetimepicker data-ng-model="node.dateTo"
+									                        				ng-change="baseValueChange('educations', $index, 'dateTo', node.dateTo)"
+									                                        data-datetimepicker-config="{ 
+									                                        	dropdownSelector: '#educationsEnd'+$index,
+									                                        	startView:'year',
+									                                        	minView: 'year', 
+									                                        	renderOn: 'educations-start'+$index
+									                                        }"
+									                                        data-on-set-time="endDateOnSetTime('educations-end'+$index)"
+									                                        data-before-render="endDateBeforeRender($view, $dates, $leftDate, $upDate, $rightDate, 'educations', $index, 'dateFrom')"></datetimepicker>
+									                    </ul>
+									                </div>
+											  	</div>			
+										    </div>
+										</div>
+
+										<div class="row" style="margin-bottom: 15px;"></div>
+
+									</div>
+						      	</div>
+						    </div>
+				    	</div>				    
+				  	</div>
+
+
+	        		<div class="form-group" ng-init="getCategory('field', 'items_field', 'order ASC', true)">
+					    <label for="name">전문 분야:</label>				    		
+				        <tags-input ng-model="inserted_tag" display-property="name" placeholder="분야 태그를 추가하세요." 
+				        			min-length="1" replace-spaces-with-dashes="false">
+					      	<auto-complete source="loadTags($query, 'items_field')"
+					                       min-length="0"
+					                       load-on-focus="true"
+					                       load-on-empty="true"
+					                       max-results-to-show="32"
+					                       template="loadTags-template">
+					        </auto-complete>
+					    </tags-input>
+				  	</div>			
+
+				  	<div class="form-group">
+				    	<label for="name">웹사이트/블로그:</label>
+				    	<div>
+				    		<input type="text" class="form-control" ng-model="model.link">
+				    	</div>
+				  	</div>
+
+				  	<div class="form-group">
+				    	<label for="name">페이스북:</label>
+				    	<div>
+				    		<input type="text" class="form-control" ng-model="model.facebook">
+				    	</div>
+				  	</div>
+
+				  	<div class="form-group">
+				    	<label for="name">트위터:</label>
+				    	<div>
+				    		<input type="text" class="form-control" ng-model="model.tweeter">
+				    	</div>
+				  	</div>
+
+				  	<div class="form-group">
+				    	<label for="name">링크드인:</label>
+				    	<div>
+				    		<input type="text" class="form-control" ng-model="model.linkedin">				    		
+				    	</div>
+				  	</div>
+
+				  	<div class="form-group">
+				    	<label for="name"><span class="text-danger">*</span>뉴스 인기 검색어 표시 여부:</label>
+				    	<div>
+					  		<div toggle-switch 
+		                    	 class="switch-primary" 
+		                    	 ng-model="model.displayHot" 
+		                    	 knob-label="" on-label="on" off-label="off">
+		                    </div>
+	                    </div>
+	                </div>
+
+	                <!-- <div class="form-group">
+				    	<label for="name"><span class="text-danger">*</span>피투자자 인기 검색어 표시 여부:</label>
+				    	<div>
+					  		<div toggle-switch 
+		                    	 class="switch-primary" 
+		                    	 ng-model="model.displayInvestee" 
+		                    	 knob-label="" on-label="on" off-label="off">
+		                    </div>
+	                    </div>
+	                </div> -->
+
+	                <div class="form-group">
+				    	<label for="name"><span class="text-danger">*</span>투자자 표시 여부:</label>
+				    	<div>
+					  		<div toggle-switch 
+		                    	 class="switch-primary" 
+		                    	 ng-model="model.displayInvestor" 
+		                    	 knob-label="" on-label="on" off-label="off">
+		                    </div>
+	                    </div>
+	                </div>
+
+				  	<div class="form-group">
+				    	<label for="name">로고 이미지 업로드:</label>				
+
+				    	<!-- <div ng-show="uploader.isHTML5">			                
+			                <div class="well my-drop-zone" nv-file-drop nv-file-over uploader="uploader">
+			                    Base drop zone
+			                </div>
+			            </div> -->
+
+			            <!-- 2. nv-file-select | nv-file-select="options" -->			     
+			            <div ng-if="null == model.thumbnail">		
+			            	<input class="well my-drop-zone" nv-file-select uploader="uploader" type="file" filters="imageFilter"/>
+			            	<div class="well my-drop-zone" ng-repeat="item in uploader.queue" ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+			            </div>
+		            	<!-- <input nv-file-select uploader="uploader" type="file" multiple/><br/> -->			            
+			            
+			            <div ng-if="null != model.thumbnail">	
+
+
+			            	<!-- upload files start -->
+			            	<div class="well my-drop-zone">
+			            		<span style="margin-right:10px;">{{model.thumbnail.name}}</span>
+			            		<button type="button" class="btn btn-danger btn-xs"
+		                                ng-click="deleteThumbnail(model.thumbnail.id, model.thumbnail.container)"
+		                                title="Delete the file">
+		                            <i class="glyphicon glyphicon-trash"></i>				                            
+		                        </button>
+			            	</div>
+			            	<div class="well my-drop-zone" ng-show="uploader.isHTML5">
+			            		<img class="preview-img" ng-src="{{model.thumbnail.high}}" />
+			            	</div>
+			            </div> 
+			        	<!-- upload files end -->
+			          
+				  	</div>
+				  	
+				  	<div style="height:30px;"></div>
+
+				  	<div class="form-group" style="margin-bottom:100px;">
+				    	<div style="float:left;">
+				    		<button type="button" class="btn btn-default" 
+				  					ng-disabled="model.type == '' || model.name == ''"
+				  					ng-click="save()">저장</button>
+						</div>
+						<div style="float:right;">
+							<button type="button" 
+									class="btn btn-default" 
+				  					ng-click="cancel()">취소</button>
+						</div>
+					</div>		 
+				
+				</form>
+
+	        </div>    
+		</div>
+
+	</div>
+
+
+<!-- footer -->
+<div footer></div>   

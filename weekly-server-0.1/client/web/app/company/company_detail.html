@@ -1,0 +1,771 @@
+<!-- Header -->
+<div id="header" ng-include="'components/navbar/navbar.html'"></div>
+
+<!-- Navigation -->
+<aside id="menu" ng-include="'app/company/company_detail_menu.html'"></aside>
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+  <div class="content">
+	<div ui-view animate-panel>
+	<!-- main start -->
+		<div class="row">
+	  <div class="col-lg-1"></div>
+	  <div class="col-lg-2">
+		<div class="hpanel">
+		  <div class="profile-top">
+			<span class="img-center" ng-show="!company.thumbnail==0">
+			  <img alt="logo" width="146px" src="{{ company.thumbnail.high }}">
+			</span>
+			<span class="img-center" ng-hide="!company.thumbnail==0">
+			  <img alt="logo" width="146px" src="../../assets/images/empty_image.jpg ">
+			</span>
+		  </div>
+		</div>
+	  </div>
+	  <div class="col-lg-9">
+		<div class="hpanel">
+			<tabset>
+			  <!-- 스타트업 개별 -->
+			  <tab ng-if="company.type == '스타트업'">
+				<div class="panel-body">
+					<div class="col-lg-12 company-name">
+					  <p>{{ company.name }}</p>
+					</div>
+
+				  <div>
+					<div class="col-lg-2 intro">
+					  <p>상태 :</p>
+					  <p>소개 :</p>
+					  <p>사업분야 :</p>
+					  <p>누적 투자금 :</p>
+					  <p>대표 :</p>
+					  <p>소재지 :</p>
+					  <p>설립일자 :</p>
+					  <p>웹사이트 :</p>
+					</div>
+					<div class="col-lg-10 intro">
+					  <p>{{ company.state }} &nbsp;</p>
+					  <p>{{ company.description }}&nbsp;</p>
+					  <p>
+						<span data-ng-repeat="fields in company.field">
+						  {{ fields }},
+						</span>
+						&nbsp;</p>
+					  <p>{{ company.totalMoney }} 억원&nbsp;</p>
+					  <p>
+						<span data-ng-repeat="founder in company.founders">
+						  <a href="/person/{{founder.id}}">{{ founder.name }}</a>,
+						</span>
+						&nbsp;</p>
+					  <p>
+						<span data-ng-repeat="locations in company.location">
+						  {{ locations }},&nbsp;
+						</span>
+						&nbsp;</p>
+					  <p>{{ company.foundationDate | date : "yyyy-MM-dd" }}&nbsp;</p>
+					  <p><a href="{{ company.link }}" target="_blank">{{ company.link }}</a>&nbsp;</p>
+					</div>
+				  </div>
+
+				</div>
+			  </tab>
+
+			  <!-- 벤처캐피탈 개별 -->
+			  <tab  ng-if="company.type == '투자기관'">
+				<div class="panel-body">
+				  <div class="col-lg-12 company-name">
+					<p>{{ company.name }}</p>
+				  </div>
+
+				  <div>
+					<div class="col-lg-2 intro">
+					  <p>상태 :</p>
+					  <p>소개 :</p>
+					  <p>투자 단계 :</p>
+					  <p>투자 분야 :</p>
+					  <p>투자 건수 :</p>
+					  <p>피투자사 / 엑싯 :</p>
+					  <p>재투자율 :</p>
+					  <p>대표 :</p>
+					  <p>소재지 :</p>
+					  <p>설립일자 :</p>
+					  <p>웹사이트 :</p>
+					</div>
+					<div class="col-lg-10 intro">
+					  <p>{{ company.state }} &nbsp;</p>
+					  <p>{{ company.description }}&nbsp;</p>
+					  <p>
+						<span data-ng-repeat="steps in company.step">
+						  {{ steps }},
+						</span>
+						&nbsp;</p>
+					  <p>
+						<span data-ng-repeat="fields in company.field">
+						  {{ fields }},
+						</span>
+						&nbsp;</p>
+					  <p>{{ inv2Model.length }}&nbsp;</p>
+					  <p>{{ inv3Model.length }} / {{ company.exitCount }}&nbsp;</p>
+					  <p>{{ company.percentage}}%&nbsp;</p>
+					  <p>
+						<span data-ng-repeat="founder in company.founders">
+						  <a href="/person/{{founder.id}}">{{ founder.name }}</a>,
+						</span>
+						&nbsp;</p>
+					  <p>
+						<span data-ng-repeat="locations in company.location">
+						  {{ locations }},&nbsp;
+						</span>
+						&nbsp;</p>
+					  <p>{{ company.foundationDate | date : "yyyy-MM-dd" }}&nbsp;</p>
+					  <p><a href="{{ company.link }}" target="_blank">{{ company.link }}</a>&nbsp;</p>
+					</div>
+				  </div>
+
+				</div>
+			  </tab>
+
+			  <!-- 보육기관 개별 -->
+			  <tab  ng-if="company.type == '보육기관'">
+				<div class="panel-body">
+				  <div class="col-lg-12 company-name">
+					<p>{{ company.name }}</p>
+				  </div>
+
+				  <div>
+					<div class="col-lg-2 intro">
+					  <p>상태 :</p>
+					  <p>소개 :</p>
+					  <p>보육 분야 :</p>
+					  <p>보육 조건 :</p>
+					  <p>보육 기업 :</p>
+					  <p>대표 :</p>
+					  <p>소재지 :</p>
+					  <p>설립일자 :</p>
+					  <p>웹사이트 :</p>
+					</div>
+					<div class="col-lg-10 intro">
+					  <p>{{ company.state }} &nbsp;</p>
+					  <p>{{ company.description }}&nbsp;</p>
+					  <p>
+						<span data-ng-repeat="fields in company.field">
+						  {{ fields }},
+						</span>
+						&nbsp;</p>
+					  <p>{{ company.condition}}&nbsp;</p>
+					  <p>{{ company.countAc}}&nbsp;</p>
+					  <p>
+						<span data-ng-repeat="founder in company.founders">
+						  <a href="/person/{{founder.id}}">{{ founder.name }}</a>,
+						</span>
+						&nbsp;</p>
+					  <p>
+						<span data-ng-repeat="locations in company.location">
+						  {{ locations }},&nbsp;
+						</span>
+						&nbsp;</p>
+					  <p>{{ company.foundationDate | date : "yyyy-MM-dd" }}&nbsp;</p>
+					  <p><a href="{{ company.link }}" target="_blank">{{ company.link }}</a>&nbsp;</p>
+					</div>
+				  </div>
+
+				</div>
+			  </tab>
+
+			  <!-- 제품 / 서비스 -->
+			  <tab ng-if="company.product.length !== 0">
+				<div class="nav-text">
+				  <div class="stats-label text-color">
+					<span class="">제품/서비스</span>
+				  </div>
+				</div>
+				<div class="panel-body2">
+				  <div class="table-responsive">
+					<!-- content start -->
+					<table class="table">
+					  <thead class="table-heading">
+					  <tr>
+						<td style="min-width: 50px">
+						  <a href="#">제품 / 서비스명</a>
+						</td>
+						<td>
+						  <a href="#" >설명</a>
+						</td>
+						<td>
+						  <a href="#">영상</a>
+						</td>
+					  </tr>
+					  </thead>
+
+					  <!-- infinite scroll start -->
+					  <tbody class="tbody-color" >
+					  <tr ng-repeat="products in company.product | filter:searchContent">
+						<td class="issue-info">
+						  {{ products.name }}
+						</td>
+						<!--<td>{{ post.field }}</td>-->
+						<td class="issue-info">
+						  {{ products.description }}<br>
+						</td>
+						<td class="issue-info">
+						  <a href="{{ products.link }}" target="_blank">{{ products.link }}</a>
+						</td>
+					  </tr>
+					  <!-- infinite scroll end -->
+
+					  </tbody>
+					</table>
+					<!-- content end -->
+				  </div>
+				</div>
+			  </tab>
+
+			  <!-- IPO -->
+			  <tab ng-if="company.ipos.length !== 0">
+			  <div class="nav-text">
+				<div class="stats-label text-color">
+				  <span class="">기업 공개</span>
+				</div>
+			  </div>
+				<div class="panel-body2">
+
+				  <div class="table-responsive">
+					<!-- content start -->
+					<table class="table">
+					  <thead class="table-heading">
+					  <tr>
+						<td style="min-width: 50px">
+						  <a href="#">발표날짜</a>
+						</td>
+						<td>
+						  <a href="#" >상장 시장</a>
+						</td>
+						<td>
+						  <a href="#">공모금액</a>
+						</td>
+						<td>
+						  <a href="#">기업가치</a>
+						</td>
+					  </tr>
+					  </thead>
+
+					  <!-- infinite scroll start -->
+					  <tbody class="tbody-color" >
+					  <tr ng-repeat="ipo in company.ipos | filter:searchContent">
+						<td class="issue-info">
+							{{ ipo.announcementDate | date : "yyyy-MM-dd" }}
+						</td>
+						<td class="issue-info">
+						  {{ ipo.market }}
+						</td>
+						<td class="issue-info">
+							{{ ipo.money  }} 억원
+						</td>
+						<td class="issue-info">
+							<span ng-show="ipo.value">
+							{{ ipo.value  }} 억원
+							</span>
+						  <span ng-show="!ipo.value">
+								미확인
+							</span>
+						</td>
+					  </tr>
+					  <!-- infinite scroll end -->
+
+					  </tbody>
+					</table>
+					<!-- content end -->
+				  </div>
+				</div>
+			  </tab>
+
+			  <!-- 투자 유치 -->
+			  <tab ng-if="invests.length !== 0">
+				<div class="nav-text">
+				  <div class="stats-label text-color">
+					<span class="">투자유치: 총 {{ invest_total_money  }} 억원 </span>
+				  </div>
+				</div>
+				<div class="panel-body2">
+				  <div class="table-responsive">
+					<!-- content start -->
+					<table class="table">
+					  <thead class="table-heading">
+					  <tr>
+						<td style="min-width: 50px">
+						  <a href="#">일자</a>
+						</td>
+						<td>
+						  <a href="#" >투자사</a>
+						</td>
+						<td>
+						  <a href="#">투자금액</a>
+						</td>
+						<td>
+						  <a href="#">기업가치</a>
+						</td>
+						<td>
+						  <a href="#">관련기사</a>
+						</td>
+					  </tr>
+					  </thead>
+
+					  <!-- infinite scroll start -->
+					  <tbody class="tbody-color" >
+					  <tr ng-repeat="inv in invests | filter:searchContent">
+						<td class="issue-info">
+							{{ inv.announcementDate | date : "yyyy-MM-dd" }}
+						</td>
+						<td class="issue-info">
+						  <span ng-repeat="Companies in inv.investorCompany">
+							<a href="/company/{{Companies.id}}">{{ Companies.name }}</a><br>
+						  </span>
+						  <span ng-repeat="Persons in inv.investorPerson">
+							<a href="/person/{{Persons.id}}">{{ Persons.name }}</a><br>
+						  </span>
+						</td>
+						<td class="issue-info">
+							{{ inv.money  }} 억원
+						</td>
+						<td class="issue-info">
+							<span ng-show="inv.investee.moneyUnit">
+							{{ inv.investee.moneyUnit }}
+							</span>
+							<span ng-show="!inv.investee.money">
+								미확인
+							</span>
+						</td>
+						<td class="issue-info">
+						  <a href="{{ investees.link }}" target="_blank" style="text-decoration: underline">링크</a>
+						</td>
+					  </tr>
+					  <!-- infinite scroll end -->
+
+					  </tbody>
+					</table>
+					<!-- content end -->
+				  </div>
+				</div>
+			  </tab>
+
+			  <!-- 인수한 회사 -->
+			  <tab ng-if="mnas.length !== 0">
+				<div class="nav-text">
+				  <div class="stats-label text-color">
+					<span class="">인수한 회사</span>
+				  </div>
+				</div>
+				<div class="panel-body2">
+				  <div class="table-responsive">
+					<!-- content start -->
+					<table class="table">
+					  <thead class="table-heading">
+					  <tr>
+						<td style="min-width: 50px">
+						  <a href="#">일자</a>
+						</td>
+						<td>
+						  <a href="#" >피인수사</a>
+						</td>
+						<td>
+						  <a href="#">인수금액</a>
+						</td>
+						<td>
+						  <a href="#">관련기사</a>
+						</td>
+					  </tr>
+					  </thead>
+
+					  <!-- infinite scroll start -->
+					  <tbody class="tbody-color" >
+					  <tr ng-repeat="mna in mnas | filter:searchContent">
+						<td class="issue-info">
+							{{ mna.announcementDate | date : "yyyy-MM-dd" }}
+						</td>
+						<td class="issue-info">
+						  <a href="/company/{{mna.handover.id}}">{{ mna.handover.name }}</a><br>
+						</td>
+						<td class="issue-info">
+						  {{ mna.money }} 억원
+						</td>
+						<td class="issue-info">
+						  <a href="{{ mna.link }}" target="_blank" style="text-decoration: underline">링크</a>
+						</td>
+					  </tr>
+					  <!-- infinite scroll end -->
+
+					  </tbody>
+					</table>
+					<!-- content end -->
+				  </div>
+				</div>
+			  </tab>
+
+			  <!-- 투자한 회사 -->
+			  <tab ng-if="inv2Model.length !== 0">
+				<div class="nav-text">
+				  <div class="stats-label text-color">
+					<span class="">투자한 회사</span>
+				  </div>
+				</div>
+				<div class="panel-body2">
+				  <div class="table-responsive">
+					<!-- content start -->
+					<table class="table">
+					  <thead class="table-heading">
+					  <tr>
+						<td style="min-width: 50px">
+						  <a href="#">일자</a>
+						</td>
+						<td>
+						  <a href="#" >피투자사</a>
+						</td>
+						<td>
+						  <a href="#">투자 라운드 규모</a>
+						</td>
+						<td>
+						  <a href="#">기업가치</a>
+						</td>
+						<td>
+						  <a href="#">관련 기사</a>
+						</td>
+					  </tr>
+					  </thead>
+
+					  <!-- infinite scroll start -->
+					  <tbody class="tbody-color" >
+					  <tr ng-repeat="inv2 in inv2Model | filter:searchContent">
+						<td class="issue-info">
+							{{ inv2.announcementDate | date : "yyyy-MM-dd" }}
+						</td>
+						<td class="issue-info">
+						  <a href="/company/{{inv2.investee.id}}">{{ inv2.investee.name }}</a><br>
+						</td>
+						<td class="issue-info">
+						  {{ inv2.money }} 억원
+						</td>
+						<td class="issue-info">
+						  <span ng-show="inv2.value">
+						    {{ inv2.value }} 억원
+						  </span>
+						  <span ng-show="!inv2.value">
+						    미확인
+						  </span>
+						</td>
+						<td class="issue-info">
+						  <a href="{{ inv2.link }}" target="_blank" style="text-decoration: underline">링크</a>
+						</td>
+					  </tr>
+					  <!-- infinite scroll end -->
+
+					  </tbody>
+					</table>
+					<!-- content end -->
+				  </div>
+				</div>
+			  </tab>
+
+			  <!-- 보육받은 이력 -->
+			  <tab ng-if="icbModel.length !== 0">
+				<div class="nav-text">
+				  <div class="stats-label text-color">
+					<span class="">보육받은 이력</span>
+				  </div>
+				</div>
+				<div class="panel-body2">
+				  <div class="table-responsive">
+					<!-- content start -->
+					<table class="table">
+					  <thead class="table-heading">
+					  <tr>
+						<td style="min-width: 50px">
+						  <a href="#">보육 기관</a>
+						</td>
+						<td>
+						  <a href="#" >프로그램명</a>
+						</td>
+						<td>
+						  <a href="#">기수</a>
+						</td>
+						<td>
+						  <a href="#">연도</a>
+						</td>
+					  </tr>
+					  </thead>
+
+					  <!-- infinite scroll start -->
+					  <tbody class="tbody-color" >
+					  <tr ng-repeat="icb in icbModel | filter:searchContent">
+						<td class="issue-info">
+						  <a href="/company/{{icb.company.id}}">
+							{{ icb.company.name }}
+						  </a>
+						</td>
+						<td class="issue-info">
+						  {{ icb.name }}
+						</td>
+						<td class="issue-info">
+						  {{ icb.number }}
+						</td>
+						<td class="issue-info">
+						  {{ icb.year }}
+						</td>
+					  </tr>
+					  <!-- infinite scroll end -->
+
+					  </tbody>
+					</table>
+					<!-- content end -->
+				  </div>
+				</div>
+			  </tab>
+
+			  <!-- 현재 모집중인 프로그램 -->
+			  <tab ng-if="company.isRecruiting == true">
+				<div class="nav-text">
+				  <div class="stats-label text-color">
+					<span class="">현재 모집중인 프로그램</span>
+				  </div>
+				</div>
+				<div class="panel-body2">
+				  <div class="table-responsive">
+					<!-- content start -->
+					<table class="table">
+					  <thead class="table-heading">
+					  <tr>
+						<td>
+						  <a href="#" >프로그램명</a>
+						</td>
+						<td>
+						  <a href="#">기수</a>
+						</td>
+						<td>
+						  <a href="#">마감일자</a>
+						</td>
+						<td>
+						  <a href="#">지원 링크</a>
+						</td>
+					  </tr>
+					  </thead>
+
+					  <!-- infinite scroll start -->
+					  <tbody class="tbody-color" ng-repeat="incubate in company.incubation | filter:searchContent">
+					  <tr ng-if="incubate.deadline >= today">
+						<td class="issue-info">
+							{{ incubate.name }}
+						</td>
+						<td class="issue-info">
+						  {{ incubate.number }}
+						</td>
+						<td class="issue-info">
+						  {{ incubate.deadline | date : "yyyy-MM-dd" }}
+						</td>
+						<td class="issue-info">
+						  <a href="{{ incubate.link }}" target="_blank" style="text-decoration: underline">링크</a>
+						</td>
+					  </tr>
+					  <!-- infinite scroll end -->
+
+					  </tbody>
+					</table>
+					<!-- content end -->
+				  </div>
+				</div>
+			  </tab>
+
+			  <!-- 보육한 이력 -->
+			  <tab ng-if="company.incubation.length !== 0">
+				<div class="nav-text">
+				  <div class="stats-label text-color">
+					<span class="">보육한 이력</span>
+				  </div>
+				</div>
+				<div class="panel-body2">
+				  <div class="table-responsive">
+					<!-- content start -->
+					<table class="table">
+					  <thead class="table-heading">
+					  <tr>
+						<td style="min-width: 50px">
+						  <a href="#">보육한 이력</a>
+						</td>
+						<td>
+						  <a href="#">구분(기수)</a>
+						</td>
+						<td>
+						  <a href="#">보육 회사</a>
+						</td>
+					  </tr>
+					  </thead>
+
+					  <!-- infinite scroll start -->
+					  <tbody class="tbody-color" ng-repeat="incubate in company.incubation | filter:searchContent">
+					  <tr ng-if="(incubate.deadline < today) || (!incubate.deadline)">
+						<td class="issue-info">
+						  {{ incubate.year }}
+						</td>
+						<td class="issue-info">
+						  {{ incubate.number }}
+						</td>
+						<td class="issue-info">
+						  <span ng-repeat="companies in incubate.companies">
+						  <a href="/company/{{companies.id}}">
+							{{ companies.name }},
+						  </a>
+						  </span>
+						</td>
+					  </tr>
+					  <!-- infinite scroll end -->
+
+					  </tbody>
+					</table>
+					<!-- content end -->
+				  </div>
+				</div>
+			  </tab>
+
+			  <!-- 포트 폴리오 -->
+			  <tab ng-if="inv2Model.length !== 0">
+				<div class="nav-text">
+				  <div class="stats-label text-color">
+					<span class="">포트폴리오</span>
+				  </div>
+				</div>
+				<div class="panel-body2">
+				  <div class="table-responsive">
+					<!-- content start -->
+					<table class="table">
+					  <thead class="table-heading">
+					  <tr>
+						<td style="min-width: 50px">
+						  <a href="#">회사</a>
+						</td>
+						<td>
+						  <a href="#">소개</a>
+						</td>
+						<td>
+						  <a href="#">상태</a>
+						</td>
+					  </tr>
+					  </thead>
+
+					  <!-- infinite scroll start -->
+					  <tbody class="tbody-color" >
+					  <tr ng-repeat="icb in inv3Model | filter:searchContent">
+						<td class="issue-info">
+						  <a href="/company/{{icb.investee.id}}">
+							{{ icb.investee.name }}
+						  </a>
+						</td>
+						<td class="issue-info">
+						  {{ icb.investee.description }}
+						</td>
+						<td class="issue-info">
+						  {{ icb.investee.state }}
+						</td>
+					  </tr>
+					  <!-- infinite scroll end -->
+
+					  </tbody>
+					</table>
+					<!-- content end -->
+				  </div>
+				</div>
+			  </tab>
+
+			  <!-- 주요 구성원 -->
+			  <tab ng-if="company.employee.length !== 0">
+				<div class="nav-text">
+				  <div class="stats-label text-color">
+					<span class="">주요 구성원</span>
+				  </div>
+				</div>
+				<div class="panel-body2">
+				  <div class="table-responsive">
+					<!-- content start -->
+					<table class="table">
+					  <thead class="table-heading">
+					  <tr>
+						<td style="min-width: 50px">
+						  <a href="#">이름</a>
+						</td>
+						<td>
+						  <a href="#" >직책</a>
+						</td>
+					  </tr>
+					  </thead>
+
+					  <!-- infinite scroll start -->
+					  <tbody class="tbody-color" >
+					  <tr ng-repeat="employees in company.employee | filter:searchContent">
+						<td class="issue-info">
+							<a href="/person/{{ employees.person.id }}">{{ employees.person.name }}</a>
+						</td>
+						<td class="issue-info">
+						  {{ employees.position }}
+						</td>
+					  </tr>
+					  <!-- infinite scroll end -->
+
+					  </tbody>
+					</table>
+					<!-- content end -->
+				  </div>
+				</div>
+			  </tab>
+
+			  <!-- 관련 뉴스 -->
+			  <tab ng-if="company.newsCompany.length !== 0">
+				<div class="nav-text">
+				  <div class="stats-label text-color">
+					<span class="">관련 뉴스</span>
+				  </div>
+				</div>
+				<div class="panel-body2">
+				  <div class="table-responsive">
+					<!-- content start -->
+					<table class="table">
+					  <thead class="table-heading">
+					  <tr>
+						<td style="min-width: 50px">
+						  <a href="#">일자</a>
+						</td>
+						<td>
+						  <a href="#" >제목</a>
+						</td>
+						<td>
+						  <a href="#" >링크</a>
+						</td>
+				  		</tr>
+					  </thead>
+
+					  <!-- infinite scroll start -->
+					  <tbody class="tbody-color" >
+					  <tr ng-repeat="news in company.newsCompany | filter:searchContent">
+						<td class="issue-info">
+							{{ news.news.datetime | date : "yyyy-MM-dd"}}
+						</td>
+						<td class="issue-info">{{ news.news.title }}<br>
+						</td>
+						<td class="issue-info">
+						  <a href="{{ news.news.link}}" target="_blank" style="text-decoration: underline">링크</a>
+						</td>
+					  </tr>
+					  <!-- infinite scroll end -->
+
+					  </tbody>
+					</table>
+					<!-- content end -->
+				  </div>
+				</div>
+			  </tab>
+
+			</tabset>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<!-- main end -->
+  </div>
+</div>

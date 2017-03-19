@@ -1,0 +1,93 @@
+<!-- Header -->
+<div id="header" ng-include="'components/navbar/navbar.html'"></div>
+
+<!-- Navigation -->
+<aside id="menu" ng-include="'app/business/business_menu.html'"></aside>
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+  <div class="content">
+    <div ui-view animate-panel>
+      <!-- main start -->
+      <div class="row">
+        <div class="col-lg-9">
+          <div class="hpanel">
+            <div class="panel-body2">
+              <div class="table-responsive">
+                <!-- content start -->
+                <table class="table">
+                  <thead class="table-heading">
+                  <tr>
+                    <td style="min-width: 50px;">
+                      <a href="#">
+                        마감 일자
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#" >
+                        제목
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#">
+                        기관
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#">
+                        자금 지원
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#">
+                        공간 지원
+                      </a>
+                    </td>
+                  </tr>
+                  </thead>
+
+                  <tbody class="tbody-color" infinite-scroll='loadMore()' infinite-scroll-disabled='infiniteBreak' infinite-scroll-distance='0'>
+                  <tr ng-repeat="content in contents | filter : { supportMoney : checkboxModel.value1 } | filter : { supportPlace : checkboxModel.value2 }" >
+                    <td>
+                      <span ng-if="content.deadline == today" class="text-danger">오늘 마감</span>
+                      <span ng-if="content.deadline == tomorrow" class="text-danger">내일 마감</span>
+                      <span ng-if="content.deadline == null">상시 접수</span>
+                      <span ng-if="content.deadline !== tomorrow && content.deadline !== today">{{ content.deadline | date : "MM/dd"}}</span>
+                    </td>
+                    <td><a href="{{ content.link }}" target="_blank">{{ content.title }}</a></td>
+                    <td>
+                      <span data-ng-repeat="org in content.organizations">{{ org.name }}</span>
+                    </td>
+                    <td>
+                      <span ng-show="content.supportMoney == false"><i class="fa fa-times" aria-hidden="true"></i></span>
+                      <span ng-show="content.supportMoney == true"><i class="fa fa-circle-o" aria-hidden="true"></i></span>
+                    </td>
+                    <td>
+                      <span ng-show="content.supportPlace == false"><i class="fa fa-times" aria-hidden="true"></i></span>
+                      <span ng-show="content.supportPlace == true"><i class="fa fa-circle-o" aria-hidden="true"></i></span>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <!-- content end -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-3">
+          <!-- /banner -->
+          <div class="hpanel" ng-repeat="banner in banners">
+            <div class="">
+                <a href="{{ banner.link }}" target="_blank"><img src="{{ banner.file.url }}" width="100%" alt="{{ banner.description}}"></a>
+            </div>
+          </div>
+          <!-- banner/ -->
+        </div>
+
+      </div>
+    </div>
+    <!-- main end -->
+  </div>
+</div>

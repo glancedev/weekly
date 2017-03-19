@@ -1,0 +1,79 @@
+<!-- header -->
+<div header></div>
+
+
+	<div class="jumbotron">
+
+	    <div class="jumbotron">
+
+	    	<div user-sidebar></div>    
+	        
+	        <div class="col-md-10">
+
+	        	<div class="form-group">			    	
+			    	<input type="text" class="form-control" placeholder="관리자 아이디를 검색하세요." 
+			    	 	   ng-enter="search()" ng-model="keyword">
+			  	</div>
+
+	            <table st-table="rowCollection" class="table table-hover">
+	                <thead>
+	                <tr>
+	                	<th>#</th>
+	                	<th>아이디</th>
+	                    <th>이름</th>
+	                    <th>이메일</th>
+	                    <th>생성일</th>
+	                    <th>사용여부</th>
+	                    <th>권한부여</th>	                    
+	                    <th>삭제</th>	                    
+	                </tr>
+	                </thead>
+	                <tbody>
+	                <tr dir-paginate="content in contents | itemsPerPage: pageSize" total-items="totalCount" current-page="pagination.current">
+	                	<td>{{(totalCount - (pageSize * (pagination.current-1))) - $index}}</td>
+	                	<td><a href="user/view/{{content.userId}}">{{content.userId}}</a></td>
+	                    <td><a href="user/view/{{content.userId}}">{{content.username}}</a></td>
+	                    <td>{{content.email}}</td>
+	                    <td>{{content.created | date:'yyyy-MM-dd / HH:mm'}}</td>
+	                    <td>
+	                    	<div toggle-switch 
+	                        	 class="switch-primary" 
+	                        	 ng-model="content.available" 
+	                        	 on-change="available($index, content.userId, !content.available)"
+	                        	 is-disabled="content.userId === 'weekly' ? true : false"
+	                        	 knob-label="" on-label="on" off-label="off">
+	                       	</div>
+	                    </td>
+	                    <td>
+	                        <button class="btn btn-info fa fa-lock"                                 
+	                                type="button"
+	                                ng-disabled="content.userId === 'weekly' ? true : false"
+	                                ng-click="viewAuth(content.username, content.userId)">
+	                        </button>
+	                    </td>
+	                    <td>
+	                        <button class="btn btn-danger fa fa-trash-o"                                 
+	                                type="button"
+	                                ng-disabled="content.userId === 'weekly' ? true : false"
+	                                ng-click="confirmDelete($index, content.userId)">
+	                        </button>
+	                    </td>
+	                </tr>
+	                </tbody>
+	            </table>
+
+	            <div style="text-align:center">
+	                <dir-pagination-controls boundary-links="true" 
+	                                         on-page-change="pageChanged(newPageNumber)" 
+	                                         template-url="components/pagination/dirPagination.tpl.html">                    
+	                </dir-pagination-controls>
+	            </div>          
+
+	        </div>    
+		</div>
+
+	</div>
+
+
+<!-- footer -->
+<div footer></div>    

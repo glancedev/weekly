@@ -1,0 +1,29 @@
+<div id="navigation" class="menu-left">
+  <ul ng-class="{in: $state.includes('member')}" side-navigation class="nav" id="side-menu">
+    <li ng-repeat="menu in sub_menu" ui-sref-active="active">
+      <a ng-click="$index == index || loadMore($index)">
+        <span class="nav-label">{{menu.title}}</span>
+        <span class="pull-right nav-space event-count" ng-init="getCountEvent($index)">{{menu.count}}</span>
+      </a>
+    </li>
+  </ul>
+
+  <!-- <div class="nav-text">
+    <div class="stats-label text-color">
+      <span class="">비용별</span>
+    </div>
+  </div>
+  <div class="event-box" id="side-menu">
+    <div class="event-tab">
+      <input type="checkbox" ng-model="checkboxModel.value1" ng-true-value="'false'" ng-false-value="''" class="pull-left">&nbsp
+      <span class="nav-label2">무료</span>
+    </div>
+    <div class="event-tab">
+      <input type="checkbox" ng-model="checkboxModel.value2" ng-true-value="'true'" ng-false-value="''" class="pull-left">&nbsp
+      <span class="nav-label2">유료</span>
+    </div>
+  </div>
+</div>
+
+
+ -->

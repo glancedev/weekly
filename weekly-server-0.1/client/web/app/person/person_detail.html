@@ -1,0 +1,329 @@
+<!-- Header -->
+<div id="header" ng-include="'components/navbar/navbar.html'"></div>
+
+<!-- Navigation -->
+<aside id="menu" ng-include="'app/person/person_detail_menu.html'"></aside>
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+  <div class="content">
+	<div ui-view animate-panel>
+	  <!-- main start -->
+	  <div class="row">
+		<div class="col-lg-1"></div>
+		<div class="col-lg-2">
+		  <div class="hpanel">
+			<div class="profile-top">
+			<span class="img-center" ng-show="!model.thumbnail==0">
+			  <img alt="logo" width="146px" src="{{ model.thumbnail.high }}">
+			</span>
+			  <span class="img-center" ng-hide="!model.thumbnail==0">
+			  <img alt="logo" width="146px" src="../../assets/images/empty_image.jpg ">
+			</span>
+			</div>
+		  </div>
+		</div>
+		<div class="col-lg-9">
+		  <div class="hpanel">
+			<tabset>
+			  <tab>
+				<div class="panel-body">
+				  <div class="col-lg-12 company-name">
+					<p>{{ model.name }}</p>
+				  </div>
+
+				  <div>
+					<div class="col-lg-2 intro">
+					  <p>유형 :</p>
+					  <p>소속 :</p>
+					  <p>직책 :</p>
+					  <p>성별 :</p>
+					  <p>출생년도 :</p>
+					  <p>소셜 :</p>
+					</div>
+					<div class="col-lg-10 intro">
+					  <!-- 유형 -->
+					  <p>
+						<span data-ng-repeat="types in model.type">
+						  {{ types }},&nbsp;
+						</span>
+					  </p>
+					  <!-- 소속 -->
+					  <p>
+						<span data-ng-repeat="employees in model.employee">
+						 <a href="company/{{employees.company.id}}" ng-if="employees.current==true">{{ employees.company.name }}</a>
+						</span>
+					  </p>
+					  <!-- 직책 -->
+					  <p>
+						<span data-ng-repeat="employees in model.employee">
+						 <span ng-if="employees.current==true">{{ employees.position }}</span>
+						</span>
+					  </p>
+					  <!-- 성별 -->
+					  <p>
+						<span ng-if="model.gender=='m'">남성</span>
+						<span ng-if="model.gender=='f'">여성</span>
+					  </p>
+					  <!-- 출생년도 -->
+					  <p>
+						<span ng-show="model.birth">
+						  {{ model.birth | date : "yyyy-MM-dd" }}
+						</span>
+						<span ng-show="!model.birth">
+						  미확인
+						</span>
+					  </p>
+					  <!-- 소셜 -->
+					  <p>
+						<span ng-if="model.blog">
+						  <a href="{{ model.blog }}" target="_blank">blog, &nbsp</a>
+						</span>
+						<span ng-if="model.facebook">
+						  <a href="{{ model.facebook }}" target="_blank">fb, &nbsp</a>
+						</span>
+						<span ng-if="model.tweeter">
+						  <a href="{{ model.tweeter }}" target="_blank">twtr, &nbsp</a>
+						</span>
+						<span ng-if="model.linkedin">
+						  <a href="{{ model.linkedin }}" target="_blank">linkedin</a>
+						</span>
+					  </p>
+					</div>
+				  </div>
+
+				</div>
+			  </tab>
+
+			  <!-- 경력 -->
+			  <tab ng-if="model.employee.length !== 0">
+				<div class="nav-text">
+				  <div class="stats-label text-color">
+					<span class="">경력</span>
+				  </div>
+				</div>
+				<div class="panel-body2">
+
+				  <div class="table-responsive">
+					<!-- content start -->
+					<table class="table">
+					  <thead class="table-heading">
+					  <tr>
+						<td style="min-width: 50px">
+						  <a href="#">기간</a>
+						</td>
+						<td>
+						  <a href="#" >소속</a>
+						</td>
+						<td>
+						  <a href="#">직책</a>
+						</td>
+					  </tr>
+					  </thead>
+
+					  <tbody class="tbody-color" >
+					  <tr ng-repeat="employees in model.employee">
+						<td class="issue-info">
+							<span>{{ employees.dateFrom | date : "yyyy-MM-dd"}}</span>
+							&nbsp; - &nbsp;
+							<span ng-if="employees.current==true">현재</span>
+							<span ng-if="employees.current==false">{{ employees.dateTo | date : "yyyy-MM-dd"}}</span>
+						</td>
+						<td class="issue-info">
+						  <a href="/company/{{ employees.company.id }}">{{ employees.company.name }}</a><br>
+						</td>
+						<td class="issue-info">
+						  {{ employees.position }}
+						</td>
+					  </tr>
+
+					  </tbody>
+					</table>
+					<!-- content end -->
+				  </div>
+				</div>
+			  </tab>
+
+			  <!-- 학력 -->
+			  <tab ng-if="model.education.length !== 0">
+				<div class="nav-text">
+				  <div class="stats-label text-color">
+					<span class="">학력</span>
+				  </div>
+				</div>
+				<div class="panel-body2">
+
+				  <div class="table-responsive">
+					<!-- content start -->
+					<table class="table">
+					  <thead class="table-heading">
+					  <tr>
+						<td style="min-width: 50px">
+						  <a href="#">기간</a>
+						</td>
+						<td>
+						  <a href="#" >학교명</a>
+						</td>
+						<td>
+						  <a href="#">학위</a>
+						</td>
+						<td>
+						  <a href="#">전공</a>
+						</td>
+					  </tr>
+					  </thead>
+
+					  <tbody class="tbody-color" >
+					  <tr ng-repeat="educations in model.education">
+						<td class="issue-info">
+						  <span>{{ educations.dateFrom | date : "yyyy-MM-dd"}}</span>
+						  &nbsp; - &nbsp;
+						  <span ng-if="educations.current">현재</span>
+						  <span ng-if="!educations.current">{{ educations.dateTo | date : "yyyy-MM-dd"}}</span>
+						</td>
+						<td class="issue-info">
+						  {{ educations.school }}
+						</td>
+						<td class="issue-info">
+						  {{ educations.degree }}
+						</td>
+						<td class="issue-info">
+						  {{ educations.major }}
+						</td>
+					  </tr>
+
+					  </tbody>
+					</table>
+					<!-- content end -->
+				  </div>
+				</div>
+			  </tab>
+
+			  <!-- 투자  -->
+			  <tab ng-if="invModel.length !== 0">
+				<div class="nav-text">
+				  <div class="stats-label text-color">
+					<span class="">투자 이력</span>
+				  </div>
+				</div>
+				<div class="panel-body2">
+				  <!-- 제품 / 서비스 -->
+				  <div class="table-responsive">
+					<!-- content start -->
+					<table class="table">
+					  <thead class="table-heading">
+					  <tr>
+						<td style="min-width: 50px">
+						  <a href="#">일자</a>
+						</td>
+						<td>
+						  <a href="#" >피투자사</a>
+						</td>
+						<td>
+						  <a href="#">투자 라운드 규모</a>
+						</td>
+						<td>
+						  <a href="#">기업가치</a>
+						</td>
+						<td>
+						  <a href="#">관련기사</a>
+						</td>
+					  </tr>
+					  </thead>
+
+					  <!-- infinite scroll start -->
+					  <tbody class="tbody-color" >
+					  <tr ng-repeat="inv in invModel | filter:searchContent">
+						<td class="issue-info">
+							{{ inv.announcementDate | date : "yyyy-MM-dd" }}
+						</td>
+						<td class="issue-info">
+						  <a href="/company/{{inv.investee.id}}">
+							{{ inv.investee.name }}
+						  </a>
+						</td>
+						<td class="issue-info">
+						  <span ng-show="inv.investee.money">
+						  {{ inv.investee.money }} 억원
+						  </span>
+						  <span ng-show="!inv.investee.money">
+						  미확인
+						  </span>
+						</td>
+						<td class="issue-info">
+						  <span ng-show="inv.investee.moneyUnit">
+						    {{ inv.investee.moneyUnit }} 억원
+						  </span>
+						  <span ng-show="!inv.investee.money">
+						    미확인
+						  </span>
+						</td>
+						<td class="issue-info">
+						  <a href="{{inv.link}}" target="_blank" style="text-decoration: underline">
+							링크
+						  </a>
+						</td>
+					  </tr>
+					  <!-- infinite scroll end -->
+
+					  </tbody>
+					</table>
+					<!-- content end -->
+				  </div>
+				</div>
+			  </tab>
+
+			  <!-- 관련 뉴스 -->
+			  <tab ng-if="model.newsPerson.length !== 0">
+				<div class="nav-text">
+				  <div class="stats-label text-color">
+					<span class="">관련 뉴스</span>
+				  </div>
+				</div>
+				<div class="panel-body2">
+				  <!-- 제품 / 서비스 -->
+				  <div class="table-responsive">
+					<!-- content start -->
+					<table class="table">
+					  <thead class="table-heading">
+					  <tr>
+						<td style="min-width: 50px">
+						  <a href="#">일자</a>
+						</td>
+						<td>
+						  <a href="#" >제목</a>
+						</td>
+					  </tr>
+					  </thead>
+
+					  <!-- infinite scroll start -->
+					  <tbody class="tbody-color" >
+					  <tr ng-repeat="news in model.newsPerson | filter:searchContent">
+						<td class="issue-info">
+							{{ news.news.datetime | date : "yyyy-MM-dd" }}
+						</td>
+						<td class="issue-info">
+						  {{ news.news.title }}
+						</td>
+						<td class="issue-info">
+						  <a href="{{ news.news.link }}" target="_blank" style="text-decoration: underline">링크</a>
+						</td>
+					  </tr>
+					  <!-- infinite scroll end -->
+
+					  </tbody>
+					</table>
+					<!-- content end -->
+				  </div>
+				</div>
+			  </tab>
+
+
+			</tabset>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<!-- main end -->
+  </div>
+</div>

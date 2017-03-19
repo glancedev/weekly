@@ -1,0 +1,133 @@
+<!-- header -->
+<div header></div>
+
+
+	<div class="jumbotron">
+
+		<!-- <a ng-click="open()"class="pull-right btn btn-primary btn-outline btn-rounded">ADD CHANNEL</a> -->		
+
+
+	    <div class="jumbotron">
+
+	    	<div banner-sidebar></div>      
+	        
+	        <div class="col-md-10">
+	            
+	        	<form>
+	        		<div class="form-group">
+				    	<label for="name"><span class="text-danger">*</span>배너명:</label>
+				    	<input type="text" class="form-control" ng-model="model.name">
+				  	</div>
+
+	        		<div class="form-group">
+				    	<label for="description">배너 설명:</label>
+				    	<input type="text" class="form-control" ng-model="model.description">
+				  	</div>
+
+				  	<div class="form-group">
+				    	<label for="description">배너 링크:</label>
+				    	<input type="text" class="form-control" ng-model="model.link">
+				  	</div>
+				  	
+				  	<div class="form-group">
+				    	<label for="start"><span class="text-danger">*</span>배너 시작일:</label>				   	
+				    	<div class="dropdown form-group" style="width:29%;">
+		                    <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target=""
+		                       href="#">
+		                        <div class="input-group date">
+		                            <input type="text" class="form-control" data-ng-model="model.start">
+		                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+		                        </div>
+		                    </a>
+		                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+		                        <datetimepicker data-ng-model="model.start"
+		                                        data-datetimepicker-config="{ dropdownSelector: '#dropdownStart', renderOn: 'end-date-changed' }"
+		                                        data-on-set-time="startDateOnSetTime()"
+		                                        data-before-render="startDateBeforeRender($dates)"></datetimepicker>
+		                    </ul>
+		                </div>
+				  	</div>
+
+				  	<div class="form-group">
+				    	<label for="end"><span class="text-danger">*</span>배너 종료일:</label>
+				    	<div class="dropdown form-group" style="width:29%;">
+		                    <a class="dropdown-toggle" id="dropdownEnd" role="button" data-toggle="dropdown" data-target=""
+		                       href="#">
+		                        <div class="input-group date">
+		                            <input type="text" class="form-control" data-ng-model="model.end">
+		                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+		                        </div>
+		                    </a>
+		                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+		                        <datetimepicker data-ng-model="model.end"
+		                                        data-datetimepicker-config="{ dropdownSelector: '#dropdownEnd', renderOn: 'start-date-changed' }"
+		                                        data-on-set-time="endDateOnSetTime()"
+		                                        data-before-render="endDateBeforeRender($view, $dates, $leftDate, $upDate, $rightDate)"></datetimepicker>
+		                    </ul>
+		                </div>
+				  	</div>				  	
+				  	
+
+				  	<div class="form-group">
+				    	<label for="name">배너 이미지 업로드:</label>				
+
+				    	<!-- <div ng-show="uploader.isHTML5">			                
+			                <div class="well my-drop-zone" nv-file-drop nv-file-over uploader="uploader">
+			                    Base drop zone
+			                </div>
+			            </div> -->
+
+			            <!-- 2. nv-file-select | nv-file-select="options" -->			     
+			            <div ng-if="null == model.file">		
+			            	<input class="well my-drop-zone" nv-file-select uploader="uploader" type="file" filters="imageFilter"/>
+			            	<div class="well my-drop-zone" ng-repeat="item in uploader.queue" ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+			            </div>
+		            	<!-- <input nv-file-select uploader="uploader" type="file" multiple/><br/> -->			            
+			            
+			            <div ng-if="null != model.file">	
+
+
+			            	<!-- upload files start -->
+			            	<div class="well my-drop-zone">
+			            		<span style="margin-right:10px;">{{model.file.name}}</span>
+			            		<button type="button" class="btn btn-danger btn-xs"
+		                                ng-click="deleteFile(model.file.id, model.file.container, model.file.alias)"
+		                                title="Delete the file">
+		                            <i class="glyphicon glyphicon-trash"></i>				                            
+		                        </button>
+			            	</div>
+			            	<div class="well my-drop-zone" ng-show="uploader.isHTML5">
+			            		<img class="preview-img" ng-src="{{model.file.url}}" />
+			            	</div>
+			            </div> 
+			        	<!-- upload files end -->
+			          
+				  	</div>
+				  	
+				  	<div style="height:30px;"></div>
+
+				  	<div class="form-group" style="margin-bottom:100px;">
+				    	<div style="float:left;">
+				    		<button type="button" class="btn btn-default" 
+				  					ng-disabled="model.name == '' || model.start == '' || model.end == ''"
+				  					ng-click="save()">저장</button>
+						</div>
+						<div style="float:right;">
+							<button type="button" 
+									class="btn btn-default" 
+				  					ng-click="cancel()">취소</button>
+						</div>
+					</div>
+
+				</form>
+
+
+
+	        </div>    
+		</div>
+
+	</div>
+
+
+<!-- footer -->
+<div footer></div>    

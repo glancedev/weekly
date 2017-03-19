@@ -1,0 +1,38 @@
+{
+  "db": {
+    "host": "13.76.166.152",
+    "port": 27000,
+    "database": "weekly",
+    "username": "weekly",
+    "password": "weekly",
+    "name": "db",
+    "connector": "mongodb",
+    "allowExtendedOperators":true
+  },
+  "storage": {
+    "name": "storage",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "./server/storage"
+  },
+  "emailDs": {
+    "name": "emailDs",
+    "connector": "mail",
+    "transports": [
+      {
+        "type": "smtp",
+        "host": "smtp.naver.com",
+        "secure": true,
+        "port": 465,
+        "tls": {
+          "rejectUnauthorized": false
+        },
+        "auth": {
+          "user": "startupweekly",
+          "pass": "STweekly2017"
+        }
+      }
+    ]
+  }
+}
+

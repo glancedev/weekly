@@ -1,0 +1,19 @@
+{
+  "name": "accessToken",
+  "plural": "accessTokens",
+  "base": "AccessToken",
+  "scope": {
+    "limit": 20
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "userId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

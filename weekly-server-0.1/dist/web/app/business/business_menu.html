@@ -1,0 +1,31 @@
+<div id="navigation" class="menu-left">
+  <ul ng-class="{in: $state.includes('member')}" side-navigation class="nav" id="side-menu">
+    <li ng-repeat="menu in sub_menu" ui-sref-active="active">
+      <a ng-click="$index == index || loadMore($index)">
+        <span class="nav-label">{{menu.title}}</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="nav-text">
+    <div class="stats-label text-color">
+      <span class="">지원별</span>
+    </div>
+  </div>
+  <div class="event-box" id="side-menu">
+    <div class="event-tab">
+      <label style="font-weight: normal;">
+        <input type="checkbox" ng-model="checkboxModel.value1" ng-true-value="true" ng-false-value="" class="pull-left">&nbsp
+        <span class="nav-label2">자금 지원</span>
+      </label>
+    </div>
+    <div class="event-tab">
+      <label style="font-weight: normal;">
+        <input type="checkbox" ng-model="checkboxModel.value2" ng-true-value="true" ng-false-value="" class="pull-left">&nbsp          
+        <span class="nav-label2">공간 지원</span>
+      </label>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,163 @@
+<!-- header -->
+<div header></div>
+
+
+	<div class="jumbotron">
+
+	    <div class="jumbotron">
+
+	    	<div event-sidebar></div>    
+	        
+	        <div class="col-md-10">
+	            
+	        	<form>
+
+					<div class="form-group" ng-init="getCategory('eventType', 'items_eventType', 'order ASC', true)">
+
+						<div>
+					  		<label for="name"><span class="text-danger">*</span>유형:</label>
+				    	</div>
+					  	<div class="row">
+				    		<div class="col-sm-10">													    		
+					    		<label ng-repeat="item in items_eventType" class="checkbox-inline" style="min-width:200px;">
+									<input type="checkbox" ng-click="changeCheckbox('type', item.name)">{{item.name}}</input>	
+								</label>					
+					    	</div>				
+					    </div>		    	
+
+					    <!-- modal UI 사용되지 않음. -->
+					  	<!-- <div class="tags-input">
+					  		<div class="host" ng-click="openCategory('유형을 선택하세요.', 'eventType', 'type')" >
+					  			<div class="tags" ng-class="{focused: open}">
+					  				<ul class="tag-list">
+						    			<li class="tag-item" ng-repeat="item in model.type">
+						    				<span class="ng-binding ng-scope">{{item}}</span>	
+						    			</li>
+					  					<li class="tag-item" style="background:white; border:none;"></li>
+						    		</ul>
+						    		<input class="input ng-valid ng-dirty ng-touched ng-empty" 
+						    			   ng-focus="openCategory('유형을 선택하세요.', 'eventType', 'type')"  
+						    			   readonly="true">
+					  			</div>
+					  		</div>
+					  	</div> -->
+				  	</div>
+
+	        		<div class="form-group">
+				    	<label for="name"><span class="text-danger">*</span>행사명:</label>
+				    	<input type="text" class="form-control" ng-model="model.title">
+				  	</div>
+
+				  	<div class="form-group" ng-init="getCategory('province', 'items_province', 'order ASC', false)">
+				  		<div>
+				    		<label for="name"><span class="text-danger">*</span>지역장소:</label>				    	
+				    	</div>
+				    	<div class="row">
+					    	<div class="col-xs-3">
+					    		<autocomplete no-auto-sort = "true"
+					    				  click-activation = "true"
+					    				  attr-class="form-group"
+					    				  attr-input-class="form-control" 
+					    				  ng-model="model.place.province" 
+					    				  attr-placeholder="지역"
+					    				  data="items_province" 
+					    				  on-type="updateItems">
+								</autocomplete>
+							</div>
+							<div class="col-xs-9">
+								<input type="text" class="form-control" ng-model="model.place.address" placeholder="세부 주소">
+							</div>
+						</div>
+
+				  	</div>
+
+				  	<div>
+				    	<label for="name"><span class="text-danger">*</span>일자/시간:</label>
+				    	<br/>
+		                <div style="width:29%;float:left;margin-right:20px;">
+				    		<div class="dropdown form-group">
+			                    <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target=""
+			                       href="#">
+			                        <div class="input-group date">
+			                            <input type="text" class="form-control" 
+			                            	   data-ng-model="date">
+			                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+			                        </div>
+			                    </a>
+			                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+			                        <datetimepicker data-ng-model="date"
+			                                        data-datetimepicker-config="{ 
+			                                        	dropdownSelector: '#dropdownStart',
+			                                        	minView: 'day'
+			                                        }">
+									</datetimepicker>
+			                    </ul>
+			                </div>
+				    	</div>	
+				    	<div style="margin-top: -33px;">					    	
+			                <div uib-timepicker 
+		  						 ng-model="time"
+		  						 hour-step="hstep" minute-step="mstep" 
+		  						 show-meridian="false">
+							</div>
+						</div>
+				  	</div>
+
+				  	<div class="form-group">
+				    	<label for="name"><span class="text-danger">*</span>비용:</label>
+				    	<div>		
+							<label class="radio-inline">
+								<input type="radio" name="price" ng-model="model.price" ng-value="false" />무료
+							</label>
+							<label class="radio-inline">
+								<input type="radio" name="price" ng-model="model.price" ng-value="true" />유료
+							</label>
+						</div>
+				  	</div>
+
+				  	<div class="form-group" ng-init="getCategory('field', 'items_field', 'order ASC', true)">
+					    <label for="name">분야:</label>				    		
+				        <tags-input ng-model="inserted_tag" display-property="name" placeholder="분야 태그를 추가하세요." 
+				        			min-length="1" replace-spaces-with-dashes="false">
+					      	<auto-complete source="loadTags($query, 'items_field')"
+					                       min-length="0"
+					                       load-on-focus="true"
+					                       load-on-empty="true"
+					                       max-results-to-show="32"
+					                       template="loadTags-template">
+					        </auto-complete>
+					    </tags-input>
+				  	</div>				  	
+				  	
+				  	<div class="form-group" ng-init="getCategory('topic', 'items_topic', 'order ASC', true);">
+					  	<label for="name">주제:</label>
+					  	<div>
+				    		<label ng-repeat="item in items_topic" class="checkbox-inline" style="min-width:200px;">
+				    			<input type="checkbox" ng-click="changeCheckbox('topic', item.name)">{{item.name}}</input>
+							</label>					
+				    	</div>
+				  	</div>
+
+
+				  	<div class="form-group">
+				    	<label for="name"><span class="text-danger">*</span>링크:</label>
+				    	<input type="text" class="form-control" ng-model="model.link">
+				  	</div>
+				  	
+				  	<div style="height:30px;"></div>
+
+				  	<div class="form-group">
+					  	<button type="button" class="btn btn-default" 
+					  			ng-disabled="model.type == '' || model.title == '' || model.place.province == '' || model.place.address == '' || model.link == ''"
+					  			ng-click="create()">저장</button>
+					</div>
+
+				</form>
+
+	        </div>    
+		</div>
+
+	</div>
+
+<!-- footer -->
+<div footer></div>    

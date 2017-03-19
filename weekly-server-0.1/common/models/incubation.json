@@ -1,0 +1,45 @@
+{
+  "name": "incubation",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": false
+    },
+    "number": {
+      "type": "number",
+      "required": false
+    },
+    "year": {
+      "type": "number",
+      "required": false
+    },
+    "deadline": {
+      "type": "date",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "company": {
+      "type": "belongsTo",
+      "model": "company",
+      "foreignKey": "companyId"
+    },
+    "companies": {
+      "type": "referencesMany",
+      "model": "company",
+      "foreignKey": "companyIds",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

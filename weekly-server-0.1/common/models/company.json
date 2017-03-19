@@ -1,0 +1,225 @@
+{
+  "name": "company",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "type": {
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "nameEng": {
+      "type": "string",
+      "required": false
+    },
+    "nameTag": {
+      "type": "array",
+      "required": false
+    },
+    "description": {
+      "type": "string",
+      "required": false
+    },
+    "founderSchool": {
+      "type": "array",
+      "required": false
+    },
+    "foundationDate": {
+      "type": "date",
+      "required": false
+    },
+    "location": {
+      "type": "array",
+      "required": false
+    },
+    "email": {
+      "type": "string",
+      "required": false
+    },
+    "link": {
+      "type": "string",
+      "required": false
+    },
+    "field": {
+      "type": "array",
+      "required": false
+    },
+    "totalMoney": {
+      "type": "number",
+      "required": false
+    },
+    "step": {
+      "type": "array",
+      "required": false
+    },
+    "exitCount": {
+      "type": "number",
+      "required": false
+    },
+    "percentage": {
+      "type": "number",
+      "required": false
+    },
+    "condition": {
+      "type": "string",
+      "required": false
+    },
+    "countAc": {
+      "type": "number",
+      "required": false
+    },
+    "isRecruiting": {
+      "type": "boolean",
+      "required": false
+    },
+    "isMoney": {
+      "type": "boolean",
+      "required": false
+    },
+    "isPlace": {
+      "type": "boolean",
+      "required": false
+    },
+    "displayHot": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "displayMna": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "displayInvestee": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "displayInvestor": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "created": {
+      "type": "date",
+      "required": true,
+      "defaultFn": "now"
+    },
+    "modified": {
+      "type": "date",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "product": {
+      "type": "hasMany",
+      "model": "product",
+      "foreignKey": "companyId"
+    },
+    "incubation": {
+      "type": "hasMany",
+      "model": "incubation",
+      "foreignKey": "companyId"
+    },
+    "founders": {
+      "type": "referencesMany",
+      "model": "person",
+      "foreignKey": "founderIds",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },
+    "founderPrevs": {
+      "type": "referencesMany",
+      "model": "company",
+      "foreignKey": "founderPrevIds",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },   
+    "employee": {
+      "type": "hasMany",
+      "model": "employee",
+      "foreignKey": "companyId"
+    },
+    "newsCompany": {
+      "type": "hasMany",
+      "model": "newsCompany",
+      "foreignKey": "companyId"
+    },
+    "ipos": {
+      "type": "hasMany",
+      "model": "ipo",
+      "foreignKey": "companyId"
+    },
+    "handover": {
+      "type": "hasMany",
+      "model": "mna",
+      "foreignKey": "handoverId"
+    },
+    "takeover": {
+      "type": "hasMany",
+      "model": "mna",
+      "foreignKey": "takeoverId"
+    },
+    "investee": {
+      "type": "hasMany",
+      "model": "investment",
+      "foreignKey": "investeeId"
+    },
+    "file": {
+      "type": "hasMany",
+      "model": "file",
+      "foreignKey": "companyId"
+    },
+    "thumbnail": {
+      "type": "hasOne",
+      "model": "thumbnail",
+      "foreignKey": "companyId"
+    }
+  },
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "super",
+      "permission": "ALLOW",
+      "property": "*"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "company",
+      "permission": "ALLOW",
+      "property": "*"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "subscription",
+      "permission": "ALLOW",
+      "property": ["find", "findById"]
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "search"
+    }
+  ],
+  "methods": {}
+}

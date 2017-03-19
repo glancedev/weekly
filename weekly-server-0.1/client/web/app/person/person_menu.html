@@ -1,0 +1,18 @@
+<div id="navigation" class="menu-left">
+  <div class="stats-label text-color">
+
+    <ul side-navigation class="nav" id="side-menu">
+      <li ng-repeat="menu in sub_menu3" ui-sref-active="active">
+        <!--
+           hotTags 함수 (group, id, name)
+           * 복수 입력은 콤마(,)로 구분한다.
+         -->
+        <a ng-click="hotTags(menu.group, menu.id, menu.name, menu.alias);">
+          <span class="fa {{menu.icon}} pull-left nav-space"></span>
+          <span class="nav-label" style="font-size: {{menu.font}}px;">{{menu.title}}</span>
+        </a>
+      </li>
+    </ul>
+
+  </div>
+</div>

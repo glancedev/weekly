@@ -1,0 +1,48 @@
+{
+  "name": "thumbnail",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {      
+    "container": {
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "default": {
+      "type": "string",
+      "required": true
+    },
+    "medium": {
+      "type": "string",
+      "required": true
+    },
+    "high": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "company": {
+      "type": "belongsTo",
+      "model": "company",
+      "foreignKey": "companyId"
+    },
+    "person": {
+      "type": "belongsTo",
+      "model": "person",
+      "foreignKey": "personId"
+    }
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

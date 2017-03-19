@@ -1,0 +1,115 @@
+<!-- header -->
+<div header></div>
+
+
+	<div class="jumbotron">
+
+	    <div class="jumbotron">
+
+	    	<div subscriber-sidebar></div>    
+	
+	        <div class="col-md-6">
+	            
+	        	<form>	        	
+	        		<div class="form-group">
+				    	<label for="type"><span class="text-danger">*</span>유형: </label>						
+						<div style="margin-bottom:15px;" 
+							ng-if="model.type !== 'member'"
+							bs-dropdown 						 
+					     	bs-dropdown-display="유형를 선택하세요." 
+						 	bs-dropdown-items="actions" 
+						 	ng-model="model.type">
+						</div>
+						<div style="margin-bottom:15px;" 
+							ng-if="model.type === 'member'"
+							bs-dropdown
+							bs-dropdown-disabled="true" 						 
+					     	bs-dropdown-display="유형를 선택하세요." 
+						 	bs-dropdown-items="actions" 
+						 	ng-model="model.type">
+						</div>
+					</div>
+	        		<div class="form-group">
+				    	<label for="id"><span class="text-danger">*</span>아이디:</label>
+				    	<input type="text" class="form-control" id="id" ng-model="model.userId" required>
+				  	</div>
+	        		<div class="form-group">
+				    	<label for="email"><span class="text-danger">*</span>이메일:</label>
+				    	<input type="email" class="form-control" id="email" ng-model="model.email" required>
+				  	</div>
+	        		<div class="form-group">
+				    	<label for="password"><span class="text-danger">*</span>임시 패스워드:</label>
+				    	<input type="password" class="form-control" id="password" ng-model="model.password" required>
+				  	</div>
+				  	<div class="form-group">
+				    	<label for="username"><span class="text-danger">*</span>이름:</label>
+				    	<input type="text" class="form-control" id="username" ng-model="model.username" required>
+				  	</div>
+				  	<div class="form-group">
+				    	<label for="company"><span class="text-danger">*</span>소속:</label>
+			    		<input type="text" class="form-control" id="company" ng-model="model.company" required>
+				  	</div>
+				  	<div class="form-group">
+				    	<label for="position"><span class="text-danger">*</span>직책:</label>
+				    	<input type="text" class="form-control" id="position" ng-model="model.position" required>
+				  	</div>
+				  	<div class="form-group" ng-if="model.type === 'group'">
+				    	<label for="limit"><span class="text-danger">*</span>등록가능 인원:</label>
+			    		<input type="number" class="form-control" id="limit" ng-model="model.limit" required>
+				  	</div>
+				  	<div class="form-group" ng-if="model.type !== 'member'">
+				    	<label for="institution">결제 기업/기관:</label>
+				    	<input type="text" class="form-control" id="institution" ng-model="model.institution" required>
+				  	</div>
+				  	<div>
+				  		<div>
+				    		<label for="name"><span class="text-danger">*</span>만료일자:</label>
+				    	</div>
+						<div style="width:49%;">
+				    		<div class="dropdown form-group">
+			                    <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target=""
+			                       href="#">
+			                        <div class="input-group date">
+			                            <input type="text" class="form-control" 
+			                            	   ng-disabled="model.type === 'member'"
+			                            	   data-ng-model="model.dueDate">
+			                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+			                        </div>
+			                    </a>
+			                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" ng-if="model.type !== 'member'">
+			                        <datetimepicker data-ng-model="model.dueDate"
+			                                        data-datetimepicker-config="{ 
+			                                        	dropdownSelector: '#dropdownStart',
+			                                        	minView: 'day'
+			                                        }">
+									</datetimepicker>
+			                    </ul>
+			                </div>
+				    	</div>			
+				  	</div>
+				  	
+				  	<div style="height:30px;"></div>
+
+				  	<div class="form-group" style="margin-bottom:100px;">
+				    	<div style="float:left;">
+				    		<button type="submit" 
+				  			class="btn btn-default" 
+				  			ng-disabled="model.userId == '' || model.username == '' || model.email == '' || model.password == ''" 
+				  			ng-click="create()">저장</button>
+						</div>
+						<div style="float:right;">
+							<button type="button" class="btn btn-default" 
+				  			ng-click="cancel()">취소</button>
+						</div>
+					</div>		
+				</form>
+
+
+	        </div>    
+		</div>
+
+	</div>
+
+
+<!-- footer -->
+<div footer></div>    

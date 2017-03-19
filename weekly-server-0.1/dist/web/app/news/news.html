@@ -1,0 +1,503 @@
+<!-- Header -->
+<div id="header" ng-include="'components/navbar/navbar.html'"></div>
+
+<!-- Navigation -->
+<aside id="menu" ng-include="'app/news/news_menu.html'"></aside>
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+  <div class="content">
+	<div ui-view animate-panel>
+	  <!-- main start -->
+	  <div class="row">
+		<div class="col-lg-9">
+
+		  <div class="hpanel">
+			<div class="panel-body2">
+			  <!-- content start -->
+			  <div class="search-tool">
+
+				<!-- search box start -->
+				<div class="search-box">
+				  <i class="fa fa-search search-icon"></i>
+				  <input type="text" ng-model="input.keywords"
+						 input-press-enter="putTags('keywords', input.keywords)"
+						 class="form-control search-inner-box search-top"
+						 placeholder="검색어를 입력하세요.">
+				  <i class="search-icon">&nbsp</i>
+				  <ui-select multiple ng-model="searchTools.list"
+							 theme="bootstrap" ng-disabled="disabled"
+							 title="Choose a condition"
+							 on-remove="removeTags($item.group, $item.id, $item.name)"
+							 class="form-control search-inner-box">
+					<ui-select-match placeholder="">{{$item.name}}</ui-select-match>
+					<ui-select-choices repeat="item in []">{{item.name}}</ui-select-choices>
+				  </ui-select>
+				</div>
+
+				<!-- /search -->
+				<div class="search-save">
+				 <span uib-dropdown on-toggle="toggled(open)" auto-close="outsideClick" is-open="status.isopen">
+				   <a href uib-dropdown-toggle>
+					<input type="button" class="btn btn-primary search-button" value="저장">
+				   </a>
+				   <ul uib-dropdown-menu role="menu" aria-labelledby="simple-dropdown"
+					   class="search-dropbox-menu search-alert-bookmark">
+					<input class="form-control" type="text" placeholder="필터명" ng-model="searchTools.save"
+						   input-press-enter="saveFilter('filter_news')">
+					<li>
+					  <span class="text-muted small">검색 결과를 아래 필터 메뉴에 저장합니다</span>
+					</li>
+					<li>
+					  <input type="button" class="btn btn-block btn-xs" value="필터 저장"
+							 ng-click="saveFilter('filter_news')">
+					</li>
+				   </ul>
+				 </span>
+				</div>
+				<!-- /search -->
+
+				<!-- search box end -->
+
+				<!-- template start -->
+				<script type="text/ng-template" id="bootstrap/select-multiple.tpl.html">
+				  <div class="ui-select-container ui-select-multiple ui-select-bootstrap dropdown form-control"
+					   ng-class="{open: $select.open}">
+					<div>
+					  <div class="ui-select-match"></div>
+					  <input type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+							 class="ui-select-search input-xs"
+							 placeholder="{{$selectMultiple.getPlaceholder()}}" ng-disabled="true"
+							 ng-click="$select.activate()" ng-model="$select.search"
+							 role="combobox" aria-expanded="{{$select.open}}" aria-label="{{$select.baseTitle}}"
+							 ng-class="{'spinner': $select.refreshing}" ondrop="return false;">
+					</div>
+					<div class="ui-select-choices"></div>
+					<div class="ui-select-no-choice"></div>
+				  </div>
+				</script>
+				<!-- template end -->
+
+			  </div>
+			  <!-- content end -->
+
+			  <!-- filter add -->
+			  <div class="search-filter">
+
+				<div class="filter-tr">
+				  <!-- 기간 검색 -->
+				  <div class="filter-td">
+    				    <span uib-dropdown on-toggle="toggled(open)"
+							  auto-close="outsideClick"
+							  class="dropdown-filter">
+        					  <a href uib-dropdown-toggle>
+        						기간&nbsp<span class="caret"></span>
+        					  </a>
+        					  <ul uib-dropdown-menu role="menu" class="search-dropbox-menu search-alert-bookmark">
+        						<li>
+	                              <!-- put tag 합수 날짜 비교 
+	                                 putTags('datetime_lte', '24시간 이내_2015-10-10')
+	                                 * param은  구분자 '_' 로 나뉜다. 
+
+	                                 datetime : 필드명
+	                                 lt, gt : 비교 함수 설정 lt: 작은값, gt:큰값
+	                                 24시간 이내 :  검색바 표시용
+	                                 2015-10-10 : 실제 검색 비교할 날짜 (추가 개발 필요)
+	                              -->
+        						  <a href ng-click="putTags('datetime_gte', '24시간 이내_'+yesterday)">24시간 이내</a>
+        						</li>
+        						<li>
+        						  <a href ng-click="putTags('datetime_gte', '1주일 이내_'+beforeweeks)">1주일 이내</a>
+        						</li>
+        						<li>
+        						  <a href ng-click="putTags('datetime_gte', '1개월 이내_'+beforemonth)">1개월 이내</a>
+        						</li>
+        						<li>
+        						  <a href ng-click="putTags('datetime_gte', '1년 이내_'+beforeyear)">1년 이내</a>
+        						</li>
+        						<br>
+        						<li><span class="text-dt">직접 설정</span></li>
+        						<input disable-auto-close
+									   class="form-control" type="text"
+									   ng-model="input.datetime_gte"
+									   ng-keydown="($event.which === 13 || $event.which === 32) && putTags('datetime_gte', input.datetime_gte+' 이후_'+input.datetime_gte)"
+									   placeholder="부터">
+        						<p style="text-align: center; color: #0A0A0A; margin-top: 10px">|</p>
+        						<input disable-auto-close
+									   class="form-control" type="text"
+									   ng-model="input.datetime_lte"
+									   ng-keydown="($event.which === 13 || $event.which === 32) && putTags('datetime_lte', input.datetime_lte+' 이전_'+input.datetime_lte)"
+									   placeholder="까지">
+        						<i ng-show="loading" class="glyphicon glyphicon-refresh"></i>
+                                <small>예) 2016-12-24</small>
+      					  </ul>
+    				  </span>
+				  </div>
+
+				  <!-- 유형 검색 -->
+				  <div class="filter-td">
+      				    <span
+						  ng-init="getCategory('Category', 'categoryChild', 'newsType', 'name,item', '', 'order ASC', false)"
+						  uib-dropdown on-toggle="toggled(open)"
+						  auto-close="outsideClick"
+						  class="dropdown-filter">
+      					  <a href uib-dropdown-toggle>
+      						유형&nbsp<span class="caret"></span>
+      					  </a>
+      					  <ul uib-dropdown-menu role="menu" aria-labelledby="simple-dropdown">
+      						<li ng-repeat="item in items_newsType">
+      						  <a href ng-click="putTags('type', item)">{{item}}</a>
+      						</li>
+      					  </ul>
+      				  </span>
+				  </div>
+
+				  <!-- 분야 검색 -->
+				  <div class="filter-td">
+                      <span uib-dropdown on-toggle="toggled(open)"
+							auto-close="outsideClick"
+							class="dropdown-filter">
+          					  <a href uib-dropdown-toggle>
+          						분야&nbsp<span class="caret"></span>
+          					  </a>
+          					  <ul uib-dropdown-menu role="menu" class="search-dropbox-menu search-alert-bookmark">
+          						<input disable-auto-close class="form-control" type="text"
+									   ng-model="input.field" placeholder="검색"
+									   uib-typeahead="address for address in searchAutoComplete('Category', 'search', $viewValue, true, 'field')"
+									   typeahead-loading="loading"
+									   typeahead-popup-template-url="uib/template/typeahead/typeahead-popup-searchTools-category.html"
+									   input-press-enter="putTags('field', input.field)">
+          						<i ng-show="loading" class="glyphicon glyphicon-refresh"></i>
+          						<li><span class="text-dt">인기 검색</span></li>
+          						<li>
+          						  <a href ng-click="putTags('field', '핀테크')">핀테크</a>
+          						</li>
+								<li>
+								  <a href ng-click="putTags('field', '부동산')">부동산</a>
+								</li>
+								<li>
+								  <a href ng-click="putTags('field', '숙박')">숙박</a>
+								</li>
+								<li>
+								  <a href ng-click="putTags('field', '차량공유')">차량공유</a>
+								</li>
+								<li>
+								  <a href ng-click="putTags('field', '음식배달')">음식배달</a>
+								</li>
+          					  </ul>
+          				  </span>
+				  </div>
+
+				  <!-- 회사/기관 검색 -->
+				  <div class="filter-td">
+      				    <span
+						  ng-init="getCategory('Company', 'search', 'company', '', '', 'name ASC', true, 'displayHot')"
+						  uib-dropdown on-toggle="toggled(open)"
+						  auto-close="outsideClick"
+						  class="dropdown-filter">
+        					  <a href uib-dropdown-toggle>
+        						  회사/기관&nbsp<span class="caret"></span>
+        					  </a>
+        					  <ul uib-dropdown-menu role="menu" class="search-dropbox-menu search-alert-bookmark">
+          						<input disable-auto-close class="form-control" type="text"
+									   ng-model="input.companyIds" placeholder="검색"
+									   uib-typeahead="address for address in searchAutoComplete('Company', 'search', $viewValue)"
+									   typeahead-loading="loading"
+									   typeahead-popup-template-url="uib/template/typeahead/typeahead-popup-searchTools-company.html"
+									   input-press-enter="putTags('companyIds', input.companyIds)">
+          						<i ng-show="loading" class="glyphicon glyphicon-refresh"></i>
+          						<li><span class="text-dt">인기 검색</span></li>
+          						<li ng-repeat="item in items_company">
+          						  <a href ng-click="putTags('companyIds', item)">{{item.name}}</a>
+          						</li>
+        					  </ul>
+        				  </span>
+				  </div>
+
+				  <!-- 제품/서비스 검색 -->
+				  <div class="filter-td">
+      				    <span
+						  ng-init="getCategory('Product', 'search', 'product', '', '', 'name ASC', true, 'displayHot')"
+						  uib-dropdown on-toggle="toggled(open)"
+						  auto-close="outsideClick"
+						  class="dropdown-filter">
+        					  <a href uib-dropdown-toggle>
+        						제품/서비스&nbsp<span class="caret"></span>
+        					  </a>
+        					  <ul uib-dropdown-menu role="menu" class="search-dropbox-menu search-alert-bookmark">
+          						<input disable-auto-close class="form-control" type="text"
+									   ng-model="input.productIds" placeholder="검색"
+									   uib-typeahead="address for address in searchAutoComplete('Product', 'search', $viewValue)"
+									   typeahead-loading="loading"
+									   typeahead-popup-template-url="uib/template/typeahead/typeahead-popup-searchTools-product.html"
+									   input-press-enter="putTags('productIds', input.productIds)">
+          						<i ng-show="loading" class="glyphicon glyphicon-refresh"></i>
+          						<li><span class="text-dt">인기 검색</span></li>
+          						<li ng-repeat="item in items_product">
+          						  <a href ng-click="putTags('productIds', item)">{{item.name}}</a>
+          						</li>
+        					  </ul>
+        				  </span>
+				  </div>
+
+				  <!-- 인물 검색 -->
+				  <div class="filter-td">
+      				    <span ng-init="getCategory('Person', 'search', 'person', '', '', 'name ASC', true, 'displayHot')"
+							  uib-dropdown on-toggle="toggled(open)"
+							  auto-close="outsideClick"
+							  class="dropdown-filter">
+        					  <a href uib-dropdown-toggle>
+        						인물&nbsp<span class="caret"></span>
+        					  </a>
+        					  <ul uib-dropdown-menu role="menu" class="search-dropbox-menu search-alert-bookmark">
+          						<input disable-auto-close class="form-control" type="text"
+									   ng-model="input.personIds" placeholder="검색"
+									   uib-typeahead="address for address in searchAutoComplete('Person', 'search', $viewValue)"
+									   typeahead-loading="loading"
+									   typeahead-popup-template-url="uib/template/typeahead/typeahead-popup-searchTools-person.html"
+									   input-press-enter="putTags('personIds', input.personIds)">
+          						<i ng-show="loading" class="glyphicon glyphicon-refresh"></i>
+          						<li><span class="text-dt">인기 검색</span></li>
+          						<li ng-repeat="item in items_person">
+          						  <a href ng-click="putTags('personIds', item)">{{item.name}}</a>
+          						</li>
+        					  </ul>
+        				  </span>
+				  </div>
+
+				  <!-- filter -->
+				  <div class="filter-td dropdown-filter-last">
+      				    <span uib-dropdown on-toggle="toggled(open)" auto-close="outsideClick"
+							  class="dropdown-filter">
+      					  <a href uib-dropdown-toggle ng-click="getSavedFilter('filter_news')">
+      						  저장된 필터&nbsp<span class="caret"></span>
+      					  </a>
+      					  <ul uib-dropdown-menu role="menu" aria-labelledby="simple-dropdown"
+							  class="search-alert-filter">
+      						<!-- <li><span class="text-muted">FILTER</span> <span class="text-muted">ALTER</span></li> -->
+      						<li ng-repeat="item in saved_filter">
+      						  <span><a href ng-click="selectSavedFilter($event, $index)">{{item.name}}</a></span>
+							  <!--  <span><input type="checkbox" ng-model="item.saveAlert"></span> -->
+      						  <span><a href ng-click="removeSavedFilter($event, $index)">✖</a></span>
+      						</li>
+      					  </ul>
+      					</span>
+				  </div>
+
+				</div>
+
+			  </div>
+			  <!-- filter end -->
+
+			  <div>
+				<!-- templates start -->
+				<script type="text/ng-template" id="uib/template/typeahead/typeahead-popup-searchTools-category.html">
+				  <ul class="dropdown-menu" ng-show="isOpen() && !moveInProgress"
+					  ng-style="{top: position().top+'px', left: position().left+'px'}" role="listbox"
+					  aria-hidden="{{!isOpen()}}">
+					<li class="uib-typeahead-match" ng-repeat="match in matches track by $index"
+						ng-class="{active: isActive($index) }"
+						ng-mouseenter="selectActive($index)"
+						ng-click="selectMatchExt($index, $event, 'scope.$root.putTags(\'field\', scope.$root.input.field);')"
+						role="option" id="{{::match.id}}">
+					  <a href="" tabindex="-1" ng-bind-html="match.label | uibTypeaheadHighlight:query"
+						 ng-attr-title="{{match.label}}" class="ng-binding ng-scope">
+					  </a>
+					</li>
+				  </ul>
+				</script>
+				<script type="text/ng-template" id="uib/template/typeahead/typeahead-popup-searchTools-company.html">
+				  <ul class="dropdown-menu" ng-show="isOpen() && !moveInProgress"
+					  ng-style="{top: position().top+'px', left: position().left+'px'}" role="listbox"
+					  aria-hidden="{{!isOpen()}}">
+					<li class="uib-typeahead-match" ng-repeat="match in matches track by $index"
+						ng-class="{active: isActive($index) }"
+						ng-mouseenter="selectActive($index)"
+						ng-click="selectMatchExt($index, $event, 'scope.$root.putTags(\'companyIds\', scope.$root.input.companyIds);')"
+						role="option" id="{{::match.id}}">
+					  <a href="" tabindex="-1" ng-bind-html="match.label.name | uibTypeaheadHighlight:query"
+						 ng-attr-title="{{match.label.name}}" class="ng-binding ng-scope">
+					  </a>
+					</li>
+				  </ul>
+				</script>
+				<script type="text/ng-template" id="uib/template/typeahead/typeahead-popup-searchTools-person.html">
+				  <ul class="dropdown-menu" ng-show="isOpen() && !moveInProgress"
+					  ng-style="{top: position().top+'px', left: position().left+'px'}" role="listbox"
+					  aria-hidden="{{!isOpen()}}">
+					<li class="uib-typeahead-match" ng-repeat="match in matches track by $index"
+						ng-class="{active: isActive($index) }"
+						ng-mouseenter="selectActive($index)"
+						ng-click="selectMatchExt($index, $event, 'scope.$root.putTags(\'personIds\', scope.$root.input.personIds);')"
+						role="option" id="{{::match.id}}">
+					  <a href="" tabindex="-1" ng-bind-html="match.label.name | uibTypeaheadHighlight:query"
+						 ng-attr-title="{{match.label.name}}" class="ng-binding ng-scope">
+					  </a>
+					</li>
+				  </ul>
+				</script>
+				<script type="text/ng-template" id="uib/template/typeahead/typeahead-popup-searchTools-product.html">
+				  <ul class="dropdown-menu" ng-show="isOpen() && !moveInProgress"
+					  ng-style="{top: position().top+'px', left: position().left+'px'}" role="listbox"
+					  aria-hidden="{{!isOpen()}}">
+					<li class="uib-typeahead-match" ng-repeat="match in matches track by $index"
+						ng-class="{active: isActive($index) }"
+						ng-mouseenter="selectActive($index)"
+						ng-click="selectMatchExt($index, $event, 'scope.$root.putTags(\'productIds\', scope.$root.input.productIds);')"
+						role="option" id="{{::match.id}}">
+					  <a href="" tabindex="-1" ng-bind-html="match.label.name | uibTypeaheadHighlight:query"
+						 ng-attr-title="{{match.label.name}}" class="ng-binding ng-scope">
+					  </a>
+					</li>
+				  </ul>
+				</script>
+
+				<!-- templates end -->
+			  </div>
+			</div>
+		  </div>
+
+		  <div class="hpanel">
+			<div class="panel-body2">
+			  <div class="table-responsive">
+				<!-- content start -->
+				<table class="table">
+				  <thead class="table-heading">
+				  <tr>
+					<td style="width:18%">
+					  <a href="#">
+						일자
+					  </a>
+					</td>		
+					<td style="width:12%">
+					  <!-- <a href="#">
+						중요
+					  </a> -->
+					</td>			
+					<td>
+					  <a href="#">
+						제목
+					  </a>
+					</td>
+				  </tr>
+				  </thead>
+
+				  <tbody class="tbody-color" infinite-scroll='loadMore()' infinite-scroll-disabled='infiniteBreak0'
+						 infinite-scroll-distance='0'>
+				  <tr ng-repeat="news in contents | filter:searchContent">
+					<td>
+					  <!--<span ng-if="contents[$index].datetime  !== contents[$index - 1].datetime">-->
+					  <span>
+                      {{news.datetime | date : "yyyy-MM-dd"}}
+                     </span>
+					</td>
+					<td>						
+						<!-- <i ng-show="news.ordinary" class="fa fa-genderless" aria-hidden="true" style="color:red;"></i> -->
+
+						<!-- <i ng-show="news.ordinary" class="fa fa-check" aria-hidden="true" style="color:red;"></i> -->
+						<i ng-show="news.ordinary" class="fa fa-star" aria-hidden="true"></i>
+					</td>
+					<td class="issue-info">
+					  <a href="{{news.link}}" target="_blank">
+						{{ news.title }} 
+						<!-- &nbsp;<i ng-show="news.ordinary" class="fa fa-star" aria-hidden="true"></i> -->
+					  </a>
+					</td>
+					<!-- /저장 -->
+					<!--<td class="issue-info">-->
+					<!--<span ng-if="bookmarkCheck.id == 'news.id'">-->
+					<!--<a href="#" ng-click="bookmark( post.id )"><i class="fa fa-bookmark" aria-hidden="true"></i></a>-->
+					<!--</span>-->
+					<!--<span ng-if="bookmarkCheck.id != 'news.id'">-->
+					<!--<a href="#" ng-click="bookmark( post.id )"><i class="fa fa-bookmark-o" aria-hidden="true"></i></a>-->
+					<!--</span>-->
+					<!--</td>-->
+					<!-- 저장/ -->
+				  </tr>
+				  </tbody>
+				</table>
+				<!-- content end -->
+			  </div>
+			</div>
+		  </div>
+		</div>
+
+		<div class="col-lg-3">
+		  <div ng-if="!isLoggedIn()" class="hpanel">
+			<div class="panel-body">
+			  <div>
+				<div style="padding-bottom:10px; text-align:center;">무료 뉴스레터 구독신청</div>
+				<div class="panel-time"><p class="text-muted" style="text-align:left;padding-top:10px;">국내외 IT/스타업 주요 소식 및 일정을 정리하여 매주
+				  월요일 오전 5시에 이메일로 발송합니다. <a href="http://glance.media/startupweekly/S3dJOeUN763BGq67763O1SNhXw"
+											target="_blank" class="text-danger">샘플 보기</a></p></div>
+			  </div>
+			  <div>
+				<p></p>
+				<p></p>
+			  </div>
+			  <form name="form" ng-submit='AddSubscribe(subscribe)' class="form-horizontal" novalidate>
+				<!-- <div class="form-group">
+				  <label class="col-sm-2 control-label form-name" style="font-size: 12px">이름</label>
+				  <div class="col-sm-10">
+					<input name="name" ng-model="subscribe.name" type="text" class="form-control input-sm">
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-sm-2 control-label form-name" style="font-size: 12px">소속</label>
+				  <div class="col-sm-10">
+					<input name="Company" ng-model="subscribe.Company" type="text" class="form-control input-sm">
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-sm-2 control-label form-name" style="font-size: 12px">이메일</label>
+				  <div class="col-sm-10">
+					<input ng-model="subscribe.email" type="email" name="email" class="form-control input-sm"
+						   required="" value="">
+				  </div>
+				</div>
+				<p class="help-block" ng-show="form.email.$error.required && submitted">
+				  필수 입력 항목입니다.
+				</p> -->
+				<div class="form-group">
+				  <div class="col-sm-12">
+					<a target="_blank" href="http://glance.media" type="submit" class="ladda-button btn btn-danger" data-style="slide-down"
+							style="width: 100%">구독하기
+					</a>
+				  </div>
+				</div>
+			  </form>
+			</div>
+		  </div>
+
+		  <div class="hpanel">
+			<div class="panel-body2">
+			  <div>
+				<div class="panel-heading" style="background:#f9fafb;"><b><a href="/event">오늘의 주요 행사</a></b></div>
+			  </div>
+			  <table class="table">
+				<tbody class="desc">
+				<tr ng-repeat="event in events | filter : { daybyday : today} as result">
+				  <td class="issue-info" style="width:10%;">{{ event.datetime | date : "HH:mm"}}</td>
+				  <td class="issue-info text-danger"><a href="{{event.link}}" target="_blank">{{ event.title }}</a></td>
+				</tr>
+				</tbody>
+			  </table>
+			</div>
+		  </div>
+
+		  <!-- /banner -->
+		  <div class="hpanel" ng-repeat="banner in banners">
+			<div class="">
+			  <a href="{{ banner.link }}" target="_blank">
+				<img src="{{ banner.file.url }}" width="100%" alt="{{ banner.description}}">
+			  </a>
+			</div>
+		  </div>
+		  <!-- banner/ -->
+		</div>
+
+	  </div>
+	</div>
+	<!-- main end -->
+  </div>
+</div>

@@ -1,0 +1,262 @@
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.panel-time {
+  text-align: center;
+}
+
+.mark {
+  margin-right: 5px;
+  margin-left: 40px;
+}
+
+.panel-title {
+  /*color: #6a6c6f;*/
+  /*font-weight: 600;*/
+  /*padding-top: 10px;*/
+  /*padding-bottom: 10px;*/
+  /*font-size: 18px;*/
+  /*position: relative;*/
+  /*display: block;*/
+  /*text-align: center;*/
+}
+
+.news-heading {
+  border: 1px solid #e4e5e7;
+  background: #e4e5e7;
+  margin: 20px 0 10px;
+  width: 80px;
+  padding: 2px;
+  text-align: center;
+  border-radius: 2px;
+}
+
+.news-body {
+  background: #fff;
+  padding-bottom: 8px;
+  position: relative;
+}
+
+.desc {
+  margin-bottom: 2px;
+}
+
+.form-name {
+  position: relative;
+  min-height: 1px;
+  padding-right: 1px;
+  padding-left: 1px;
+  font-weight: 300;
+  font-size: 13px;
+}
+
+.today-desc {
+  margin-bottom: 10px;
+}
+
+.search-tool {
+  font-size: 14px;
+  float: left;
+  width: 100%;
+  box-sizing: border-box;
+  clear: both;
+  background: #fff;
+  border-bottom: 1px solid #e4e5e7;
+}
+
+.search-box {
+  position: relative;
+  box-sizing: border-box;
+  padding: 16px 16px 10px;
+  width: 80%;
+  float: left;
+  cursor: text;
+}
+
+.search-save {
+  position: relative;
+  box-sizing: border-box;
+  padding: 18px;
+  /*width: 20%;*/
+  float: right;
+}
+
+.search-inner-box {
+  border-color: transparent !important;
+}
+
+
+.search-top {
+  display: inline-block;
+  vertical-align: middle;
+  width: 90%;
+  padding: 3px 3px 0 3px;
+}
+
+.ui-select-multiple.ui-select-bootstrap {
+  border-top: 1px dashed #eee !important;
+  display: inline-block;
+  vertical-align: middle;
+  width: 90%;
+  padding: 3px 3px 0 3px;
+}
+
+p > .intro {
+  margin: 0 0 5px;
+}
+
+.search-icon {
+  /*width: 14px;*/
+  /*transition-property: color;*/
+  /*transition-duration: .1s;*/
+  /*display: inline-block;*/
+  /*font-size: 15px;*/
+  /*margin: 12px;*/
+  /*line-height: 2;*/
+  color: #999;
+  text-transform: uppercase;
+  font-size: 16px !important;
+  padding: 6px 8px;
+}
+
+.search-button {
+  display: block;
+  width: 70px;
+  font-weight: 100;
+}
+
+.search-dropbox-menu {
+  position: absolute;
+  top: 100%;
+  left: -85px;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+.dropdown-filter {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 14px;
+  color: #666;
+  -webkit-font-smoothing: antialiased;
+  font-size: 13px;
+}
+
+.dropdown-filter-last {
+  /*float: right;*/
+  border-left: 1px solid #e4e5e7;
+  background: #fff;
+}
+
+.btn-xs {
+  font-size: 13px;
+  /*line-height: 0.75;*/
+  /*padding: 1px 7px;*/
+  border-radius: 3px;
+  /*float: left;*/
+  height: 28px;
+  line-height: 28px;
+  margin: 0 8px 6px 0;
+  padding: 0 7px 0 8px;
+  font-weight: 500;
+  white-space: nowrap;
+  background-color: #e0edf5;
+  color: #2f5d92;
+}
+
+.btn-xs2 {
+  font-size: 12px;
+  /*line-height: 0.75;*/
+  /*padding: 1px 7px;*/
+  border-radius: 3px;
+  /*float: left;*/
+  height: 28px;
+  line-height: 28px;
+  margin: 0 8px 6px 0;
+  padding: 0 7px 0 8px;
+  font-weight: 500;
+  white-space: nowrap;
+  /*background-color: #e0edf5;*/
+  /*color: #2f5d92;*/
+  border-radius: 12px;
+}
+.ui-select-multiple.ui-select-bootstrap .ui-select-match .close {
+  font-size: 1.2em;
+  line-height: 27px;
+  color: #2f5d92;
+}
+
+/* PANEL */
+
+.panel-group {
+  /* margin-bottom: 20px; */
+}
+
+.search-alert-bookmark {
+  padding: 6px;
+  /*left: -60px;*/
+}
+
+.search-alert-filter {
+  padding: 6px;
+  left: -45px;
+}
+
+.issue-info {
+  min-width: 50px;
+  max-width: 200px;
+  vertical-align: middle !important;
+  text-align: left !important;
+}
+
+.search-box {
+  padding: 6px;
+}
+
+.text-dt {
+  font-weight: 200;
+  padding: 3px 10px;
+
+}
+
+.search-filter {
+  /*padding: 0px 0px 0px 30px;*/
+  width: 100%;
+  max-width: 100%;
+  display: table;
+}
+
+.filter-tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+
+.filter-td {
+  display: table-cell;
+  text-align: center;
+}
+
+.table-logo {
+  vertical-align: middle !important;
+}
+
+.modal-dialog {
+  width: 300px !important;
+  margin: 30px auto !important;
+}

@@ -1,0 +1,36 @@
+{
+  "name": "groupMapping",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "available": {
+      "type": "boolean"      
+    },
+    "principalType": {
+      "type": "string",
+      "description": "The principal type, such as user, application, or role"
+    },
+    "principalId": {
+      "type": "string",
+      "index": true
+    }
+  },  
+  "validations": [],
+  "relations": {
+    "group": {
+      "type": "belongsTo",
+      "model": "group",
+      "foreignKey": "groupId"
+    },
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "principalId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

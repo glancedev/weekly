@@ -1,0 +1,125 @@
+{
+  "name": "user",
+  "plural": "users",
+  "base": "User",
+  "options": {
+    "validateUpsert": true
+  },
+  "hidden": [],
+  "properties": {
+    "userId": {
+      "type": "string",
+      "id": true,
+      "required": true
+    },
+    "username": {
+      "type": "string",
+      "required": false
+    },
+    "company": {
+      "type": "string",
+      "required": false
+    },
+    "position": {
+      "type": "string",
+      "required": false
+    },     
+    "institution": {
+      "type": "string",
+      "required": false
+    },
+    "available": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "leave": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "created": {
+      "type": "date",
+      "required": true,
+      "defaultFn": "now"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "roleMapping": {
+      "type": "hasMany",
+      "model": "roleMapping",
+      "foreignKey": "principalId"
+    },
+    "group": {
+      "type": "hasOne",
+      "model": "group",
+      "foreignKey": "userId"
+    },
+    "groupMapping": {
+      "type": "hasOne",
+      "model": "groupMapping",
+      "foreignKey": "principalId"
+    },
+    "news": {
+      "type": "hasMany",
+      "model": "news",
+      "foreignKey": "userId"
+    },
+    "business": {
+      "type": "hasMany",
+      "model": "business",
+      "foreignKey": "userId"
+    },
+    "event": {
+      "type": "hasMany",
+      "model": "event",
+      "foreignKey": "userId"
+    },
+    "accessTokens": {
+      "type": "hasMany",
+      "model": "accessToken",
+      "foreignKey": "userId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "super",
+      "permission": "ALLOW",
+      "property": "*"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "roles"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "roleNames"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "email"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "singUp"
+    }
+  ],
+  "methods": {}
+}

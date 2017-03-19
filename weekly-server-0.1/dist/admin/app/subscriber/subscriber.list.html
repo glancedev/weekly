@@ -1,0 +1,87 @@
+<!-- header -->
+<div header></div>
+
+
+	<div class="jumbotron">
+
+	    <div class="jumbotron">
+
+	    	<div subscriber-sidebar></div>    
+	        
+	        <div class="col-md-10">
+
+	        	<div class="form-group">			    	
+			    	<input type="text" class="form-control" placeholder="구독자 아이디를 검색하세요." 
+			    	 	   ng-enter="search()" ng-model="keyword">
+			  	</div>
+
+	            <table st-table="rowCollection" class="table table-hover">
+	                <thead>
+	                <tr>
+	                	<th>#</th>
+	                	<th>등록일자</th>
+	                    <th>유형</th>
+	                    <th>아이디</th>
+	                    <th>이름</th>
+	                    <th>소속</th>
+	                    <th>직책</th>
+	                    <th>결제 기업/기관</th>	                    
+	                    <th>결제 현황</th>	                    
+	                    <th ng-if="type === 'group'">등록가능 구성원 수</th>	                    
+	                    <th>사용여부</th>	 
+	                    <th>삭제</th>	                   
+	                </tr>
+	                </thead>
+	                <tbody>
+	                <tr dir-paginate="content in contents | itemsPerPage: pageSize" total-items="totalCount" current-page="pagination.current">
+	                	<td>{{(totalCount - (pageSize * (pagination.current-1))) - $index}}</td>
+	                    <td>{{content.created | date:'yyyy-MM-dd'}}</td>
+	                    <td>
+	                    	<span ng-if="content.type === 'group'">단체</span>
+	                    	<span ng-if="content.type === 'member'">멤버</span>
+	                    	<span ng-if="content.type === 'private'">개인</span>
+	                    </td>
+	                	<td><a href="subscriber/view/{{content.type}}/{{content.userId}}">{{content.userId}}</a></td>
+	                    <td><a href="subscriber/view/{{content.type}}/{{content.userId}}">{{content.username}}</a></td>
+	                    <td><a href="subscriber/view/{{content.type}}/{{content.userId}}">{{content.company}}</a></td>
+	                    <td>{{content.position}}</td>
+	                    <td>{{content.company}}</td>
+	                    <td>{{content.history}}</td>
+	                    <td ng-if="type === 'group'">	                    	
+	                    	{{content.group.limit}}
+	                    	<!-- {{content.group.limit}} / {{content.group.members.length}} -->
+	                    </td>
+	                    <td>
+	                    	<div toggle-switch 
+	                        	 class="switch-primary" 
+	                        	 ng-model="content.available" 
+	                        	 on-change="available($index, content.userId, !content.available, content.email)"
+	                        	 knob-label="" on-label="on" off-label="off">
+	                       	</div>
+	                    </td>	                    
+	                    <td>
+	                        <button class="btn btn-danger fa fa-trash-o"                                           
+	                                type="button"
+	                                ng-disabled="content.group.members.length > 1"
+	                                ng-click="confirmDelete($index, content.userId, content.group.id, content.groupMapping.id, content.roleMapping)">
+	                        </button>
+	                    </td>
+	                </tr>
+	                </tbody>
+	            </table>
+
+	            <div style="text-align:center">
+	                <dir-pagination-controls boundary-links="true" 
+	                                         on-page-change="pageChanged(newPageNumber)" 
+	                                         template-url="components/pagination/dirPagination.tpl.html">                    
+	                </dir-pagination-controls>
+	            </div>          
+
+	        </div>    
+		</div>
+
+	</div>
+
+
+<!-- footer -->
+<div footer></div>    

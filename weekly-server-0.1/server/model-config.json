@@ -1,0 +1,123 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Email": {
+    "dataSource": "emailDs"
+  },
+  "accessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "roleMapping": {
+    "dataSource": "db",
+    "public": true
+  },
+  "role": {
+    "dataSource": "db",
+    "public": true
+  },
+  "container": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "file": {
+    "dataSource": "db",
+    "public": true
+  },
+  "user": {
+    "dataSource": "db",
+    "public": true
+  },
+  "event": {
+    "dataSource": "db",
+    "public": true
+  },
+  "business": {
+    "dataSource": "db",
+    "public": true
+  },
+  "news": {
+    "dataSource": "db",
+    "public": true
+  },
+  "ipo": {
+    "dataSource": "db",
+    "public": true
+  },
+  "mna": {
+    "dataSource": "db",
+    "public": true
+  },
+  "investment": {
+    "dataSource": "db",
+    "public": true
+  },
+  "category": {
+    "dataSource": "db",
+    "public": true
+  },
+  "categoryChild": {
+    "dataSource": "db",
+    "public": true
+  },
+  "banner": {
+    "dataSource": "db",
+    "public": true
+  },
+  "product": {
+    "dataSource": "db",
+    "public": true
+  },
+  "incubation": {
+    "dataSource": "db",
+    "public": true
+  },
+  "employee": {
+    "dataSource": "db",
+    "public": true
+  },
+  "person": {
+    "dataSource": "db",
+    "public": true
+  },
+  "company": {
+    "dataSource": "db",
+    "public": true
+  },
+  "newsCompany": {
+    "dataSource": "db",
+    "public": true
+  },
+  "newsPerson": {
+    "dataSource": "db",
+    "public": true
+  },
+  "thumbnail": {
+    "dataSource": "db",
+    "public": true
+  },
+  "group": {
+    "dataSource": "db",
+    "public": true
+  },
+  "groupMapping": {
+    "dataSource": "db",
+    "public": true
+  }
+}

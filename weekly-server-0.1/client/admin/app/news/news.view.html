@@ -1,0 +1,582 @@
+<!-- header -->
+<div header></div>
+
+
+	<div class="jumbotron" ng-init="getPersonCategory(); getCompanyCategory(); getProductCategory(); 
+									getCategory('money', 'items_money', 'order ASC', false);
+									getCategory('market', 'items_market', 'order ASC', false);">
+
+	    <div class="jumbotron">
+
+	    	<div news-sidebar></div>    
+	        
+	        <div class="col-md-10">
+	            
+	        	<form>				
+
+	        		<div class="form-group" ng-init="getCategory('newsType', 'items_newsType', 'order ASC', true)">
+					  	<div>
+					  		<label for="name"><span class="text-danger">*</span>유형:</label>
+				    	</div>
+					  	<div class="row">
+				    		<div class="col-sm-10">													    		
+					    		<label ng-repeat="item in items_newsType" class="radio-inline">
+									<input type="radio" 
+										   name="type"
+										   ng-disabled="true"	
+									       ng-model="model.type" value="{{item.name}}">
+										{{item.name}}
+									</input>	
+								</label>					
+					    	</div>				
+					    </div>
+				  	</div>
+
+				  	<!-- 기업공개 -->
+				  	<div ng-show="model.type === '기업공개'" class="new-area">
+				  		<div style="text-align: center;"><p>기업공개</p></div>
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name"><span class="text-danger">*</span>상장 기업:</label>
+					    	</div>
+							<div>
+					    		<tags-input ng-model="model_ipo.company" 
+						      				ng-class="{'has-tags': model_ipo.company.length > 0 }"
+						      				display-property="name"
+						      				key-property="id" 
+						      				max-tags="1"	
+						      				on-tag-added="checkMaxTags('model_ipo', 'company', 1)"
+						      				on-tag-removed="checkMaxTags('model_ipo', 'company', 1)"
+						      				add-from-autocomplete-only="true"
+						      				placeholder="상장 기업을 선택하세요." 
+						      				min-length="1" 
+						      				replace-spaces-with-dashes="false">
+							      	<auto-complete id="auto_model_ipo_company" 
+							      				   source="loadTags($query, 'items_company')"
+							                       min-length="0"
+							                       load-on-focus="true"
+							                       load-on-empty="true"
+							                       max-results-to-show="32"
+							                       template="loadTags-template">
+							        </auto-complete>
+							    </tags-input>
+					    	</div>				
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name"><span class="text-danger">*</span>상장 시장:</label>
+					    	</div>
+					    	<div class="row" style="margin-bottom:-15px;">
+								<div class="col-sm-4">						    		
+						    		<autocomplete no-auto-sort = "true"
+					    				  click-activation = "true"
+					    				  attr-class="form-group"
+					    				  attr-input-class="form-control"
+					    				  ng-model="model_ipo.market" 
+					    				  attr-placeholder="상장 시장"
+					    				  data="items_market" 
+					    				  on-type="updateItems">
+									</autocomplete>
+						    	</div>										    	
+					    	</div>	
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name">공모 금액:</label>
+					    	</div>
+					    	<div class="row" style="margin-bottom:-15px;">
+					    		<div class="col-sm-2">													    		
+						    		<autocomplete no-auto-sort = "true"
+					    				  click-activation = "true"
+					    				  attr-class="form-group"
+					    				  attr-input-class="form-control" 
+					    				  ng-model="model_ipo.moneyUnit" 
+					    				  attr-placeholder="단위"
+					    				  data="items_money" 
+					    				  on-type="updateItems">
+									</autocomplete>
+						    	</div>			
+								<div class="col-sm-4">							
+						    		<input type="number" class="form-control" ng-model="model_ipo.money" placeholder="금액">
+						    	</div>				
+						    </div>
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name">기업 가치:</label>
+					    	</div>
+					    	<div class="row" style="margin-bottom:-15px;">
+					    		<div class="col-sm-2">							
+						    		<autocomplete no-auto-sort = "true"
+					    				  click-activation = "true"
+					    				  attr-class="form-group"
+					    				  attr-input-class="form-control" 
+					    				  ng-model="model_ipo.valueUnit" 
+					    				  attr-placeholder="단위"
+					    				  data="items_money" 
+					    				  on-type="updateItems">
+									</autocomplete>
+						    	</div>			
+								<div class="col-sm-4">							
+						    		<input type="number" class="form-control" ng-model="model_ipo.value" placeholder="금액">
+						    	</div>				
+						    </div>
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name"><span class="text-danger">*</span>발표 일자:</label>
+					    	</div>
+							<div style="width:29%;float:left;margin-right:20px;">
+					    		<div class="dropdown form-group">
+				                    <a class="dropdown-toggle" id="dropdownStart-ipo" role="button" data-toggle="dropdown" data-target=""
+				                       href="#">
+				                        <div class="input-group date">
+				                            <input type="text" class="form-control" 
+				                            	   data-ng-model="model_ipo.announcementDate">
+				                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+				                        </div>
+				                    </a>
+				                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+				                        <datetimepicker data-ng-model="model_ipo.announcementDate"
+				                                        data-datetimepicker-config="{ 
+				                                        	dropdownSelector: '#dropdownStart-ipo',
+				                                        	minView: 'day'
+				                                        }">
+										</datetimepicker>
+				                    </ul>
+				                </div>
+					    	</div>
+					    	<div style="clear:both;"></div>	
+					  	</div>
+				  	</div>
+
+				  	<!-- 인수합병 -->
+				  	<div ng-show="model.type === '인수합병'" class="new-area">
+				  		<div style="text-align: center;"><p>인수합병</p></div>
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name"><span class="text-danger">*</span>피인수 기업:</label>
+					    	</div>
+							<div>
+					    		<tags-input ng-model="model_mna.hands" 
+						      				ng-class="{'has-tags': model_mna.hands.length > 0 }"
+						      				display-property="name"
+						      				key-property="id" 
+						      				max-tags="1"	
+						      				on-tag-added="checkMaxTags('model_mna', 'hands',1)"
+						      				on-tag-removed="checkMaxTags('model_mna', 'hands', 1)"
+						      				add-from-autocomplete-only="true"
+						      				placeholder="피인수 기업을 선택하세요." 
+						      				min-length="1" 
+						      				replace-spaces-with-dashes="false">
+							      	<auto-complete id="auto_model_mna_hands" 
+							      				   source="loadTags($query, 'items_company')"
+							                       min-length="0"
+							                       load-on-focus="true"
+							                       load-on-empty="true"
+							                       max-results-to-show="32"
+							                       template="loadTags-template">
+							        </auto-complete>
+							    </tags-input>
+					    	</div>				
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name"><span class="text-danger">*</span>인수 기업:</label>
+					    	</div>
+							<div>
+					    		<tags-input ng-model="model_mna.takes" 
+						      				ng-class="{'has-tags': model_mna.takes.length > 0 }"
+						      				display-property="name"
+						      				key-property="id" 
+						      				max-tags="1"	
+						      				on-tag-added="checkMaxTags('model_mna', 'takes', 1)"
+						      				on-tag-removed="checkMaxTags('model_mna', 'takes', 1)"
+						      				add-from-autocomplete-only="true"
+						      				placeholder="인수 기업을 선택하세요." 
+						      				min-length="1" 
+						      				replace-spaces-with-dashes="false">
+							      	<auto-complete id="auto_model_mna_takes" 
+							      				   source="loadTags($query, 'items_company')"
+							                       min-length="0"
+							                       load-on-focus="true"
+							                       load-on-empty="true"
+							                       max-results-to-show="32"
+							                       template="loadTags-template">
+							        </auto-complete>
+							    </tags-input>
+					    	</div>				
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name">인수 금액:</label>
+					    	</div>
+					    	<div class="row" style="margin-bottom:-15px;">
+					    		<div class="col-sm-2">													    		
+						    		<autocomplete no-auto-sort = "true"
+					    				  click-activation = "true"
+					    				  attr-class="form-group"
+					    				  attr-input-class="form-control" 
+					    				  ng-model="model_mna.moneyUnit" 
+					    				  attr-placeholder="단위"
+					    				  data="items_money" 
+					    				  on-type="updateItems">
+									</autocomplete>
+						    	</div>			
+								<div class="col-sm-4">							
+						    		<input type="number" class="form-control" ng-model="model_mna.money" placeholder="금액">
+						    	</div>				
+						    </div>
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name">인수 지분:</label>
+					    	</div>
+							<div class="row">
+					    		<div class="col-sm-2">					
+					    			<input type="number" class="form-control" ng-model="model_mna.share" placeholder="%">
+					    		</div>
+					    	</div>				
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name"><span class="text-danger">*</span>발표 일자:</label>
+					    	</div>
+							<div style="width:29%;float:left;margin-right:20px;">
+					    		<div class="dropdown form-group">
+				                    <a class="dropdown-toggle" id="dropdownStart-mna" role="button" data-toggle="dropdown" data-target=""
+				                       href="#">
+				                        <div class="input-group date">
+				                            <input type="text" class="form-control" 
+				                            	   data-ng-model="model_mna.announcementDate">
+				                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+				                        </div>
+				                    </a>
+				                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+				                        <datetimepicker data-ng-model="model_mna.announcementDate"
+				                                        data-datetimepicker-config="{ 
+				                                        	dropdownSelector: '#dropdownStart-mna',
+				                                        	minView: 'day'
+				                                        }">
+										</datetimepicker>
+				                    </ul>
+				                </div>
+					    	</div>
+					    	<div style="clear:both;"></div>	
+					  	</div>
+				  	</div>
+
+
+				  	<!-- 투자유치 -->
+				  	<div ng-show="model.type === '투자유치'" class="new-area">
+				  		<div style="text-align: center;"><p>투자유치</p></div>
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name"><span class="text-danger">*</span>피투자 기업:</label>
+					    	</div>
+							<div>
+					    		<tags-input ng-model="model_investment.investees" 
+						      				ng-class="{'has-tags': model_investment.investees.length > 0 }"
+						      				display-property="name"
+						      				key-property="id" 
+						      				max-tags="1"	
+						      				on-tag-added="checkMaxTags('model_investment', 'investees', 1)"
+						      				on-tag-removed="checkMaxTags('model_investment', 'investees', 1)"
+						      				add-from-autocomplete-only="true"
+						      				placeholder="피투자 기업을 선택하세요." 
+						      				min-length="1" 
+						      				replace-spaces-with-dashes="false">
+							      	<auto-complete id="auto_model_investment_investees" 
+							      				   source="loadTags($query, 'items_company')"
+							                       min-length="0"
+							                       load-on-focus="true"
+							                       load-on-empty="true"
+							                       max-results-to-show="32"
+							                       template="loadTags-template">
+							        </auto-complete>
+							    </tags-input>
+					    	</div>				
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name">투자자(회사):</label>
+					    	</div>
+							<div>					    		
+					    		<tags-input ng-model="model_investment.company" 
+						      				display-property="name"
+						      				key-property="id" 
+						      				add-from-autocomplete-only="true"
+						      				placeholder="투자자(회사)를 선택하세요." 
+						      				min-length="1" 
+						      				replace-spaces-with-dashes="false">
+							      	<auto-complete id="auto_model_investment_company" 
+							      				   source="loadTags($query, 'items_company')"
+							                       min-length="0"
+							                       load-on-focus="true"
+							                       load-on-empty="true"
+							                       max-results-to-show="32"
+							                       template="loadTags-template">
+							        </auto-complete>
+							    </tags-input>
+					    	</div>				
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name">투자자(개인):</label>
+					    	</div>
+							<div>					    		
+					    		<tags-input ng-model="model_investment.person" 
+						      				display-property="name"
+						      				key-property="id" 
+						      				add-from-autocomplete-only="true"
+						      				placeholder="투자자(개인)를 선택하세요." 
+						      				min-length="1" 
+						      				replace-spaces-with-dashes="false">
+							      	<auto-complete id="auto_model_investment_person" 
+							      				   source="loadTags($query, 'items_person')"
+							                       min-length="0"
+							                       load-on-focus="true"
+							                       load-on-empty="true"
+							                       max-results-to-show="32"
+							                       template="loadTags-person-template">
+							        </auto-complete>
+							    </tags-input>
+					    	</div>				
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name">투자 금액:</label>
+					    	</div>
+					    	<div class="row" style="margin-bottom:-15px;">
+					    		<div class="col-sm-2">													    		
+						    		<autocomplete no-auto-sort = "true"
+					    				  click-activation = "true"
+					    				  attr-class="form-group"
+					    				  attr-input-class="form-control" 
+					    				  ng-model="model_investment.moneyUnit" 
+					    				  attr-placeholder="단위"
+					    				  data="items_money" 
+					    				  on-type="updateItems">
+									</autocomplete>
+						    	</div>			
+								<div class="col-sm-4">							
+						    		<input type="number" class="form-control" ng-model="model_investment.money" placeholder="금액">
+						    	</div>				
+						    </div>
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name">기업 가치:</label>
+					    	</div>
+					    	<div class="row" style="margin-bottom:-15px;">
+					    		<div class="col-sm-2">													    		
+						    		<autocomplete no-auto-sort = "true"
+					    				  click-activation = "true"
+					    				  attr-class="form-group"
+					    				  attr-input-class="form-control" 
+					    				  ng-model="model_investment.valueUnit" 
+					    				  attr-placeholder="단위"
+					    				  data="items_money" 
+					    				  on-type="updateItems">
+									</autocomplete>
+						    	</div>			
+								<div class="col-sm-4">							
+						    		<input type="number" class="form-control" ng-model="model_investment.value" placeholder="금액">
+						    	</div>				
+						    </div>			
+					  	</div>
+
+					  	<div class="form-group">
+					  		<div>
+					    		<label for="name"><span class="text-danger">*</span>발표 일자:</label>
+					    	</div>
+							<div style="width:29%;float:left;margin-right:20px;">
+					    		<div class="dropdown form-group">
+				                    <a class="dropdown-toggle" id="dropdownStart-investment" role="button" data-toggle="dropdown" data-target=""
+				                       href="#">
+				                        <div class="input-group date">
+				                            <input type="text" class="form-control" 
+				                            	   data-ng-model="model_investment.announcementDate">
+				                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+				                        </div>
+				                    </a>
+				                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+				                        <datetimepicker data-ng-model="model_investment.announcementDate"
+				                                        data-datetimepicker-config="{ 
+				                                        	dropdownSelector: '#dropdownStart-investment',
+				                                        	minView: 'day'
+				                                        }">
+										</datetimepicker>
+				                    </ul>
+				                </div>
+					    	</div>
+					    	<div style="clear:both;"></div>	
+					  	</div>
+				  	</div>
+
+				  	<div class="form-group">
+				  		<div>
+				    		<label for="name"><span class="text-danger">*</span>제목:</label>
+				    	</div>
+				    	<div class="row">
+							<div class="col-sm-10">
+					    		<input type="text" class="form-control" ng-model="model.title" focus-me="true">
+					    	</div>
+
+					    	<div class="col-sm-2">
+						    	<label class="checkbox-inline">
+									<input type="checkbox" 
+										   ng-change="checkOrdinary()" ng-model="model.ordinary" 
+										   ng-true-value="true" ng-false-value="false"> 중요
+									</input>
+								</label>	
+							</div>						
+						</div>
+				  	</div>
+
+				  	<div class="form-group">
+				    	<label for="name">링크:</label>
+				    	<input type="text" class="form-control" ng-model="model.link" focus-me="true">
+				  	</div>
+
+	        		<div class="form-group" ng-init="getCategory('field', 'items_field', 'order ASC', true)">
+					    <label for="name">관련 분야:</label>				    		
+				        <tags-input ng-model="inserted_tag" display-property="name" placeholder="분야 태그를 추가하세요." 
+				        			min-length="1" replace-spaces-with-dashes="false">
+					      	<auto-complete source="loadTags($query, 'items_field')"
+					                       min-length="0"
+					                       load-on-focus="true"
+					                       load-on-empty="true"
+					                       max-results-to-show="32"
+					                       template="loadTags-template">
+					        </auto-complete>
+					    </tags-input>
+				  	</div>							
+
+				  	<div class="form-group">
+					    <label for="name">관련 인물:</label>				    		
+				        <tags-input ng-model="model.person" 
+				      				display-property="name"
+				      				key-property="id" 
+				      				add-from-autocomplete-only="true"
+				      				placeholder="인물을 추가하세요." min-length="1" 
+				      				replace-spaces-with-dashes="false">
+					      	<auto-complete source="loadTags($query, 'items_person')"
+					                       min-length="0"
+					                       load-on-focus="true"
+					                       load-on-empty="true"
+					                       max-results-to-show="32"
+					                       template="loadTags-person-template">
+					        </auto-complete>
+					    </tags-input>
+				  	</div>
+
+				  	<div class="form-group">
+					    <label for="name">관련 제품/서비스:</label>				    		
+				        <tags-input ng-model="model.product" 
+				      				display-property="name"
+				      				key-property="id" 
+				      				add-from-autocomplete-only="true"
+				      				placeholder="제품/서비스를 추가하세요." min-length="1" 
+				      				replace-spaces-with-dashes="false">
+					      	<auto-complete source="loadTags($query, 'items_product')"
+					                       min-length="0"
+					                       load-on-focus="true"
+					                       load-on-empty="true"
+					                       max-results-to-show="32"
+					                       template="loadTags-template">
+					        </auto-complete>
+					    </tags-input>
+				  	</div>
+
+				  	<div class="form-group">
+					    <label for="name">관련 회사/기관:</label>				    		
+				        <tags-input ng-model="model.company" 
+				      				display-property="name"
+				      				key-property="id" 
+				      				add-from-autocomplete-only="true"
+				      				placeholder="회사/기관을 추가하세요." min-length="1" 
+				      				replace-spaces-with-dashes="false">
+					      	<auto-complete source="loadTags($query, 'items_company')"
+					                       min-length="0"
+					                       load-on-focus="true"
+					                       load-on-empty="true"
+					                       max-results-to-show="32"
+					                       template="loadTags-template">
+					        </auto-complete>
+					    </tags-input>
+				  	</div>
+
+				  	<div>
+				  		<div>
+				    		<label for="name"><span class="text-danger">*</span>일시:</label>
+				    	</div>
+						<div style="width:29%;float:left;margin-right:20px;">
+				    		<div class="dropdown form-group">
+			                    <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target=""
+			                       href="#">
+			                        <div class="input-group date">
+			                            <input type="text" class="form-control" 
+			                            	   data-ng-model="model.datetime">
+			                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+			                        </div>
+			                    </a>
+			                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+			                        <datetimepicker data-ng-model="model.datetime"
+			                                        data-datetimepicker-config="{ 
+			                                        	dropdownSelector: '#dropdownStart',
+			                                        	minView: 'day'
+			                                        }">
+									</datetimepicker>
+			                    </ul>
+			                </div>
+				    	</div>	
+				    	<div style="margin-top: -33px;">					    	
+			                <div uib-timepicker 
+		  						 ng-model="time"
+		  						 hour-step="hstep" minute-step="mstep" 
+		  						 show-meridian="false">
+							</div>
+						</div>				
+				  	</div>
+
+
+				  	<div style="height:30px;"></div>
+
+				  	<div class="form-group" style="margin-bottom:100px;">
+				    	<div style="float:left;">
+				    		<button type="button" class="btn btn-default" 				  				
+				  					ng-disabled="model.title == '' || model.type == '' || model.datetime == ''"
+				  					ng-click="save()">저장</button>
+						</div>
+						<div style="float:right;">
+							<button type="button" 
+									class="btn btn-default" 
+				  					ng-click="cancel()">취소</button>
+						</div>
+					</div>
+
+					<div style="height:130px;"></div>
+				
+				</form>
+
+	        </div>    
+		</div>
+
+	</div>
+
+
+<!-- footer -->
+<div footer></div>   

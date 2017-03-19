@@ -1,0 +1,85 @@
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="hpanel">
+            <div class="panel-body2">
+              <div class="table-responsive">
+                <!-- content start -->
+                <table class="table">
+                  <thead class="table-heading">
+                  <tr>
+                    <td style="min-width: 50px;">
+                      <a href="#" ng-click="sortType = 'id'; sortReverse = !sortReverse">
+                        등록일자
+                        <span ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-up"></span>
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#" >
+                        이름
+
+
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#">
+                        소속
+
+
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#">
+                        직책
+
+
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#">
+                        이메일
+
+
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#">
+                        상태
+
+
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#">
+                        &nbsp
+
+
+                      </a>
+                    </td>
+                  </tr>
+                  </thead>
+
+                  <tbody class="tbody-color">
+                  <tr ng-repeat="post in posts | orderBy:sortType:sortReverse | filter:searchContent">
+                    <td>{{ post.reg_date}}</td>
+                    <td>{{ post.name}}</td>
+                    <td>{{ post.company}}</td>
+                    <td>{{ post.position}}</td>
+                    <td>{{ post.email}}</td>
+                    <td class="text-success">{{ post.status}}</td>
+                    <td><a ng-click="delete(user)" class="trash"><button type="button" class="btn btn-danger2 btn-xs2">승인 취소</button></a></td>
+                  </tr>
+                  </tbody>
+                </table>
+                <!-- content end -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    <!-- main end -->
+

@@ -1,0 +1,30 @@
+{
+  "restApiRoot": "/api",
+  "db_host": "127.0.0.1",
+  "db_port": 27017,
+  "db_database": "weekly_01",
+  "db_username": "weekly",
+  "db_password": "dnlzmffl1!",
+  "db_name": "db",
+  "db_connector": "mongodb",
+  "host": "0.0.0.0",
+  "port": 9001,
+  "remoting": {
+    "context": false,
+    "rest": {
+      "normalizeHttpPath": false,
+      "xml": false
+    },
+    "json": {
+      "strict": false,
+      "limit": "100kb"
+    },
+    "urlencoded": {
+      "extended": true,
+      "limit": "100kb"
+    },
+    "cors": false,
+    "handleErrors": false
+  },
+  "legacyExplorer": false
+}

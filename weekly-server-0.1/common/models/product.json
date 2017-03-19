@@ -1,0 +1,41 @@
+{
+  "name": "product",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "nameEng": {
+      "type": "string",
+      "required": false
+    },
+    "description": {
+      "type": "string",
+      "required": false
+    },
+    "link": {
+      "type": "string",
+      "required": false
+    },
+    "displayHot": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "company": {
+      "type": "belongsTo",
+      "model": "company",
+      "foreignKey": "companyId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

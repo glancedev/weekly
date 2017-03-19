@@ -1,0 +1,78 @@
+      <!-- main start -->
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="hpanel">
+            <div class="panel-body2">
+              <div class="table-responsive">
+                <!-- content start -->
+                <table class="table">
+                  <thead class="table-heading">
+                  <tr>
+                    <td style="min-width: 50px;">
+                      <a href="#">
+                        등록일자
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#" >
+                        이름
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#">
+                        소속
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#">
+                        직책
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#">
+                        이메일
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#">
+                        상태
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#">
+                        &nbsp
+                      </a>
+                    </td>
+                  </tr>
+                  </thead>
+
+                  <tbody class="tbody-color" infinite-scroll='loadMore()' infinite-scroll-disabled='infiniteBreak' infinite-scroll-distance='0'>
+                  <tr ng-repeat="content in contents | orderBy:sortType:sortReverse | filter:searchContent">
+                    <td class="issue-info">{{ content.user.created | date : "yyyy-MM-dd"}}</td>
+                    <td class="issue-info">{{ content.user.username}}</td>
+                    <td class="issue-info">{{ content.user.company}}</td>
+                    <td class="issue-info">{{ content.user.position}}</td>
+                    <td class="issue-info">{{ content.user.email}}</td>
+                    <td class="issue-info">
+                      <span class="text-danger" ng-show="content.available == false">승인 취소</span>
+                      <span class="text-success" ng-show="content.available == true">승인 됨</span>
+                    </td>
+                    <td class="issue-info"><a ng-click="available($index, content.id, content.principalId, true, content.user.email)">
+                      <button type="button" class="btn btn-success btn-xs2">&nbsp;승인&nbsp;</button>
+                    </a>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <!-- content end -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    <!-- main end -->
+

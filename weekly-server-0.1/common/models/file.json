@@ -1,0 +1,41 @@
+{
+  "name": "file",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "type": {
+      "type": "string",
+      "required": true
+    },
+    "container": {
+      "type": "string",
+      "required": true
+    },
+    "size": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "company": {
+      "type": "belongsTo",
+      "model": "company",
+      "foreignKey": "companyId"
+    },
+    "person": {
+      "type": "belongsTo",
+      "model": "person",
+      "foreignKey": "personId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

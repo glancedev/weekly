@@ -1,0 +1,118 @@
+<!-- header -->
+<div header></div>
+
+
+	<div class="jumbotron" ng-init="getCompanyCategory()">
+
+	    <div class="jumbotron">
+
+	    	<div business-sidebar></div>    
+	        
+	        <div class="col-md-10">
+	            
+	        	<form>				
+
+	        		<div class="form-group">
+				    	<label for="name"><span class="text-danger">*</span>사업명:</label>
+				    	<input type="text" class="form-control" ng-model="model.title">
+				  	</div>
+
+	        		<div class="form-group">
+					    <label for="name"><span class="text-danger">*</span>주관:</label>				    	
+					    <tags-input ng-model="model.organizations" 
+				      				display-property="name"
+				      				key-property="id" 
+				      				add-from-autocomplete-only="true"
+				      				placeholder="주관 기업" 
+				      				min-length="1" 
+				      				replace-spaces-with-dashes="false">
+					      	<auto-complete source="loadTags($query, 'items_company')"
+					                       min-length="0"
+					                       load-on-focus="true"
+					                       load-on-empty="true"
+					                       max-results-to-show="32"
+					                       template="loadTags-template">
+					        </auto-complete>
+					    </tags-input>
+				  	</div>				  	
+
+				  	<div class="form-group" style="margin-bottom:30px;">
+				  		<div>
+				    		<label for="name"><span class="text-danger">*</span>마감 일자:</label>
+				    	</div>
+						<div style="width:29%;float:left;margin-right:20px;">
+				    		<div class="dropdown form-group">
+			                    <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target=""
+			                       href="#">
+			                        <div class="input-group date">
+			                            <input type="text" class="form-control" 
+			                            	   data-ng-model="model.deadline" 
+			                            	   ng-disabled="model.ordinary">
+			                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+			                        </div>
+			                    </a>
+			                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" ng-if="!model.ordinary">
+			                        <datetimepicker data-ng-model="model.deadline"
+			                                        data-datetimepicker-config="{ 
+			                                        	dropdownSelector: '#dropdownStart',
+			                                        	minView: 'day'
+			                                        }">
+									</datetimepicker>
+			                    </ul>
+			                </div>
+				    	</div>
+
+				    	<div>
+					    	<label class="checkbox-inline">
+								<input type="checkbox" 
+									   ng-change="checkOrdinary()" ng-model="model.ordinary" 
+									   ng-true-value="true" ng-false-value="false"> 상시 접수
+								</input>
+							</label>	
+						</div>						
+				  	</div>
+
+				  	<div class="form-group">
+				    	<label for="name"><span class="text-danger">*</span>링크:</label>
+				    	<input type="text" class="form-control" ng-model="model.link">
+				  	</div>
+				  	<div class="form-group">
+				    	<label for="name"><span class="text-danger">*</span>자금 지원:</label>
+				    	<div>		
+							<label class="radio-inline">
+								<input type="radio" name="supportMoney" ng-model="model.supportMoney" ng-value="true">YES
+							</label>
+							<label class="radio-inline">
+								<input type="radio" name="supportMoney" ng-model="model.supportMoney" ng-value="false">NO
+							</label>
+						</div>
+				  	</div>
+				  	<div class="form-group">
+				    	<label for="name"><span class="text-danger">*</span>공간 지원:</label>
+				    	<div>		
+							<label class="radio-inline">
+								<input type="radio" name="supportPlace" ng-model="model.supportPlace" ng-value="true">YES
+							</label>
+							<label class="radio-inline">
+								<input type="radio" name="supportPlace" ng-model="model.supportPlace" ng-value="false">NO
+							</label>
+						</div>
+				  	</div>
+				  	
+				  	<div style="height:30px;"></div>
+				  	
+				  	<div class="form-group">
+					  	<button type="button" class="btn btn-default" 
+					  			ng-disabled="model.title == '' || model.organizations == '' || model.link == '' "
+					  			ng-click="create()">저장</button>
+					</div>
+				</form>
+
+	        </div>    
+		</div>
+
+	</div>
+
+
+<!-- footer -->
+<div footer></div>   

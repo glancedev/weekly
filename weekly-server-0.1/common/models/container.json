@@ -1,0 +1,12 @@
+{
+  "name": "container",
+  "base": "Model",
+  "scope": {
+    "limit": 20
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

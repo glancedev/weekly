@@ -1,0 +1,76 @@
+<!-- header -->
+<div header></div>
+
+
+	<div class="jumbotron">
+
+	    <div class="jumbotron">
+
+	    	<div event-sidebar></div>    
+	        
+	        <div class="col-md-10">
+
+	        	<div class="form-group">			    	
+			    	<input type="text" class="form-control" placeholder="행사명을 검색하세요." 
+			    	 	   ng-enter="search()" ng-model="keyword">
+			  	</div>
+
+	            <table st-table="rowCollection" class="table table-hover">
+	                <thead>
+	                <tr>
+	                	<th>#</th>
+	                	<th>작성자</th>
+	                    <th>시간</th>
+	                    <th>비용</th>
+	                    <th>행사명/장소</th>
+	                    <th>표시 여부</th>	                    
+	                    <th>삭제</th>	                    
+	                </tr>
+	                </thead>
+	                <tbody>
+	                <tr dir-paginate="content in contents | itemsPerPage: pageSize" total-items="totalCount" current-page="pagination.current">
+	                	<td>{{(totalCount - (pageSize * (pagination.current-1))) - $index}}</td>
+	                	<td>{{content.userId}}</td>	                 	                    
+	                	<td>{{content.datetime | date:'yyyy-MM-dd / HH:mm'}}</td>	                 	                    
+	                    <td>
+	                    	<span ng-if="content.price == 'true'">유료</span>
+	                    	<span ng-if="content.price == 'false'">무료<span>
+	                    </td>
+	                    <td>
+	                    	<a href="event/view/{{active}}/{{content.id}}">{{content.title}}<br/>
+								{{content.place.province}} {{content.place.address}}
+	                    	</a>
+	                    </td>	                    
+	                    <td>
+	                        <div toggle-switch 
+	                        	 class="switch-primary" 
+	                        	 ng-model="content.display" 
+	                        	 on-change="display($index, content.id, !content.display)"
+	                        	 knob-label="" on-label="on" off-label="off">
+	                       	</div>       
+	                    </td>
+	                    <td>
+	                        <button class="btn btn-danger fa fa-trash-o"                             
+	                                type="button"
+	                                ng-click="confirmDelete($index, content.id)">
+	                        </button>
+	                    </td>
+	                </tr>
+	                </tbody>
+	            </table>
+
+	            <div style="text-align:center">
+	                <dir-pagination-controls boundary-links="true" 
+	                                         on-page-change="pageChanged(newPageNumber)" 
+	                                         template-url="components/pagination/dirPagination.tpl.html">                    
+	                </dir-pagination-controls>
+	            </div>          
+
+	        </div>    
+		</div>
+
+	</div>
+
+
+<!-- footer -->
+<div footer></div>    

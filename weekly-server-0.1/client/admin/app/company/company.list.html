@@ -1,0 +1,85 @@
+<!-- header -->
+<div header></div>
+
+
+	<div class="jumbotron">
+
+		<!-- <a ng-click="open()"class="pull-right btn btn-primary btn-outline btn-rounded">ADD CHANNEL</a> -->		
+
+
+	    <div class="jumbotron">
+
+	    	<div company-sidebar></div>    
+	        
+	        <div class="col-md-10">
+
+	        	<div class="form-group">			    	
+			    	<input type="text" class="form-control" placeholder="회사/기관명을 검색하세요." 
+			    	 	   ng-enter="search()" ng-model="keyword">
+			  	</div>
+	        
+	            <table st-table="rowCollection" class="table table-hover">
+	                <thead>
+	                <tr>
+	                	<th>#</th>
+	                    <th>작성자</th>
+	                    <th>유형</th>
+	                    <th>회사/기관명</th>	                                     	                    
+	                    <th ng-if="type == 'ac'">마감일자</th>
+	                    <th ng-if="type == 'ac'">모집 중</th>
+	                    <!-- <th ng-if="type == 'all'">인기 검색어 표시</th>	    -->                 
+	                    <th>삭제</th>	                    
+	                </tr>
+	                </thead>
+	                <tbody>
+	                <tr dir-paginate="content in contents | itemsPerPage: pageSize" total-items="totalCount" current-page="pagination.current">
+	                	<td>{{(totalCount - (pageSize * (pagination.current-1))) - $index}}</td>
+	                    <td>{{content.userId}}</td>
+	                    <td><a href="company/view/{{type}}/{{content.id}}?page={{pagination.current}}">{{content.type}}</a></td>
+	                    <td><a href="company/view/{{type}}/{{content.id}}?page={{pagination.current}}">{{content.name}}</a></td>
+	                    <td ng-if="type == 'ac'">
+	                    	<span ng-class="{'text-danger' : content.incubation[0].deadline < today}">
+	                    		{{content.incubation[0].deadline | date:'yyyy-MM-dd'}}
+	                    	</span>
+	                    </td>
+	                    <td ng-if="type == 'ac'">
+	                    	<div toggle-switch 
+	                        	 class="switch-primary" 
+	                        	 ng-model="content.isRecruiting" 
+	                        	 on-change="recruiting($index, content.id, !content.isRecruiting)"
+	                        	 knob-label="" on-label="on" off-label="off">
+	                       	</div>
+	                    </td>
+	                    <!-- <td ng-if="type == 'all'">
+	                        <div toggle-switch 
+	                        	 class="switch-primary" 
+	                        	 ng-model="content.displayHot" 
+	                        	 on-change="display($index, content.id, !content.displayHot)"
+	                        	 knob-label="" on-label="on" off-label="off">
+	                       	</div>       
+	                    </td>    -->
+	                    <td>
+	                        <button class="btn btn-danger fa fa-trash-o"                                           
+	                                type="button"
+	                                ng-click="confirmDelete($index, content.id, content.type, content.thumbnail)">
+	                        </button>
+	                    </td>
+	                </tr>
+	                </tbody>
+	            </table>
+
+	            <div style="text-align:center">
+	                <dir-pagination-controls boundary-links="true" 
+	                                         on-page-change="pageChanged(newPageNumber)" 
+	                                         template-url="components/pagination/dirPagination.tpl.html">                    
+	                </dir-pagination-controls>
+	            </div>          
+
+	        </div>    
+		</div>
+
+	</div>
+
+
+<!-- footer -->
+<div footer></div>    

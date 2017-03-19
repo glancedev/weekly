@@ -1,0 +1,18 @@
+<div id="navigation" class="menu-left">
+  <div class="nav-text">
+    <div class="stats-label text-color">
+      <span class="">&nbsp</span>
+    </div>
+    <p></p>
+  </div>
+  <ul ng-class="{active: $state.includes('profile')}" side-navigation class="nav" id="side-menu">
+    <li ng-repeat="menu in sub_menu2" ui-sref-active="active">
+      <a ui-sref="{{menu.link}}">
+        <span class="fa {{menu.icon}} pull-left nav-space"></span>
+        <span class="nav-label">{{menu.title}}</span>
+      </a>
+    </li>
+  </ul>
+
+
+</div>

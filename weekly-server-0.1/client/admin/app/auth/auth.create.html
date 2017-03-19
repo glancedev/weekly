@@ -1,0 +1,34 @@
+<!-- header -->
+<div header></div>
+
+
+	<div class="jumbotron">
+
+	    <div class="jumbotron">
+
+	    	<div auth-sidebar></div>    
+	        
+	        <div class="col-md-6">
+	            
+	        	<form>
+	        		<div class="form-group">
+				    	<label for="name"><span class="text-danger">*</span>권한명:</label>
+				    	<input type="text" class="form-control" id="name" ng-model="model.name">
+				  	</div>
+				  	<div class="form-group">
+				    	<label for="description">권한 설명:</label>
+				    	<input type="text" class="form-control" id="description" ng-model="model.description">
+				  	</div>
+				  	<button type="button" class="btn btn-default" 
+				  			ng-disabled="model.name == '' || model.name == null"
+				  			ng-click="create()">Submit</button>
+				</form>
+
+	        </div>    
+		</div>
+
+	</div>
+
+
+<!-- footer -->
+<div footer></div>    

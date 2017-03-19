@@ -1,0 +1,67 @@
+{
+  "name": "business",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "ordinary": {
+      "type": "boolean",
+      "required": true
+    },
+    "deadline": {
+      "type": "date",
+      "required": false
+    },
+    "link": {
+      "type": "string",
+      "required": true
+    },
+    "supportMoney": {
+      "type": "boolean",
+      "required": true
+    },
+    "supportPlace": {
+      "type": "boolean",
+      "required": true
+    },
+    "display": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "created": {
+      "type": "date",
+      "required": true,
+      "defaultFn": "now"
+    },
+    "modified": {
+      "type": "date",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "userId"
+    },
+    "organizations": {
+      "type": "referencesMany",
+      "model": "company",
+      "foreignKey": "organizationIds",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,46 @@
+{
+  "name": "employee",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "position": {
+      "type": "string",
+      "required": false
+    },
+    "description": {
+      "type": "string",
+      "required": false
+    },
+    "dateFrom": {
+      "type": "date",
+      "required": false
+    },
+    "dateTo": {
+      "type": "date",
+      "required": false
+    },
+    "current": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "company": {
+      "type": "belongsTo",
+      "model": "company",
+      "foreignKey": "companyId"
+    },
+    "person": {
+      "type": "belongsTo",
+      "model": "person",
+      "foreignKey": "employeeId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

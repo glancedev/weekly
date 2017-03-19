@@ -1,0 +1,37 @@
+<div id="navigation" class="menu-left">
+  <!--<div class="profile-picture">-->
+  <!--<div class="stats-label text-color">-->
+  <!--<span class="font-extra-bold font-uppercase">Username</span>-->
+
+  <!--<div class="dropdown" uib-dropdown >-->
+  <!--<a uib-dropdown-toggle href="#">-->
+  <!--<small class="text-muted">Founder of App <b class="caret"></b></small>-->
+  <!--</a>-->
+  <!--<ul uib-dropdown-menu class="animated flipInX m-t-xs">-->
+  <!--<li><a>Item</a></li>-->
+  <!--</ul>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+
+  <ul side-navigatin class="nav metismenu" id="side-menu">
+    <li ui-sref-active="active">
+      <span class="nav-label">기간별</span>
+    </li>
+    <li ng-repeat="menu in sub_menu" ui-sref-active="active">
+      <a ui-sref="{{menu.link}}"> <span class="nav-list">{{menu.title}}</span><span class="nav-count">9</span></a>
+    </li>
+  </ul>
+
+  <ul side-navigatin class="nav metismenu" id="side-menu">
+    <li ui-sref-active="active">
+      <span class="nav-label">비용별</span>
+    </li>
+    <li ui-sref-active="active" class="checkbox">
+      <label><input type="checkbox"><span class="nav-list2">무료</span></label>
+    </li>
+    <li ui-sref-active="active" class="checkbox">
+      <label><input type="checkbox"><span class="nav-list2">유료</span></label>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,24 @@
+{
+  "name": "newsPerson",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "person": {
+      "type": "belongsTo",
+      "model": "person",
+      "foreignKey": "personId"
+    },
+    "news": {
+      "type": "belongsTo",
+      "model": "news",
+      "foreignKey": "newsId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
