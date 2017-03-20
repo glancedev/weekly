@@ -45,6 +45,6 @@ https://docs.strongloop.com/display/public/LB/Project+layout+reference
 
 <!-- Environment-specific configuration  -->
 
-- more detail guide -
+- more detail guide - 
 https://docs.strongloop.com/display/public/LB/config.json
 https://docs.strongloop.com/display/public/LB/Environment-specific+configuration
