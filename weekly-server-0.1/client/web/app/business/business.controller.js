@@ -31,7 +31,7 @@ angular.module('testApp')
               ]
             },
             order: 'created DESC',
-            limit: '15',
+            limit: '30',
             skip: 0
           }
       };
@@ -98,7 +98,7 @@ angular.module('testApp')
             } else {
               $scope.infiniteBreak = false;
             }
-            $scope.filter.filter.skip += 20;
+            $scope.filter.filter.skip += 30;
             console.log(res.length);
           },
           function (err) {

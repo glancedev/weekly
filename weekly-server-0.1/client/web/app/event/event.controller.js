@@ -18,7 +18,7 @@ angular.module('testApp')
               ]
             },
             order: "datetime ASC",
-            limit: 20,
+            // limit: 20,
             skip: 0
           }
     };
