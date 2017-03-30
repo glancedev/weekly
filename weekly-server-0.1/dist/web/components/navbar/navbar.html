@@ -28,10 +28,10 @@
         <li ng-repeat="item in menu" ng-class="{ activeState: $state.includes('company')}">
           <a ng-href="{{item.link}}" style="text-align: center">{{item.title}}</a>
         </li>
-        <li style="text-align: center"><a href="/profile">계정 설정</a></li>
-        <li style="text-align: center"><a href="/payment">결제관리</a></li>
+        <!-- <li style="text-align: center"><a href="/profile">계정 설정</a></li>
+        <li style="text-align: center"><a href="/payment">결제관리</a></li> -->
         <li ng-show="isGroupMember()" style="text-align: center"><a href="/member/all">구성원 등록</a></li>
-        <li style="text-align: center"><a href="" ng-click="logout()">로그아웃</a></li>
+        <!-- <li style="text-align: center"><a href="" ng-click="logout()">로그아웃</a></li> -->
       </ul>
     </div>
   </div>
