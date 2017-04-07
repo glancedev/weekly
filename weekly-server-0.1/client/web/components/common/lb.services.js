@@ -5046,24 +5046,24 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
              *   - `user` - `U+007BUserU+007D` - Data of the currently logged in user. {{(`include=user`)}}
              *
              */
-            "login": {
-              params: {
-                include: 'user',
-              },
-              interceptor: {
-                response: function(response) {
-                  var accessToken = response.data;
-                  LoopBackAuth.setUser(
-                    accessToken.id, accessToken.userId, accessToken.user);
-                  LoopBackAuth.rememberMe =
-                    response.config.params.rememberMe !== false;
-                  LoopBackAuth.save();
-                  return response.resource;
-                },
-              },
-              url: urlBase + "/users/login",
-              method: "POST",
-            },
+            // "login": {
+            //   params: {
+            //     include: 'user',
+            //   },
+            //   interceptor: {
+            //     response: function(response) {
+            //       var accessToken = response.data;
+            //       LoopBackAuth.setUser(
+            //         accessToken.id, accessToken.userId, accessToken.user);
+            //       LoopBackAuth.rememberMe =
+            //         response.config.params.rememberMe !== false;
+            //       LoopBackAuth.save();
+            //       return response.resource;
+            //     },
+            //   },
+            //   url: urlBase + "/users/login",
+            //   method: "POST",
+            // },
 
             /**
              * @ngdoc method
