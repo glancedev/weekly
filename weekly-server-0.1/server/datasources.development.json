@@ -1,10 +1,10 @@
 {
   "db": {
-    "host": "13.76.166.152",
-    "port": 27000,
-    "database": "weekly",
+    "host": "127.0.0.1",
+    "port": 27017,
+    "database": "weekly_01",
     "username": "weekly",
-    "password": "weekly",
+    "password": "dnlzmffl1",
     "name": "db",
     "connector": "mongodb",
     "allowExtendedOperators":true
