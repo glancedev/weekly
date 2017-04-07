@@ -32,7 +32,11 @@ angular.module('testApp')
 
     $scope.isActive = function(route) {      
       var path = $location.path().replace('/', '');
-      return route.includes(path);    
+      // return route.includes(path);    
+      return !_.includes(route, path)
+
+      // if (!$scope[arr].includes(value)) $scope[arr] = $scope[arr] + value;
+      // if (!_.includes($scope[arr], value)) $scope[arr] = $scope[arr] + value;
     };
 
     $scope.goAdminPage = function(route) {      
