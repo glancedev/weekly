@@ -4,7 +4,7 @@
     "port": 27017,
     "database": "weekly_01",
     "username": "weekly",
-    "password": "dnlzmffl1",
+    "password": "dnlzmffl1!",
     "name": "db",
     "connector": "mongodb",
     "allowExtendedOperators":true
